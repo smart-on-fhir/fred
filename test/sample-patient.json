@@ -1,0 +1,67 @@
+{
+  "resourceType": "Patient",
+  "id": "1032702",
+  "meta": {
+    "versionId": "1",
+    "lastUpdated": "2015-09-25T15:32:35.970+00:00"
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div>\n        \n            <p>Amy Shaw</p>\n      \n          </div>"
+  },
+  "identifier": [
+    {
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/v2/0203",
+            "code": "MR",
+            "display": "Medical record number"
+          }
+        ],
+        "text": "Medical record number"
+      },
+      "system": "http://hospital.smarthealthit.org",
+      "value": "1032702"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "family": [
+        "Shaw"
+      ],
+      "given": [
+        "Amy",
+        "V."
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "800-782-6765",
+      "use": "mobile"
+    },
+    {
+      "system": "email",
+      "value": "amy.shaw@example.com"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2007-03-20",
+  "address": [
+    {
+      "use": "home",
+      "line": [
+        "49 Meadow St"
+      ],
+      "city": "Mounds",
+      "state": "OK",
+      "postalCode": "74047",
+      "country": "USA"
+    }
+  ]
+}

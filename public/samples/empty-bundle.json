@@ -1,0 +1,12 @@
+{
+  "resourceType": "Bundle",
+  "type": "searchset",
+  "total": 0,
+  "link": [
+    {
+      "relation": "self",
+      "url": "https://fhir-open-api-dstu2.smarthealthit.org/Observation?_format=json"
+    }
+  ],
+  "entry": []
+}

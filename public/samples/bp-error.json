@@ -1,0 +1,13 @@
+{
+  "resourceType": "Observation",
+  "component": [
+    {
+      "valueQuantity": {
+        "value": 109,
+        "unit": "mmHg",
+        "system": "http://unitsofmeasure.org",
+        "code": "mm[Hg]"
+      }
+    }
+  ]
+}

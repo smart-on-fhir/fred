@@ -1,0 +1,58 @@
+{
+  "resourceType": "Observation",
+  "id": "1681-lab",
+  "meta": {
+    "versionId": "613",
+    "lastUpdated": "2015-09-30T14:30:30.744+00:00"
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div>2005-07-04: Base excess Bld-sCnc = -6 mmol/L</div>"
+  },
+  "status": "final",
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "11555-0",
+        "display": "Base excess Bld-sCnc"
+      }
+    ],
+    "text": "Base excess Bld-sCnc"
+  },
+  "subject": {
+    "reference": "Patient/1134281"
+  },
+  "effectiveDateTime": "2005-07-04",
+  "valueQuantity": {
+    "value": -6.0,
+    "unit": "mmol/L",
+    "system": "http://unitsofmeasure.org"
+  },
+  "referenceRange": [
+    {
+      "low": {
+        "value": 0.0,
+        "unit": "mmol/L",
+        "system": "http://unitsofmeasure.org",
+        "code": "mmol/L"
+      },
+      "high": {
+        "value": 0.0,
+        "unit": "mmol/L",
+        "system": "http://unitsofmeasure.org",
+        "code": "mmol/L"
+      },
+      "meaning": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/referencerange-meaning",
+            "code": "normal",
+            "display": "Normal Range"
+          }
+        ],
+        "text": "Normal Range"
+      }
+    }
+  ]
+}

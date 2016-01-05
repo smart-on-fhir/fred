@@ -1,0 +1,37 @@
+{
+  "name": "fred",
+  "version": "0.0.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --config --devtool eval --progress --colors --inline --content-base ./public",
+    "build-profiles": "./node_modules/.bin/coffee ./scripts/simplify-profiles.coffee",
+    "build": "WEBPACK_ENV=build ./node_modules/.bin/webpack",
+    "test": "./node_modules/.bin/mocha",
+    "test-watch": "./node_modules/.bin/mocha -w",
+    "deploy-gh": "git subtree push --prefix public origin gh-pages"
+  },
+  "author": "Dan Gottlieb",
+  "license": "MIT",
+  "devDependencies": {
+    "coffee-loader": "^0.7.2",
+    "coffee-script": "^1.10.0",
+    "jsx-loader": "^0.13.2",
+    "mocha": "^2.3.3",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.0"
+  },
+  "dependencies": {
+    "freezer-js": "^0.8.0",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-bootstrap": "^0.28.1",
+    "moment": "^2.10.6",
+    "sanitize-caja": "^0.1.3",
+    "osh-async-parallel": "0.0.0"
+  },
+  "keywords": [
+    "fhir",
+    "smart"
+  ]
+}

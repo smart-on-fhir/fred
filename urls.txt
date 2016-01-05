@@ -1,0 +1,2 @@
+https://fhir-open-api.smarthealthit.org/Patient/1551992?_format=json
+https://fhir-open-api.smarthealthit.org/Observation/691-bp?_format=json
