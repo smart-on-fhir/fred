@@ -26,20 +26,27 @@ Please see [roadmap.md](roadmap.md)
 
 ## Install FRED locally
 1. Install NodeJs from (https://nodejs.org)
+
 2. Clone this repository
-    ```sh
-    $ git clone https://github.com/smart-on-fhir/fred
-    $ cd fred
+    
     ```
+    git clone https://github.com/smart-on-fhir/fred
+    cd fred
+    ```
+    
 3. Install the dependencies
-    ```sh
-    $ npm install
+    
     ```
+    npm install
+    ```
+    
 4. Run the dev server
-    ```sh
-    $ npm run dev
+
     ```
-5. Browse to http://localhost:8080
+    npm run dev
+    ```
+    
+5. Browse to ```http://localhost:8080```
 
 ## Commands
 | Action | Command |
