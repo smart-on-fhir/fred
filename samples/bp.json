@@ -1,0 +1,68 @@
+{
+  "resourceType": "Observation",
+  "id": "691-bp",
+  "meta": {
+    "versionId": "3397",
+    "lastUpdated": "2015-09-30T14:30:42.517+00:00"
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div>1999-07-02: Blood pressure 109/44 mmHg</div>"
+  },
+  "status": "final",
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "55284-4",
+        "display": "Blood pressure systolic and diastolic"
+      }
+    ],
+    "text": "Blood pressure systolic and diastolic"
+  },
+  "subject": {
+    "reference": "Patient/1186747"
+  },
+  "encounter": {
+    "reference": "Encounter/691"
+  },
+  "effectiveDateTime": "1999-07-02",
+  "component": [
+    {
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "8480-6",
+            "display": "Systolic blood pressure"
+          }
+        ],
+        "text": "Systolic blood pressure"
+      },
+      "valueQuantity": {
+        "value": 109,
+        "unit": "mmHg",
+        "system": "http://unitsofmeasure.org",
+        "code": "mm[Hg]"
+      }
+    },
+    {
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "8462-4",
+            "display": "Diastolic blood pressure"
+          }
+        ],
+        "text": "Diastolic blood pressure"
+      },
+      "valueQuantity": {
+        "value": 44,
+        "unit": "mmHg",
+        "system": "http://unitsofmeasure.org",
+        "code": "mm[Hg]"
+      }
+    }
+  ]
+}

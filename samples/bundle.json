@@ -1,0 +1,3024 @@
+{
+  "resourceType": "Bundle",
+  "type": "searchset",
+  "total": 13934,
+  "link": [
+    {
+      "relation": "self",
+      "url": "https://fhir-open-api-dstu2.smarthealthit.org/Observation?_format=json"
+    },
+    {
+      "relation": "next",
+      "url": "https://fhir-open-api-dstu2.smarthealthit.org/Observation?_format=json&_count=50&_skip=50"
+    }
+  ],
+  "entry": [
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/5-smokingstatus",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "5-smokingstatus",
+        "meta": {
+          "versionId": "99",
+          "lastUpdated": "2015-09-30T14:30:25.397+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>Tobacco smoking status: Current some day smoker</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "72166-2",
+              "display": "Tobacco smoking status"
+            }
+          ],
+          "text": "Tobacco smoking status"
+        },
+        "subject": {
+          "reference": "Patient/1032702"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "428041000124106",
+              "display": "Current some day smoker"
+            }
+          ],
+          "text": "Current some day smoker"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/6-smokingstatus",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "6-smokingstatus",
+        "meta": {
+          "versionId": "333",
+          "lastUpdated": "2015-09-30T14:30:27.859+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>Tobacco smoking status: Former smoker</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "72166-2",
+              "display": "Tobacco smoking status"
+            }
+          ],
+          "text": "Tobacco smoking status"
+        },
+        "subject": {
+          "reference": "Patient/1081332"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "8517006",
+              "display": "Former smoker"
+            }
+          ],
+          "text": "Former smoker"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/18-smokingstatus",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "18-smokingstatus",
+        "meta": {
+          "versionId": "562",
+          "lastUpdated": "2015-09-30T14:30:29.833+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>Tobacco smoking status: Unknown if ever smoked</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "72166-2",
+              "display": "Tobacco smoking status"
+            }
+          ],
+          "text": "Tobacco smoking status"
+        },
+        "subject": {
+          "reference": "Patient/1098667"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "266927001",
+              "display": "Unknown if ever smoked"
+            }
+          ],
+          "text": "Unknown if ever smoked"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1098667-gestage",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1098667-gestage",
+        "meta": {
+          "versionId": "572",
+          "lastUpdated": "2015-09-30T14:30:29.887+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>1953-10-27: Gestational age at birth = 43.4 weeks</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "18185-9",
+              "display": "Gestational age at birth"
+            }
+          ],
+          "text": "Gestational age at birth"
+        },
+        "subject": {
+          "reference": "Patient/1098667"
+        },
+        "effectiveDateTime": "1953-10-27",
+        "valueQuantity": {
+          "value": 43.4,
+          "unit": "weeks",
+          "system": "http://unitsofmeasure.org",
+          "code": "wk"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1681-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1681-lab",
+        "meta": {
+          "versionId": "613",
+          "lastUpdated": "2015-09-30T14:30:30.744+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: Base excess Bld-sCnc = -6 mmol/L</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11555-0",
+              "display": "Base excess Bld-sCnc"
+            }
+          ],
+          "text": "Base excess Bld-sCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": -6.0,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "high": {
+              "value": 0.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1682-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1682-lab",
+        "meta": {
+          "versionId": "624",
+          "lastUpdated": "2015-09-30T14:30:30.814+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: CO2 Bld-sCnc = 24 mmol/L</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "20565-8",
+              "display": "CO2 Bld-sCnc"
+            }
+          ],
+          "text": "CO2 Bld-sCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": 24.0,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 22.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "high": {
+              "value": 29.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1683-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1683-lab",
+        "meta": {
+          "versionId": "635",
+          "lastUpdated": "2015-09-30T14:30:30.869+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: SaO2% from pO2 Bld = 92 %</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2713-6",
+              "display": "SaO2% from pO2 Bld"
+            }
+          ],
+          "text": "SaO2% from pO2 Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": 92.0,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 95.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "high": {
+              "value": 98.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1684-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1684-lab",
+        "meta": {
+          "versionId": "646",
+          "lastUpdated": "2015-09-30T14:30:30.925+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: SaO2% from pO2 Bld = 89 %</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2713-6",
+              "display": "SaO2% from pO2 Bld"
+            }
+          ],
+          "text": "SaO2% from pO2 Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": 89.0,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 95.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "high": {
+              "value": 98.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1685-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1685-lab",
+        "meta": {
+          "versionId": "657",
+          "lastUpdated": "2015-09-30T14:30:30.979+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: Glucose Bld-mCnc = 71 mg/dL</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2339-0",
+              "display": "Glucose Bld-mCnc"
+            }
+          ],
+          "text": "Glucose Bld-mCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": 71.0,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 40.0,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "high": {
+              "value": 109.0,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1686-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1686-lab",
+        "meta": {
+          "versionId": "668",
+          "lastUpdated": "2015-09-30T14:30:31.033+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: Glucose Bld-mCnc = 109 mg/dL</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2339-0",
+              "display": "Glucose Bld-mCnc"
+            }
+          ],
+          "text": "Glucose Bld-mCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": 109.0,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 40.0,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "high": {
+              "value": 109.0,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1687-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1687-lab",
+        "meta": {
+          "versionId": "679",
+          "lastUpdated": "2015-09-30T14:30:31.087+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: pH Bld = 7.36 [pH]</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11558-4",
+              "display": "pH Bld"
+            }
+          ],
+          "text": "pH Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": 7.36,
+          "unit": "[pH]",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 7.35,
+              "unit": "[pH]",
+              "system": "http://unitsofmeasure.org",
+              "code": "[pH]"
+            },
+            "high": {
+              "value": 7.45,
+              "unit": "[pH]",
+              "system": "http://unitsofmeasure.org",
+              "code": "[pH]"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1688-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1688-lab",
+        "meta": {
+          "versionId": "690",
+          "lastUpdated": "2015-09-30T14:30:31.141+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: pH Bld = 7.22 [pH]</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11558-4",
+              "display": "pH Bld"
+            }
+          ],
+          "text": "pH Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": 7.22,
+          "unit": "[pH]",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 7.35,
+              "unit": "[pH]",
+              "system": "http://unitsofmeasure.org",
+              "code": "[pH]"
+            },
+            "high": {
+              "value": 7.45,
+              "unit": "[pH]",
+              "system": "http://unitsofmeasure.org",
+              "code": "[pH]"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1689-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1689-lab",
+        "meta": {
+          "versionId": "701",
+          "lastUpdated": "2015-09-30T14:30:31.193+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: pCO2 Bld = 56 mm[Hg]</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11557-6",
+              "display": "pCO2 Bld"
+            }
+          ],
+          "text": "pCO2 Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": 56.0,
+          "unit": "mm[Hg]",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 35.0,
+              "unit": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            },
+            "high": {
+              "value": 45.0,
+              "unit": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1690-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1690-lab",
+        "meta": {
+          "versionId": "712",
+          "lastUpdated": "2015-09-30T14:30:31.246+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: pCO2 Bld = 40 mm[Hg]</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11557-6",
+              "display": "pCO2 Bld"
+            }
+          ],
+          "text": "pCO2 Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": 40.0,
+          "unit": "mm[Hg]",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 35.0,
+              "unit": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            },
+            "high": {
+              "value": 45.0,
+              "unit": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1691-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1691-lab",
+        "meta": {
+          "versionId": "723",
+          "lastUpdated": "2015-09-30T14:30:31.301+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: pO2 Bld = 79 mm[Hg]</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11556-8",
+              "display": "pO2 Bld"
+            }
+          ],
+          "text": "pO2 Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": 79.0,
+          "unit": "mm[Hg]",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 80.0,
+              "unit": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            },
+            "high": {
+              "value": 110.0,
+              "unit": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1692-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1692-lab",
+        "meta": {
+          "versionId": "734",
+          "lastUpdated": "2015-09-30T14:30:31.366+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: pO2 Bld = 60 mm[Hg]</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11556-8",
+              "display": "pO2 Bld"
+            }
+          ],
+          "text": "pO2 Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": 60.0,
+          "unit": "mm[Hg]",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 80.0,
+              "unit": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            },
+            "high": {
+              "value": 110.0,
+              "unit": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1693-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1693-lab",
+        "meta": {
+          "versionId": "745",
+          "lastUpdated": "2015-09-30T14:30:31.419+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: HCO3 Bld-sCnc = 23.1 mmol/L</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1959-6",
+              "display": "HCO3 Bld-sCnc"
+            }
+          ],
+          "text": "HCO3 Bld-sCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": 23.1,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 22.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "high": {
+              "value": 29.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1694-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1694-lab",
+        "meta": {
+          "versionId": "756",
+          "lastUpdated": "2015-09-30T14:30:31.472+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: HCO3 Bld-sCnc = 22.8 mmol/L</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1959-6",
+              "display": "HCO3 Bld-sCnc"
+            }
+          ],
+          "text": "HCO3 Bld-sCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": 22.8,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 22.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "high": {
+              "value": 29.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1695-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1695-lab",
+        "meta": {
+          "versionId": "767",
+          "lastUpdated": "2015-09-30T14:30:31.525+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: CO2 Bld-sCnc = 25 mmol/L</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "20565-8",
+              "display": "CO2 Bld-sCnc"
+            }
+          ],
+          "text": "CO2 Bld-sCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": 25.0,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 22.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "high": {
+              "value": 29.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1696-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1696-lab",
+        "meta": {
+          "versionId": "778",
+          "lastUpdated": "2015-09-30T14:30:31.579+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-04: Base excess Bld-sCnc = -3 mmol/L</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11555-0",
+              "display": "Base excess Bld-sCnc"
+            }
+          ],
+          "text": "Base excess Bld-sCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-04",
+        "valueQuantity": {
+          "value": -3.0,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "high": {
+              "value": 0.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1697-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1697-lab",
+        "meta": {
+          "versionId": "789",
+          "lastUpdated": "2015-09-30T14:30:31.632+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Microcytes Bld Ql Smear = Few </div>"
+        },
+        "extension": [
+          {
+            "url": "http://fhir-registry.smarthealthit.org/StructureDefinition/labs#value-range",
+            "valueString": "['None', 'Few', 'Many']"
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "741-9",
+              "display": "Microcytes Bld Ql Smear"
+            }
+          ],
+          "text": "Microcytes Bld Ql Smear"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueString": "Few"
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1698-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1698-lab",
+        "meta": {
+          "versionId": "799",
+          "lastUpdated": "2015-09-30T14:30:31.680+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Macrocytes Bld Ql Smear = Moderate </div>"
+        },
+        "extension": [
+          {
+            "url": "http://fhir-registry.smarthealthit.org/StructureDefinition/labs#value-range",
+            "valueString": "['None', 'Slight', 'Moderate', 'Many']"
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "738-5",
+              "display": "Macrocytes Bld Ql Smear"
+            }
+          ],
+          "text": "Macrocytes Bld Ql Smear"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueString": "Moderate"
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1699-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1699-lab",
+        "meta": {
+          "versionId": "809",
+          "lastUpdated": "2015-09-30T14:30:31.727+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: TB Wheal 3D p 5 TU Diam = 1.4 mm</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1648-5",
+              "display": "TB Wheal 3D p 5 TU Diam"
+            }
+          ],
+          "text": "TB Wheal 3D p 5 TU Diam"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 1.4,
+          "unit": "mm",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0.1,
+              "unit": "mm",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm"
+            },
+            "high": {
+              "value": 4.4,
+              "unit": "mm",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1700-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1700-lab",
+        "meta": {
+          "versionId": "820",
+          "lastUpdated": "2015-09-30T14:30:31.779+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Platelet # Bld = 248 10*3/uL</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "26515-7",
+              "display": "Platelet # Bld"
+            }
+          ],
+          "text": "Platelet # Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 248.0,
+          "unit": "10*3/uL",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 150.0,
+              "unit": "10*3/uL",
+              "system": "http://unitsofmeasure.org",
+              "code": "10*3/uL"
+            },
+            "high": {
+              "value": 450.0,
+              "unit": "10*3/uL",
+              "system": "http://unitsofmeasure.org",
+              "code": "10*3/uL"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1701-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1701-lab",
+        "meta": {
+          "versionId": "831",
+          "lastUpdated": "2015-09-30T14:30:31.830+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: MCV RBC = 107 fL</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "30428-7",
+              "display": "MCV RBC"
+            }
+          ],
+          "text": "MCV RBC"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 107.0,
+          "unit": "fL",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 95.0,
+              "unit": "fL",
+              "system": "http://unitsofmeasure.org",
+              "code": "fL"
+            },
+            "high": {
+              "value": 125.0,
+              "unit": "fL",
+              "system": "http://unitsofmeasure.org",
+              "code": "fL"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1702-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1702-lab",
+        "meta": {
+          "versionId": "842",
+          "lastUpdated": "2015-09-30T14:30:31.891+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: MCH RBC Qn Auto = 37.2 pg</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "785-6",
+              "display": "MCH RBC Qn Auto"
+            }
+          ],
+          "text": "MCH RBC Qn Auto"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 37.2,
+          "unit": "pg",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 30.0,
+              "unit": "pg",
+              "system": "http://unitsofmeasure.org",
+              "code": "pg"
+            },
+            "high": {
+              "value": 42.0,
+              "unit": "pg",
+              "system": "http://unitsofmeasure.org",
+              "code": "pg"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1703-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1703-lab",
+        "meta": {
+          "versionId": "853",
+          "lastUpdated": "2015-09-30T14:30:31.990+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: MCHC RBC Auto-mCnc = 34.7 g/dL</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "786-4",
+              "display": "MCHC RBC Auto-mCnc"
+            }
+          ],
+          "text": "MCHC RBC Auto-mCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 34.7,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 30.0,
+              "unit": "g/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "g/dL"
+            },
+            "high": {
+              "value": 34.0,
+              "unit": "g/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "g/dL"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1704-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1704-lab",
+        "meta": {
+          "versionId": "864",
+          "lastUpdated": "2015-09-30T14:30:32.063+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Platelet Bld Ql Smear = Adequate </div>"
+        },
+        "extension": [
+          {
+            "url": "http://fhir-registry.smarthealthit.org/StructureDefinition/labs#value-range",
+            "valueString": "['Low', 'Adequate', 'High']"
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "9317-9",
+              "display": "Platelet Bld Ql Smear"
+            }
+          ],
+          "text": "Platelet Bld Ql Smear"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueString": "Adequate"
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1705-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1705-lab",
+        "meta": {
+          "versionId": "874",
+          "lastUpdated": "2015-09-30T14:30:32.118+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Calcium SerPl-mCnc = 7.7 mg/dL</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "17861-6",
+              "display": "Calcium SerPl-mCnc"
+            }
+          ],
+          "text": "Calcium SerPl-mCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 7.7,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 8.5,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "high": {
+              "value": 10.5,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1706-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1706-lab",
+        "meta": {
+          "versionId": "885",
+          "lastUpdated": "2015-09-30T14:30:32.171+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Sodium SerPl-sCnc = 137 mmol/L</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2951-2",
+              "display": "Sodium SerPl-sCnc"
+            }
+          ],
+          "text": "Sodium SerPl-sCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 137.0,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 135.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "high": {
+              "value": 145.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1707-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1707-lab",
+        "meta": {
+          "versionId": "896",
+          "lastUpdated": "2015-09-30T14:30:32.224+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Creat SerPl-mCnc = 1 mg/dL</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2160-0",
+              "display": "Creat SerPl-mCnc"
+            }
+          ],
+          "text": "Creat SerPl-mCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 1.0,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0.2,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "high": {
+              "value": 0.6,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1708-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1708-lab",
+        "meta": {
+          "versionId": "907",
+          "lastUpdated": "2015-09-30T14:30:32.301+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Potassium SerPl-sCnc = 5.4 mmol/L</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Potassium SerPl-sCnc"
+            }
+          ],
+          "text": "Potassium SerPl-sCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 5.4,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 3.5,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "high": {
+              "value": 5.5,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1709-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1709-lab",
+        "meta": {
+          "versionId": "918",
+          "lastUpdated": "2015-09-30T14:30:32.396+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Chloride SerPl-sCnc = 105 mmol/L</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2075-0",
+              "display": "Chloride SerPl-sCnc"
+            }
+          ],
+          "text": "Chloride SerPl-sCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 105.0,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 95.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "high": {
+              "value": 105.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1710-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1710-lab",
+        "meta": {
+          "versionId": "929",
+          "lastUpdated": "2015-09-30T14:30:32.485+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: CO2 SerPl-sCnc = 24 mmol/L</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2028-9",
+              "display": "CO2 SerPl-sCnc"
+            }
+          ],
+          "text": "CO2 SerPl-sCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 24.0,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 22.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "high": {
+              "value": 29.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1711-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1711-lab",
+        "meta": {
+          "versionId": "940",
+          "lastUpdated": "2015-09-30T14:30:32.538+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Myelocytes NFr Bld = 1 %</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "26498-6",
+              "display": "Myelocytes NFr Bld"
+            }
+          ],
+          "text": "Myelocytes NFr Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 1.0,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "high": {
+              "value": 0.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1712-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1712-lab",
+        "meta": {
+          "versionId": "951",
+          "lastUpdated": "2015-09-30T14:30:32.584+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Neuts Band NFr Bld = 2 %</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "26508-2",
+              "display": "Neuts Band NFr Bld"
+            }
+          ],
+          "text": "Neuts Band NFr Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 2.0,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 4.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "high": {
+              "value": 14.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1713-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1713-lab",
+        "meta": {
+          "versionId": "962",
+          "lastUpdated": "2015-09-30T14:30:32.637+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Lymphocytes NFr Bld = 43 %</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "26478-8",
+              "display": "Lymphocytes NFr Bld"
+            }
+          ],
+          "text": "Lymphocytes NFr Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 43.0,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 18.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "high": {
+              "value": 38.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1714-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1714-lab",
+        "meta": {
+          "versionId": "973",
+          "lastUpdated": "2015-09-30T14:30:32.682+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Monocytes NFr Bld = 8 %</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "26485-3",
+              "display": "Monocytes NFr Bld"
+            }
+          ],
+          "text": "Monocytes NFr Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 8.0,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 1.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "high": {
+              "value": 12.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1715-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1715-lab",
+        "meta": {
+          "versionId": "984",
+          "lastUpdated": "2015-09-30T14:30:32.725+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Eosinophil NFr Bld = 3 %</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "26450-7",
+              "display": "Eosinophil NFr Bld"
+            }
+          ],
+          "text": "Eosinophil NFr Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 3.0,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "high": {
+              "value": 4.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1716-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1716-lab",
+        "meta": {
+          "versionId": "995",
+          "lastUpdated": "2015-09-30T14:30:32.768+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Basophils NFr Bld = 0 %</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "30180-4",
+              "display": "Basophils NFr Bld"
+            }
+          ],
+          "text": "Basophils NFr Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 0.0,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "high": {
+              "value": 2.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1717-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1717-lab",
+        "meta": {
+          "versionId": "1006",
+          "lastUpdated": "2015-09-30T14:30:32.812+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Hgb Bld-mCnc = 17 g/dL</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hgb Bld-mCnc"
+            }
+          ],
+          "text": "Hgb Bld-mCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 17.0,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 16.5,
+              "unit": "g/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "g/dL"
+            },
+            "high": {
+              "value": 21.5,
+              "unit": "g/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "g/dL"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1718-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1718-lab",
+        "meta": {
+          "versionId": "1017",
+          "lastUpdated": "2015-09-30T14:30:32.861+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Anion Gap3 SerPl-sCnc = 8 mmol/L</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "10466-1",
+              "display": "Anion Gap3 SerPl-sCnc"
+            }
+          ],
+          "text": "Anion Gap3 SerPl-sCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 8.0,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "high": {
+              "value": 0.0,
+              "unit": "mmol/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "mmol/L"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1719-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1719-lab",
+        "meta": {
+          "versionId": "1028",
+          "lastUpdated": "2015-09-30T14:30:32.904+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: PMV Bld = 7.8 fL</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "28542-9",
+              "display": "PMV Bld"
+            }
+          ],
+          "text": "PMV Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 7.8,
+          "unit": "fL",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 6.3,
+              "unit": "fL",
+              "system": "http://unitsofmeasure.org",
+              "code": "fL"
+            },
+            "high": {
+              "value": 9.6,
+              "unit": "fL",
+              "system": "http://unitsofmeasure.org",
+              "code": "fL"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1720-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1720-lab",
+        "meta": {
+          "versionId": "1039",
+          "lastUpdated": "2015-09-30T14:30:32.951+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: RDW RBC-Rto = 16.8 %</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "30385-9",
+              "display": "RDW RBC-Rto"
+            }
+          ],
+          "text": "RDW RBC-Rto"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 16.8,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 11.5,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "high": {
+              "value": 14.5,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1721-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1721-lab",
+        "meta": {
+          "versionId": "1050",
+          "lastUpdated": "2015-09-30T14:30:32.993+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: nRBC/100 WBC Bld-Rto = 5 #/100 WBC</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "19048-8",
+              "display": "nRBC/100 WBC Bld-Rto"
+            }
+          ],
+          "text": "nRBC/100 WBC Bld-Rto"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 5.0,
+          "unit": "#/100 WBC",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0.0,
+              "unit": "#/100 WBC",
+              "system": "http://unitsofmeasure.org",
+              "code": "#/100 WBC"
+            },
+            "high": {
+              "value": 24.0,
+              "unit": "#/100 WBC",
+              "system": "http://unitsofmeasure.org",
+              "code": "#/100 WBC"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1722-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1722-lab",
+        "meta": {
+          "versionId": "1061",
+          "lastUpdated": "2015-09-30T14:30:33.038+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Neutrophils NFr Bld Auto = 40 %</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "770-8",
+              "display": "Neutrophils NFr Bld Auto"
+            }
+          ],
+          "text": "Neutrophils NFr Bld Auto"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 40.0,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 37.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "high": {
+              "value": 67.0,
+              "unit": "%",
+              "system": "http://unitsofmeasure.org",
+              "code": "%"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1723-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1723-lab",
+        "meta": {
+          "versionId": "1072",
+          "lastUpdated": "2015-09-30T14:30:33.084+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: RBC morph Bld = Normal </div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6742-1",
+              "display": "RBC morph Bld"
+            }
+          ],
+          "text": "RBC morph Bld"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueString": "Normal"
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1724-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1724-lab",
+        "meta": {
+          "versionId": "1082",
+          "lastUpdated": "2015-09-30T14:30:33.127+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Glucose Bld-mCnc = 89 mg/dL</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2339-0",
+              "display": "Glucose Bld-mCnc"
+            }
+          ],
+          "text": "Glucose Bld-mCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 89.0,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 40.0,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "high": {
+              "value": 109.0,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1725-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1725-lab",
+        "meta": {
+          "versionId": "1093",
+          "lastUpdated": "2015-09-30T14:30:33.185+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Glucose Bld-mCnc = 86 mg/dL</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2339-0",
+              "display": "Glucose Bld-mCnc"
+            }
+          ],
+          "text": "Glucose Bld-mCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 86.0,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 40.0,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "high": {
+              "value": 109.0,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/1726-lab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1726-lab",
+        "meta": {
+          "versionId": "1104",
+          "lastUpdated": "2015-09-30T14:30:33.244+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div>2005-07-05: Glucose Bld-mCnc = 82 mg/dL</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2339-0",
+              "display": "Glucose Bld-mCnc"
+            }
+          ],
+          "text": "Glucose Bld-mCnc"
+        },
+        "subject": {
+          "reference": "Patient/1134281"
+        },
+        "effectiveDateTime": "2005-07-05",
+        "valueQuantity": {
+          "value": 82.0,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 40.0,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "high": {
+              "value": 109.0,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "meaning": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ],
+              "text": "Normal Range"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    }
+  ]
+}
