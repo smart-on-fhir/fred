@@ -25,7 +25,7 @@ Please see [roadmap.md](roadmap.md)
     - [Mocha - Testing library](https://mochajs.org/)
 
 ## Install FRED locally
-1. Install NodeJs from (https://nodejs.org)
+1. Install NodeJs from https://nodejs.org
 
 2. Clone this repository
     
