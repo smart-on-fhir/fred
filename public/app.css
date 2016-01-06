@@ -18,6 +18,11 @@ h2 {
 	color: #317eac;
 }
 
+span {
+  word-wrap: break-word;
+}
+
+
 /* override bootstrap button styles */
 .inline-menu-toggle {
   padding:0 !important;

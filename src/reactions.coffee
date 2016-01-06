@@ -200,9 +200,6 @@ State.on "show_object_menu", (node, parent) ->
 		.ui.menu.set(canMoveDown: canMoveDown)
 		.ui.menu.set(unusedElements: unusedElements)
 
-# State.on "hide_object_menu", (node) ->
-# 	node.ui.set(status: "ready")
-
 State.on "add_array_value", (node) ->
 	profiles = State.get().profiles
 	newNode = SchemaUtils.buildChildNode(profiles, "valueArray", node.schemaPath, node.fhirType)

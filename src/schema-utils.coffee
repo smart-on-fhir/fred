@@ -5,7 +5,7 @@ validator = require "./primitive-validator"
 nextId = 0
 
 isComplexType = (fhirType) ->
-	fhirType and 
+	fhirType and
 		fhirType[0] is fhirType[0].toUpperCase()
 
 isInfrastructureType = (fhirType) ->
@@ -13,13 +13,13 @@ isInfrastructureType = (fhirType) ->
 
 unsupportedElements = ["contained"]
 
-module.exports = 
+module.exports =
 
 	toBundle: (resources=[], splicePos=null, spliceData) ->
 		if splicePos isnt null
 			resources = resources.splice(splicePos, 1, spliceData)
 
-		return bundle = 
+		return bundle =
 			resourceType: "Bundle"
 			meta: {lastUpdated: (new Date()).toISOString()}
 			type: "collection"
@@ -44,7 +44,7 @@ module.exports =
 					parent.push value
 				else
 					parent[child.name] = value
-			
+
 			return parent
 
 		fhir = _walkNode(decorated)
@@ -65,10 +65,10 @@ module.exports =
 			fhirType: typeCode
 			short: schema.short
 			range: [schema.min, schema.max]
-			nodeType: if isComplexType(schema.type[0].code)
-					if schema.max isnt "1" then "objectArray" else "object"
-				else
-					if schema.max isnt "1" then "valueArray" else "value"
+			nodeType: if isComplexType(typeCode)
+				if schema.max isnt "1" then "objectArray" else "object"
+			else
+				if schema.max isnt "1" then "valueArray" else "value"
 
 		_buildMultiTypePermutations = (schema) ->
 			permutations = []
@@ -83,18 +83,24 @@ module.exports =
 
 		children = []
 		schemaRoot = schemaPath.split(".").shift()
-		level = schemaPath.split(".").length 
+		level = schemaPath.split(".").length
+
 		for path, schema of (profiles[schemaRoot] || {})
+
 			continue if path in excludePaths or
 				path.indexOf(schemaPath) is -1 or
 				path.split(".").length isnt level+1
 
+			if schema?.nameReference
+				schemaPath = schemaPath.split(".").shift() + "." + schema.nameReference
+	
 			if _isMultiType(path)
 				children = children.concat _buildMultiTypePermutations(schema)
 			else
 				name = schema.path.split(".").pop()
 				if name not in unsupportedElements
-					children.push _buildChild(name, schema, schema.type[0].code)
+					type = schema?.type?[0]?.code || "BackboneElement"
+					children.push _buildChild(name, schema, type)
 
 		children = children.sort (a, b) -> a.index - b.index
 
@@ -115,23 +121,26 @@ module.exports =
 
 		schemaPath = schemaPath.split(".")
 		name = schemaPath[schemaPath.length-1]
-		schema = profiles[schemaPath[0]]?[schemaPath.join(".")]		
+		schema = profiles[schemaPath[0]]?[schemaPath.join(".")]
+
+		if schema?.nameReference
+				schemaPath = [schemaPath[0], schema.nameReference]
 
 		if schema.max isnt "1" and parentNodeType not in ["valueArray", "objectArray"]
 			id: nextId++, name: name, index: schema.index
 			schemaPath: schemaPath.join("."), fhirType: fhirType
 			displayName: @buildDisplayName(schemaPath, fhirType)
-			nodeType: if isComplexType(fhirType) then "objectArray" else "valueArray"								
+			nodeType: if isComplexType(fhirType) then "objectArray" else "valueArray"
 			short: schema.short
 			nodeCreator: "user"
 			isRequired: schema.min >=1
 			range: [schema.min, schema.max]
 			children:  if isComplexType(fhirType)
 				[@buildChildNode profiles, "objectArray", schemaPath.join("."), fhirType]
-			else 
+			else
 				[@buildChildNode profiles, "valueArray", schemaPath.join("."), fhirType]
 
-		else 
+		else
 			result =
 				id: nextId++, name: name, index: schema.index
 				schemaPath: schemaPath.join("."), fhirType: fhirType
@@ -148,7 +157,7 @@ module.exports =
 				else
 					"value"
 			if isComplexType(fhirType)
-				result.children = _addRequiredChildren result.nodeType, 
+				result.children = _addRequiredChildren result.nodeType,
 					result.schemaPath, result.fhirType
 
 			return result
@@ -157,22 +166,22 @@ module.exports =
 		_fixCamelCase = (text, lowerCase) ->
 			parts = text.split(/(?=[A-Z])/)
 			for part, i in parts
-				parts[i] = if lowerCase 
+				parts[i] = if lowerCase
 					part[0].toLowerCase() + part.slice(1)
 				else
 					part[0].toUpperCase() + part.slice(1)
 			parts.join(" ")
 
-		
+
 		name = schemaPath[schemaPath.length-1]
 		if name.indexOf("[x]") > -1
 			_fixCamelCase(name.replace(/\[x\]/,"")) +
 				" (" + _fixCamelCase(fhirType, true) + ")"
 		else
-			_fixCamelCase(name)	
+			_fixCamelCase(name)
 
 	isResource: (profiles, data) ->
-		if data.resourceType and 
+		if data.resourceType and
 			profiles[data.resourceType]
 				return true
 
@@ -188,7 +197,7 @@ module.exports =
 			displayName = @buildDisplayName(schemaPath, null)
 			schema = profiles[schemaPath[0]]?[schemaPath.join(".")]
 			fhirType = schema?.type?[0]?.code
-			
+
 			#is it a multi-type?
 			if !fhirType
 				nameParts = schemaPath[schemaPath.length-1].split(/(?=[A-Z])/)
@@ -207,7 +216,12 @@ module.exports =
 			if isInfrastructureType(fhirType) and schemaPath.length is 1
 				fhirType = schemaPath[0]
 
-			decorated = 
+			#nameReference support
+			if schema?.nameReference
+				schemaPath = [schemaPath[0], schema.nameReference]
+				fhirType ||= "BackboneElement"
+
+			decorated =
 				id: nextId++, index: schema?.index || 0
 				name: name, nodeType: "value", displayName: displayName
 				schemaPath: schemaPath.join("."), fhirType: fhirType,
@@ -234,7 +248,7 @@ module.exports =
 				else
 					"valueArray"
 
-			else if typeof dataNode is "object" and 
+			else if typeof dataNode is "object" and
 				dataNode not instanceof Date
 					decorated.nodeType = if schema and schema.max isnt "1" then "arrayObject" else "object"
 					decorated.children = (
@@ -244,7 +258,7 @@ module.exports =
 
 			else
 				#some servers return decimals as numbers instead of strings
-				#which, of course, don't validate. 
+				#which, of course, don't validate.
 				#This is very hacky - and arbitrarily sets precision
 				#need a better approach.
 				if fhirType is "decimal" and dataNode isnt ""
@@ -253,7 +267,7 @@ module.exports =
 						dataNode += ".0"
 
 				decorated.value = dataNode
-				
+
 				if fhirType and error = validator.isValid(fhirType, dataNode)
 					decorated.ui = {validationErr: error, status: "editing"}
 
@@ -262,13 +276,3 @@ module.exports =
 
 		# console.log JSON.stringify _walkNode(data), null, "  "
 		return _walkNode(data)
-
-
-
-
-
-
-
-
-
-

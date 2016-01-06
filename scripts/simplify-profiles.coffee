@@ -27,6 +27,7 @@ loadProfiles = (fhirBundle) ->
 				isSummary: e.isSummary
 				isModifier: e.isModifier
 				short: e.short
+				nameReference: e.nameReference
 
 for file in inputFiles
 	fhirBundle = JSON.parse fs.readFileSync(path.join __dirname, file)

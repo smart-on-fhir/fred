@@ -40992,6 +40992,7 @@
       "path": "Questionnaire.group.group",
       "min": 0,
       "max": "*",
+      "nameReference": "group",
       "short": "Nested questionnaire group"
     },
     "Questionnaire.group.question": {
@@ -41147,6 +41148,7 @@
       "path": "Questionnaire.group.question.group",
       "min": 0,
       "max": "*",
+      "nameReference": "group",
       "short": "Nested questionnaire group"
     }
   },

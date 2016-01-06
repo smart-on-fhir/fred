@@ -9,7 +9,7 @@
 
 ## Potential Features (unordered):
 - Primitive type extension support
-- Use files (instead of base64 coded strings) to create attachments
+- Use files (instead of base 64 coded strings) to create attachments
 - Download attachments to disk
 - UI to insert element content into narrative (maybe a hidden template)
 - Search / autocomplete for recognized code systems (LOINC, SNOMED, RxNorm, etc)
@@ -24,6 +24,8 @@
 - Wysiwyg editor for narrative (current editors are heavy and not very good)
 - Datetime editor (will have to be custom to support FHIR types and not sure this is useful)
 - Insert contained resources
-- Linked elements (like in Questionnaire resource)
 - Test and support recent versions of IE (probably already works with edge browser)
 - Test and support tablet use
+
+## Recent Features:
+- Linked nameReference elements (like in Questionnaire resource)

@@ -15,9 +15,6 @@ ExportDialog = require "./export-dialog"
 
 class RootComponent extends React.Component
 
-	constructor: ->
-		@state = {activeTab: "first"}
-
 	componentWillMount: ->
 		qs = window.location.search.substr(1)
 		resourceMatches = qs.match /resource=([^&]+)/

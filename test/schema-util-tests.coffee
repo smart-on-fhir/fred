@@ -2,7 +2,7 @@ assert   = require "assert"
 fs       = require "fs"
 filePath = require "path"
 profiles = require "./profiles.json"
-samplePatient = require "../public/sample-patient.json"
+samplePatient = require "./sample-patient.json"
 
 SchemaUtils = require "../src/schema-utils.coffee"
 
@@ -101,7 +101,6 @@ describe "schema utils: fhir conversion", ->
 		assert.equal errCount, 1
 
 
-
 describe "schema utils: decoration", ->
 
 	it "should decorate a Domain Resource", ->
@@ -197,9 +196,21 @@ describe "schema utils: decoration", ->
 			"fhirType", undefined
 		assertChildCount decorated, "Patient.notAnElement", 2
 
-
+	it "should decorate nested referenced elements", ->
+		decorated = decorate
+			resourceType: "Questionnaire"
+			group:
+				group: [
+					group: [
+						group: [text: "test", text: "Test"]
+					]
+				]
+		#console.log JSON.stringify decorated, null, " "
+		assert.equal decorated.children[1].children[0].children[0].schemaPath, 
+			"Questionnaire.group"
 
 ###
+
 describe "schema utils: primitive type extensions", ->
 
 	it "should decorate primitive type extensions and ids", ->
@@ -267,6 +278,11 @@ describe "schema utils: get child elements", ->
 		assert.equal mtChildren.length, 2
 		assert.equal mtChildren[0].name, "deceasedBoolean"
 
+	it "should get referenced elements", ->
+		schemaPath = "Questionnaire.group.question"
+		children = SchemaUtils.getElementChildren(profiles, schemaPath)
+		assert.equal getChildBySchemaPath(children, "Questionnaire.group.question.group").length, 1
+
 
 describe "schema utils: create child", ->
 
@@ -333,8 +349,6 @@ describe "schema utils: create child", ->
 		comm = child.children[0]
 		assert.equal comm.children.length, 1
 		assert.equal comm.children[0].name, "language"
-
-
 
 
 
