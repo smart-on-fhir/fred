@@ -72,9 +72,7 @@
 	  extend(RootComponent, superClass);
 
 	  function RootComponent() {
-	    this.state = {
-	      activeTab: "first"
-	    };
+	    return RootComponent.__super__.constructor.apply(this, arguments);
 	  }
 
 	  RootComponent.prototype.componentWillMount = function() {
@@ -21288,7 +21286,7 @@
 	    }
 	  },
 	  getElementChildren: function(profiles, schemaPath, excludePaths) {
-	    var _buildChild, _buildMultiTypePermutations, _isMultiType, children, level, name, path, ref, schema, schemaRoot;
+	    var _buildChild, _buildMultiTypePermutations, _isMultiType, children, level, name, path, ref, ref1, ref2, schema, schemaRoot, type;
 	    if (excludePaths == null) {
 	      excludePaths = [];
 	    }
@@ -21303,7 +21301,7 @@
 	          fhirType: typeCode,
 	          short: schema.short,
 	          range: [schema.min, schema.max],
-	          nodeType: isComplexType(schema.type[0].code) ? schema.max !== "1" ? "objectArray" : "object" : schema.max !== "1" ? "valueArray" : "value"
+	          nodeType: isComplexType(typeCode) ? schema.max !== "1" ? "objectArray" : "object" : schema.max !== "1" ? "valueArray" : "value"
 	        };
 	      };
 	    })(this);
@@ -21331,12 +21329,16 @@
 	      if (indexOf.call(excludePaths, path) >= 0 || path.indexOf(schemaPath) === -1 || path.split(".").length !== level + 1) {
 	        continue;
 	      }
+	      if (schema != null ? schema.nameReference : void 0) {
+	        schemaPath = schemaPath.split(".").shift() + "." + schema.nameReference;
+	      }
 	      if (_isMultiType(path)) {
 	        children = children.concat(_buildMultiTypePermutations(schema));
 	      } else {
 	        name = schema.path.split(".").pop();
 	        if (indexOf.call(unsupportedElements, name) < 0) {
-	          children.push(_buildChild(name, schema, schema.type[0].code));
+	          type = (schema != null ? (ref1 = schema.type) != null ? (ref2 = ref1[0]) != null ? ref2.code : void 0 : void 0 : void 0) || "BackboneElement";
+	          children.push(_buildChild(name, schema, type));
 	        }
 	      }
 	    }
@@ -21366,6 +21368,9 @@
 	    schemaPath = schemaPath.split(".");
 	    name = schemaPath[schemaPath.length - 1];
 	    schema = (ref = profiles[schemaPath[0]]) != null ? ref[schemaPath.join(".")] : void 0;
+	    if (schema != null ? schema.nameReference : void 0) {
+	      schemaPath = [schemaPath[0], schema.nameReference];
+	    }
 	    if (schema.max !== "1" && (parentNodeType !== "valueArray" && parentNodeType !== "objectArray")) {
 	      return {
 	        id: nextId++,
@@ -21457,6 +21462,10 @@
 	        }
 	        if (isInfrastructureType(fhirType) && schemaPath.length === 1) {
 	          fhirType = schemaPath[0];
+	        }
+	        if (schema != null ? schema.nameReference : void 0) {
+	          schemaPath = [schemaPath[0], schema.nameReference];
+	          fhirType || (fhirType = "BackboneElement");
 	        }
 	        decorated = {
 	          id: nextId++,
