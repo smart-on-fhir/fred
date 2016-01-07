@@ -65,7 +65,7 @@ class ElementMenu extends React.Component
 			<MenuItem key={i} onSelect={@handleAddItem.bind(@, unused)}>
 				{unused.displayName + (required || "")}
 			</MenuItem>
-		remove = if @props.parent and !@props.node.isRequired
+		remove = if @props.parent
 			<MenuItem onSelect={@handleDeleteItem.bind(@)}>Remove</MenuItem>
 		spacer1 = if (addObject or remove)
 			<MenuItem divider />
