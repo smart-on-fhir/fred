@@ -9,6 +9,10 @@ class Navbar extends React.Component
 		e.preventDefault()
 		State.trigger "save_resource"
 
+	handleCancelRequest: (e) ->
+		e.preventDefault()
+		State.trigger "close_editor"
+
 	handleUiChange: (status, e) ->
 		e.preventDefault()
 		State.trigger "set_ui", status
@@ -40,7 +44,7 @@ class Navbar extends React.Component
 
 		if @props.isRemote
 			navItems.push <NavItem key="remote_save" onClick={@handleSaveRequest.bind(@)}>Save and Close</NavItem>
-			navItems.push <NavItem key="remote_cancel" onClick={@handleSaveRequest.bind(@)}>Cancel and Close</NavItem>
+			navItems.push <NavItem key="remote_cancel" onClick={@handleCancelRequest.bind(@)}>Cancel and Close</NavItem>
 
 		<BsNavbar fixedTop={true} className="navbar-custom"
 			onDragEnter={@handleDrag.bind(@)}

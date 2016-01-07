@@ -137,16 +137,20 @@ State.on "start_edit", (node) ->
 State.on "end_edit", (node) ->
 	node.ui.reset {status: "ready"}
 
-# State.on "save_resource", ->
-# 	resource = State.get().resource
-# 	[fhir, errCount] = SchemaUtils.toFhir(resource, true)
-# 	if errCount > 0
-# 		State.get().ui.pivot()
-# 			.set("status", "validation_error")
-# 	else
-# 		State.get().ui.pivot()
-# 			.set("status", "done")
-# 			.set("fhir", fhir)
+State.on "save_resource", ->
+	resource = State.get().resource
+	[fhir, errCount] = SchemaUtils.toFhir(resource, true)
+	if errCount > 0
+		State.get().ui.pivot()
+			.set("status", "validation_error")
+	else
+		State.get().launcher.window.postMessage {action: "fred-save", resource: fhir}, "*"
+		window.close()
+
+State.on "close_editor", ->
+	State.get().launcher.window.postMessage {action: "fred-cancel"}, "*"
+	window.close()
+
 
 State.on "cancel_edit", (node) ->
 	if node.ui.validationErr
@@ -225,6 +229,17 @@ State.on "add_object_element", (node, fhirElement) ->
 		newNode.ui = {status: "editing"}
 	position = getSplicePosition(node.children, newNode.index)
 	node.children.splice(position, 0, newNode)
+
+State.on "set_launcher", (launcher) ->
+	# workaround because freezer.js likes to peer into things...
+	# and you can't try to access any properties on a foreign window
+	sealed = {window:launcher}
+	sealed.constructor = no
+	State.get().set {launcher: sealed}
+	sealed.window.postMessage {action: "fred-ready"}, "*"
+
+State.on "set_callback_id", (callback) ->
+	State.get().set {callback: callback}
 
 module.exports = State
 

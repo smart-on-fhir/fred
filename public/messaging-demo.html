@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FRED - Messaging Demo</title>
+    <link href="./vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="app.css" rel="stylesheet">
+    <style>
+      html, body {
+        margin:0;
+        height:100%;
+        min-height:100%;
+      }
+      body {
+        zoom: 2.0;
+        display: flex;
+        flex-direction: column;
+      }
+      textarea {
+        flex-grow: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="edit-me"></textarea>
+    <button onclick="beginEdit()">Edit in FRED</button>
+
+    <script>
+      var initialValue = {"resourceType": "Patient", "name": [{"given": ["John"]}]};
+      setValue('edit-me', initialValue)
+
+      var fredWindow;
+      var messageQueue = [];
+
+      function beginEdit(){
+        var r = JSON.parse(document.getElementById('edit-me').innerHTML);
+        messageQueue.push(r);
+        fredWindow = window.open('./index.html?remote=1', 'fredwin')
+        console.log();
+      }
+
+      function setValue(id, resource){
+        document.getElementById(id).innerHTML = JSON.stringify(resource, null, 2);
+      }
+      window.onmessage = function(m){
+        console.log("Message received", m)
+        switch (m.data.action) {
+            case 'fred-ready':
+                fredWindow.postMessage({action: 'edit', resource: messageQueue.shift()}, '*')
+                break;
+            case 'fred-save':
+                var resource = m.data.resource
+                console.log('Edit saved in FRED', resource);
+                setValue('edit-me', resource)
+                break;
+            case 'fred-cancel':
+                console.log('Edit canceled in FRED');
+                break;
+        }
+      }
+    </script>
+  </body>
+</html>

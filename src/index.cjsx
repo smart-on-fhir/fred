@@ -11,10 +11,24 @@ DomainResource = require "./domain-resource/"
 OpenDialog = require "./open-dialog"
 ExportDialog = require "./export-dialog"
 
+{Tabs, Tab} = require "react-bootstrap"
+
+
 class RootComponent extends React.Component
 
 	componentWillMount: ->
 		qs = window.location.search.substr(1)
+		launcher = window.opener if window.opener?
+		launcher = window.parent if window.parent? and window.parent isnt window
+		launcher = if /remote=1/.test(qs) then launcher else false
+		if launcher
+			State.trigger "set_launcher", launcher
+			window.addEventListener "message", (e)->
+				if e.data?.action is "edit" and e.data?.resource?
+					State.trigger "load_json_resource", e.data.resource
+					State.trigger "set_callback_id", e.data.callback
+			, false
+		
 		resourceMatches = qs.match /resource=([^&]+)/
 		if resourceMatches?[1]
 			resourcePath = decodeURIComponent(resourceMatches[1])
@@ -22,7 +36,7 @@ class RootComponent extends React.Component
 		else
 			State.trigger("set_ui", "open")
 
-		@isRemote = /remote=1/.test(qs)
+		@isRemote = launcher?
 		State.trigger("load_profiles")
 
 	componentDidMount: ->
@@ -40,7 +54,7 @@ class RootComponent extends React.Component
 		resourceContent = if state.ui.status is "loading"
 			<div className="spinner"><img src="./img/ajax-loader.gif" /></div>
 		else if state.resource
-			<DomainResource node={state.resource} /> 
+			<DomainResource node={state.resource} />
 		else if !state.bundle
 			<div className="row" style={marginTop: "20px"}><div className="col-xs-offset-4 col-xs-4">
 				<button className="btn btn-primary btn-block" onClick={@handleOpen.bind(@)}>
