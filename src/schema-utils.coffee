@@ -23,7 +23,7 @@ module.exports =
 			resourceType: "Bundle"
 			meta: {lastUpdated: (new Date()).toISOString()}
 			type: "collection"
-			entry: resources
+			entry: ({resource: r} for r in resources)
 
 	toFhir: (decorated, validate, asXml) ->
 		errCount = 0

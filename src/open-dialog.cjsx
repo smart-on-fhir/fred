@@ -2,6 +2,7 @@ React = require "react"
 ReactDOM = require "react-dom"
 State = require "./state"
 Modal = require("react-bootstrap").Modal
+bsInput = require("react-bootstrap").Input
 {Tabs, Tab}  = require("react-bootstrap")
 
 SchemaUtils = require "./schema-utils"
@@ -14,6 +15,8 @@ class OpenDialog extends React.Component
 			showSpinner: false,
 			tab: "fhirFile"
 			fhirText: "", fhirUrl: ""
+			newResourceType: "Patient",
+			newResourceBundle: false
 
 	componentDidUpdate: (prevProps, prevState) ->
 		return if @props.show is false or 
@@ -85,6 +88,19 @@ class OpenDialog extends React.Component
 	handleUrlChange: (e) ->
 		@setState {fhirUrl: e.target.value}
 
+	handleLoadNew: (e) ->
+		json = {resourceType: @state.newResourceType}
+		if @state.newResourceBundle
+			json = {resourceType: "Bundle", entry: [{resource: json}]}
+		State.trigger "load_json_resource", json
+		e.preventDefault()		
+
+	handleNewTypeChange: (e) ->
+		@setState {newResourceType: e.target.value}
+
+	handleNewBundleChange: (e) ->
+		@setState {newResourceBundle: !@state.newResourceBundle}
+
 	handleTabChange: (key) ->
 		@setState {tab: key}
 
@@ -155,6 +171,45 @@ class OpenDialog extends React.Component
 		</div>
 		</form>
 
+	renderNewInput: ->
+		resourceNames = []
+		for k, v of State.get().profiles
+			if v[k]?.type?[0]?.code is "DomainResource"
+				resourceNames.push k
+		resourceOptions = []
+		for name in resourceNames.sort()
+			resourceOptions.push <option value={name} key={name}>{name}</option>
+
+		<form onSubmit={@handleLoadNew.bind(@)}>
+		<div className="row">
+			<div className="col-xs-12">
+				<p style={marginTop: "20px"}>Choose a FHIR Resource Type:</p>
+				<select ref="fhirNew" className="form-control"
+					style={marginTop:"10px"}
+					onChange={@handleNewTypeChange.bind(@)}
+					value={@state.newResourceType}
+				>{resourceOptions}</select>
+			</div>
+			<div className="col-xs-12 checkbox" style={marginBottom:"10px"}>
+				<label>
+					<input type="checkbox" 
+						checked={@state.newResourceBundle} 
+						onChange={@handleNewBundleChange.bind(@)}
+					/>
+					 Create in a Bundle
+				</label>
+			</div>
+			<div className="col-xs-4 col-xs-offset-4" style={marginBottom:"10px"}>
+				<button className="btn btn-primary btn-block" 
+					onClick={@handleLoadNew.bind(@)}
+				>
+					Create Resource
+				</button>
+			</div>
+		</div>
+		</form>
+
+
 	renderTabs: ->
 		<Tabs 
 			activeKey={@state.tab} 
@@ -171,6 +226,10 @@ class OpenDialog extends React.Component
 			<Tab eventKey="fhirUrl" title="Website URL">
 				{@renderUrlInput()}
 			</Tab>
+			<Tab eventKey="fhirNew" title="Blank Resource">
+				{@renderNewInput()}
+			</Tab>
+
 		</Tabs>
 
 	renderSpinner: ->

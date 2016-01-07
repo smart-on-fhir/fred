@@ -11,8 +11,6 @@ DomainResource = require "./domain-resource/"
 OpenDialog = require "./open-dialog"
 ExportDialog = require "./export-dialog"
 
-{Tabs, Tab} = require "react-bootstrap"
-
 class RootComponent extends React.Component
 
 	componentWillMount: ->

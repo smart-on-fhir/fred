@@ -1,9 +1,7 @@
 ## Planned Features:
-- Create new resources by type
-- Create new bundles
 - Insert resources into existing bundles
-- Insert bundles into existing bundles (?)
 - Remove resource from a bundle
+- Insert bundled resources into existing bundles (?)
 - Validate cardinality prior to save
 - Validate required elements prior to save
 
@@ -29,3 +27,5 @@
 
 ## Recent Features:
 - Linked nameReference elements (like in Questionnaire resource)
+- Create new resources by type
+- Create new bundles
