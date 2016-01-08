@@ -44,6 +44,20 @@ class RemoteNavbar extends React.Component
 		e.preventDefault()
 		State.trigger "set_ui", status
 
+	renderButtons: ->
+		return null unless @props.hasResource
+		<Nav>
+			<NavItem key="resource_json" onClick={@handleUiChange.bind(@, "export")}>
+				Export JSON
+			</NavItem>
+			<NavItem key="remote_save" onClick={@handleSaveRequest.bind(@)}>
+				Save and Close
+			</NavItem>
+			<NavItem key="remote_cancel" onClick={@handleCancelRequest.bind(@)}>
+				Cancel and Close
+			</NavItem>
+		</Nav>
+
 	render: ->
 		<BsNavbar fixedTop={true} className="navbar-custom">
 			<BsNavbar.Header>
@@ -55,17 +69,9 @@ class RemoteNavbar extends React.Component
 				</BsNavbar.Brand>
 				<BsNavbar.Toggle />
 			</BsNavbar.Header>
-			<BsNavbar.Collapse><Nav>
-				<NavItem key="resource_json" onClick={@handleUiChange.bind(@, "export")}>
-					Export JSON
-				</NavItem>
-				<NavItem key="remote_save" onClick={@handleSaveRequest.bind(@)}>
-					Save and Close
-				</NavItem>
-				<NavItem key="remote_cancel" onClick={@handleCancelRequest.bind(@)}>
-					Cancel and Close
-				</NavItem>
-			</Nav></BsNavbar.Collapse>
+			<BsNavbar.Collapse>
+				{@renderButtons()}
+			</BsNavbar.Collapse>
 		</BsNavbar>
 
 module.exports = RemoteNavbar

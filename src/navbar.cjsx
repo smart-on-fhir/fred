@@ -24,7 +24,7 @@ class Navbar extends React.Component
 		State.trigger "set_ui", "loading"
 		reader.readAsText(file)
 	
-	renderNavItems: ->
+	renderButtons: ->
 		navItems = [
 			<NavItem key="open" onClick={@handleUiChange.bind(@, "open")}>
 				Open Resource
@@ -56,7 +56,7 @@ class Navbar extends React.Component
 				<BsNavbar.Toggle />
 			</BsNavbar.Header>
 			<BsNavbar.Collapse><Nav>
-				{@renderNavItems()}
+				{@renderButtons()}
 			</Nav></BsNavbar.Collapse>
 		</BsNavbar>
 
