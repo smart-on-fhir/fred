@@ -15,7 +15,6 @@
 - Save resources to FHIR server
 - Load and save resources/bundles on github
 - Globally set patient, provider and encounter references in bundle
-- Launch FRED from app and pass resource(s) through post message
 - Keyboard shortcuts (position indicator, up, down, insert, edit mode, open, export)
 - Re-order resources in bundle
 - Collapse nested elements in UI
@@ -29,3 +28,4 @@
 - Linked nameReference elements (like in Questionnaire resource)
 - Create new resources by type
 - Create new bundles
+- Launch FRED from app and pass resource(s) through postMessage API
