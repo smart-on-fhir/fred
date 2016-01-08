@@ -155,8 +155,6 @@ State.on "delete_node", (node, parent) ->
 	if index isnt null
 		targetNode.children.splice(index, 1)
 
-
-
 State.on "move_array_node", (node, parent, down) ->
 	position = parent.children.indexOf(node)
 	newPostion = if down then position+1 else position-1

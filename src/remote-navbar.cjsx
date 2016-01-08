@@ -47,6 +47,9 @@ class RemoteNavbar extends React.Component
 	renderButtons: ->
 		return null unless @props.hasResource
 		<Nav>
+			<NavItem key="open" onClick={@handleUiChange.bind(@, "open")}>
+				Open Resource
+			</NavItem>
 			<NavItem key="resource_json" onClick={@handleUiChange.bind(@, "export")}>
 				Export JSON
 			</NavItem>
