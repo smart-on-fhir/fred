@@ -5,14 +5,6 @@ BsNavbar = require("react-bootstrap").Navbar
 
 class Navbar extends React.Component
 
-	handleSaveRequest: (e) ->
-		e.preventDefault()
-		State.trigger "save_remote"
-
-	handleCancelRequest: (e) ->
-		e.preventDefault()
-		State.trigger "cancel_remote"
-
 	handleUiChange: (status, e) ->
 		e.preventDefault()
 		State.trigger "set_ui", status
@@ -33,25 +25,17 @@ class Navbar extends React.Component
 		reader.readAsText(file)
 	
 	renderNavItems: ->
-		return [] unless @props.hasResource
-			
 		navItems = [
-			<NavItem key="resource_json" onClick={@handleUiChange.bind(@, "export")}>
-				Export JSON
+			<NavItem key="open" onClick={@handleUiChange.bind(@, "open")}>
+				Open Resource
 			</NavItem>
 		]
 
-		if @props.isRemote
-			navItems.push <NavItem key="remote_save" onClick={@handleSaveRequest.bind(@)}>
-				Save and Close
-			</NavItem>
-			navItems.push <NavItem key="remote_cancel" onClick={@handleCancelRequest.bind(@)}>
-				Cancel and Close
-			</NavItem>
-		else 
-			navItems.push <NavItem key="open" onClick={@handleUiChange.bind(@, "open")}>
-				Open Resource
-			</NavItem>
+		if @props.hasResource then navItems.push <NavItem 
+			key="resource_json" 
+			onClick={@handleUiChange.bind(@, "export")}>
+				Export JSON
+		</NavItem>
 
 		return navItems
 

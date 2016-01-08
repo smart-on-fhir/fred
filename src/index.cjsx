@@ -4,6 +4,7 @@ State = require "./reactions"
 SchemaUtils = require "./schema-utils"
 
 Navbar = require "./navbar"
+RemoteNavbar = require "./remote-navbar"
 BundleBar = require "./bundle-bar"
 
 DomainResource = require "./domain-resource/"
@@ -22,16 +23,9 @@ class RootComponent extends React.Component
 			resourcePath = decodeURIComponent(resourceMatches[1])
 			State.trigger("load_url_resource", resourcePath)
 		
-		else if /remote=1/.test(qs) and @launcher = (
-			(window.parent unless window.parent is window) or window.opener
-		)
+		else if /remote=1/.test(qs)
+			@isRemote = true
 			State.trigger("set_ui", "loading")
-			State.trigger("set_launcher", @launcher)
-			window.addEventListener "message", (e) ->
-				if e.data?.action is "edit" and e.data?.resource
-					State.trigger "load_json_resource", e.data.resource
-					State.trigger "set_remote_callback", e.data.callback
-			, false
 
 		else
 			State.trigger("set_ui", "open")
@@ -66,8 +60,13 @@ class RootComponent extends React.Component
 		else if state.ui.status is "validation_error"
 			<div className="alert alert-danger">Please fix errors in resource before continuing.</div>
 
+		navBar = if @isRemote
+			<RemoteNavbar hasResource= {if state.resource then true} />
+		else
+			<Navbar hasResource={if state.resource then true} />
+
 		<div>
-			<Navbar isRemote={@launcher?} hasResource={if state.resource then true} />
+			{navBar}
 			<div className="container" style={marginTop: "50px", marginBottom: "50px"}>
 				{bundleBar}
 				{error}
