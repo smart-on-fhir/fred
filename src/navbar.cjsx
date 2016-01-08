@@ -7,11 +7,11 @@ class Navbar extends React.Component
 
 	handleSaveRequest: (e) ->
 		e.preventDefault()
-		State.trigger "save_resource"
+		State.trigger "save_remote"
 
 	handleCancelRequest: (e) ->
 		e.preventDefault()
-		State.trigger "close_editor"
+		State.trigger "cancel_remote"
 
 	handleUiChange: (status, e) ->
 		e.preventDefault()
@@ -32,20 +32,30 @@ class Navbar extends React.Component
 		State.trigger "set_ui", "loading"
 		reader.readAsText(file)
 	
-	render: ->
+	renderNavItems: ->
+		return [] unless @props.hasResource
+			
 		navItems = [
-			<NavItem key="open" onClick={@handleUiChange.bind(@, "open")}>Open Resource</NavItem>
-		]
-
-		if @props.hasResource
-			navItems.push <NavItem key="resource_json" onClick={@handleUiChange.bind(@, "export")}>
+			<NavItem key="resource_json" onClick={@handleUiChange.bind(@, "export")}>
 				Export JSON
 			</NavItem>
+		]
 
 		if @props.isRemote
-			navItems.push <NavItem key="remote_save" onClick={@handleSaveRequest.bind(@)}>Save and Close</NavItem>
-			navItems.push <NavItem key="remote_cancel" onClick={@handleCancelRequest.bind(@)}>Cancel and Close</NavItem>
+			navItems.push <NavItem key="remote_save" onClick={@handleSaveRequest.bind(@)}>
+				Save and Close
+			</NavItem>
+			navItems.push <NavItem key="remote_cancel" onClick={@handleCancelRequest.bind(@)}>
+				Cancel and Close
+			</NavItem>
+		else 
+			navItems.push <NavItem key="open" onClick={@handleUiChange.bind(@, "open")}>
+				Open Resource
+			</NavItem>
 
+		return navItems
+
+	render: ->
 		<BsNavbar fixedTop={true} className="navbar-custom"
 			onDragEnter={@handleDrag.bind(@)}
 			onDragOver={@handleDrag.bind(@)}
@@ -62,7 +72,7 @@ class Navbar extends React.Component
 				<BsNavbar.Toggle />
 			</BsNavbar.Header>
 			<BsNavbar.Collapse><Nav>
-				{navItems}
+				{@renderNavItems()}
 			</Nav></BsNavbar.Collapse>
 		</BsNavbar>
 

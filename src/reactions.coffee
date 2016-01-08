@@ -137,21 +137,6 @@ State.on "start_edit", (node) ->
 State.on "end_edit", (node) ->
 	node.ui.reset {status: "ready"}
 
-State.on "save_resource", ->
-	resource = State.get().resource
-	[fhir, errCount] = SchemaUtils.toFhir(resource, true)
-	if errCount > 0
-		State.get().ui.pivot()
-			.set("status", "validation_error")
-	else
-		State.get().launcher.window.postMessage {action: "fred-save", resource: fhir}, "*"
-		window.close()
-
-State.on "close_editor", ->
-	State.get().launcher.window.postMessage {action: "fred-cancel"}, "*"
-	window.close()
-
-
 State.on "cancel_edit", (node) ->
 	if node.ui.validationErr
 		State.get().ui.set "status", "ready"
@@ -238,8 +223,34 @@ State.on "set_launcher", (launcher) ->
 	State.get().set {launcher: sealed}
 	sealed.window.postMessage {action: "fred-ready"}, "*"
 
-State.on "set_callback_id", (callback) ->
-	State.get().set {callback: callback}
+State.on "set_remote_callback", (callback) ->
+	State.get().set {remoteCallback: callback}
+
+State.on "save_remote", ->
+	[resource, errCount] = SchemaUtils.toFhir State.get().resource, true
+	bundle = State.get().bundle
+	if bundle then resource = 
+		SchemaUtils.toBundle bundle.resources, bundle.pos, resource 		
+	
+	if errCount > 0
+		State.trigger "set_ui", "validation_error"
+	else
+		State.get().launcher.window.postMessage
+			action: "fred-save", 
+			resource: resource, 
+			callback: State.get().remoteCallback
+		, "*"
+		State.trigger "close_editor"
+
+State.on "cancel_remote", ->
+	State.get().launcher.window.postMessage
+		action: "fred-cancel"
+	, "*"
+	State.trigger "close_editor"
+
+State.on "close_editor", ->
+	window.close()
+
 
 module.exports = State
 

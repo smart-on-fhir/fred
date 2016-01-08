@@ -11,32 +11,31 @@ DomainResource = require "./domain-resource/"
 OpenDialog = require "./open-dialog"
 ExportDialog = require "./export-dialog"
 
-{Tabs, Tab} = require "react-bootstrap"
-
 
 class RootComponent extends React.Component
 
 	componentWillMount: ->
 		qs = window.location.search.substr(1)
-		launcher = window.opener if window.opener?
-		launcher = window.parent if window.parent? and window.parent isnt window
-		launcher = if /remote=1/.test(qs) then launcher else false
-		if launcher
-			State.trigger "set_launcher", launcher
-			window.addEventListener "message", (e)->
-				if e.data?.action is "edit" and e.data?.resource?
-					State.trigger "load_json_resource", e.data.resource
-					State.trigger "set_callback_id", e.data.callback
-			, false
-		
+
 		resourceMatches = qs.match /resource=([^&]+)/
 		if resourceMatches?[1]
 			resourcePath = decodeURIComponent(resourceMatches[1])
 			State.trigger("load_url_resource", resourcePath)
+		
+		else if /remote=1/.test(qs) and @launcher = (
+			(window.parent unless window.parent is window) or window.opener
+		)
+			State.trigger("set_ui", "loading")
+			State.trigger("set_launcher", @launcher)
+			window.addEventListener "message", (e) ->
+				if e.data?.action is "edit" and e.data?.resource
+					State.trigger "load_json_resource", e.data.resource
+					State.trigger "set_remote_callback", e.data.callback
+			, false
+
 		else
 			State.trigger("set_ui", "open")
 
-		@isRemote = launcher?
 		State.trigger("load_profiles")
 
 	componentDidMount: ->
@@ -68,7 +67,7 @@ class RootComponent extends React.Component
 			<div className="alert alert-danger">Please fix errors in resource before continuing.</div>
 
 		<div>
-			<Navbar isRemote={@isRemote} hasResource={if state.resource then true} />
+			<Navbar isRemote={@launcher?} hasResource={if state.resource then true} />
 			<div className="container" style={marginTop: "50px", marginBottom: "50px"}>
 				{bundleBar}
 				{error}
