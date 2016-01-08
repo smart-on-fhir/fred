@@ -138,17 +138,6 @@ State.on "start_edit", (node) ->
 State.on "end_edit", (node) ->
 	node.ui.reset {status: "ready"}
 
-# State.on "save_resource", ->
-# 	resource = State.get().resource
-# 	[fhir, errCount] = SchemaUtils.toFhir(resource, true)
-# 	if errCount > 0
-# 		State.get().ui.pivot()
-# 			.set("status", "validation_error")
-# 	else
-# 		State.get().ui.pivot()
-# 			.set("status", "done")
-# 			.set("fhir", fhir)
-
 State.on "cancel_edit", (node) ->
 	if node.ui.validationErr
 		State.get().ui.set "status", "ready"
@@ -166,8 +155,6 @@ State.on "delete_node", (node, parent) ->
 
 	if index isnt null
 		targetNode.children.splice(index, 1)
-
-
 
 State.on "move_array_node", (node, parent, down) ->
 	position = parent.children.indexOf(node)
@@ -226,6 +213,7 @@ State.on "add_object_element", (node, fhirElement) ->
 		newNode.ui = {status: "editing"}
 	position = getSplicePosition(node.children, newNode.index)
 	node.children.splice(position, 0, newNode)
+
 
 module.exports = State
 

@@ -5,10 +5,6 @@ BsNavbar = require("react-bootstrap").Navbar
 
 class Navbar extends React.Component
 
-	handleSaveRequest: (e) ->
-		e.preventDefault()
-		State.trigger "save_resource"
-
 	handleUiChange: (status, e) ->
 		e.preventDefault()
 		State.trigger "set_ui", status
@@ -28,20 +24,22 @@ class Navbar extends React.Component
 		State.trigger "set_ui", "loading"
 		reader.readAsText(file)
 	
-	render: ->
+	renderButtons: ->
 		navItems = [
-			<NavItem key="open" onClick={@handleUiChange.bind(@, "open")}>Open Resource</NavItem>
+			<NavItem key="open" onClick={@handleUiChange.bind(@, "open")}>
+				Open Resource
+			</NavItem>
 		]
 
-		if @props.hasResource
-			navItems.push <NavItem key="resource_json" onClick={@handleUiChange.bind(@, "export")}>
+		if @props.hasResource then navItems.push <NavItem 
+			key="resource_json" 
+			onClick={@handleUiChange.bind(@, "export")}>
 				Export JSON
-			</NavItem>
+		</NavItem>
 
-		if @props.isRemote
-			navItems.push <NavItem key="remote_save" onClick={@handleSaveRequest.bind(@)}>Save and Close</NavItem>
-			navItems.push <NavItem key="remote_cancel" onClick={@handleSaveRequest.bind(@)}>Cancel and Close</NavItem>
+		return navItems
 
+	render: ->
 		<BsNavbar fixedTop={true} className="navbar-custom"
 			onDragEnter={@handleDrag.bind(@)}
 			onDragOver={@handleDrag.bind(@)}
@@ -58,7 +56,7 @@ class Navbar extends React.Component
 				<BsNavbar.Toggle />
 			</BsNavbar.Header>
 			<BsNavbar.Collapse><Nav>
-				{navItems}
+				{@renderButtons()}
 			</Nav></BsNavbar.Collapse>
 		</BsNavbar>
 
