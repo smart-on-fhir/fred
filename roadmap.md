@@ -2,6 +2,7 @@
 - Insert resources into existing bundles
 - Remove resource from a bundle
 - Insert bundled resources into existing bundles (?)
+- Url param to switch FHIR releases (eg. profiles=profiles-dstu2.json)
 - Validate cardinality prior to save
 - Validate required elements prior to save
 
