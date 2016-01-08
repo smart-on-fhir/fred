@@ -23,8 +23,9 @@ class ValueEditor extends React.Component
 
 		if @props.node.fhirType is "xhtml"
 			#remove blank lines
-			newValue = @props.node.value.replace(/^\s*[\r\n]/gm, "")
-			State.trigger("value_change", @props.node, newValue)
+			if @props.node.value
+				newValue = @props.node.value.replace(/^\s*[\r\n]/gm, "")
+				State.trigger("value_change", @props.node, newValue)
 
 	handleChange: (e) ->
 		isInvalid = @isValid(@props.node.fhirType, e.target.value)

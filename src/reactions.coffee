@@ -49,6 +49,7 @@ State.on "load_json_resource", (json, mode) =>
 	else
 		State.get().pivot()
 			.set("rawResource", json)
+			.set("rawResourceMode", mode)
 			.set("bundle", null)
 		State.trigger "resource_loaded"
 
