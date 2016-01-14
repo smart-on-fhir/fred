@@ -93,7 +93,7 @@
 	  };
 
 	  RootComponent.prototype.componentWillMount = function() {
-	    var profilePath, qs, resourcePath;
+	    var defaultProfilePath, qs, resourcePath;
 	    qs = this.getQs();
 	    if (resourcePath = qs.resource) {
 	      State.trigger("load_url_resource", resourcePath);
@@ -103,8 +103,8 @@
 	    } else {
 	      State.trigger("set_ui", "open");
 	    }
-	    profilePath = qs.profiles || "profiles/dstu2.json";
-	    return State.trigger("load_profiles", profilePath);
+	    defaultProfilePath = "./profiles/dstu2.json";
+	    return State.trigger("load_profiles", qs.profiles || defaultProfilePath);
 	  };
 
 	  RootComponent.prototype.componentDidMount = function() {
