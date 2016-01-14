@@ -82,14 +82,14 @@ State.on "set_bundle_pos", (newPos) ->
 
 	State.trigger "resource_loaded"
 	
-State.on "load_profiles", ->
+State.on "load_profiles", (profilePath) ->
 	$.ajax 
-		url: "profiles.json"
+		url: profilePath
 		dataType: "json"
 		success: (json) ->
 			State.trigger "profiles_loaded", json
 		error: (xhr, status) ->
-			State.get().ui.set {status: "error"}
+			State.get().ui.set {status: "profile_error"}
 
 State.on "profiles_loaded", (json) ->
 	State.get().set {profiles: json}

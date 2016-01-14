@@ -68,7 +68,7 @@ class RemoteNavbar extends React.Component
 					<img src="./img/smart-bug.png" />
 				</div>
 				<BsNavbar.Brand>
-					FRED v0.02
+					FRED v{@props.appVersion}
 				</BsNavbar.Brand>
 				<BsNavbar.Toggle />
 			</BsNavbar.Header>

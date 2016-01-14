@@ -7,7 +7,8 @@ module.exports = {
 		loaders: [
 			{test: /\.jsx$/, loader: "jsx-loader?insertPragma=React.DOM"},
 			{test: /\.cjsx$/, loaders: ["coffee", "cjsx"]},
-			{test: /\.coffee$/, loader: "coffee"}
+			{test: /\.coffee$/, loader: "coffee"},
+			{test: /\.json$/, loader: "json"}
 		]
 	},
 	resolve: {

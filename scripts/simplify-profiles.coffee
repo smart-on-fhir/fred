@@ -1,16 +1,26 @@
-# Reads profile files from ../data and strips out basic type definitions 
+# Reads profile files from ../fhir_profiles/{title} and strips out basic type definitions 
 # and items not currently used by the editor to reduce file size.
-# Saves results to ../public/profiles.json
 
 fs = require "fs"
 path = require "path"
 
-inputFiles = ["../fhir_profiles/profiles-resources.json", "../fhir_profiles/profiles-types.json"]
-outputFile = "../public/profiles.json"
+inputPath = "../fhir_profiles"
+outputPath = "../public/profiles"
 
-profiles = {}
+summarizeDirectory = (inputDirName, inputDirPath, outputFilePath) ->
+	console.log "Processing #{inputDirName}"
+	profiles = {}
+	
+	for bundleFileName in fs.readdirSync(inputDirPath)
+		continue unless bundleFileName.indexOf("json") > -1
+		bundleFilePath = path.join(inputDirPath, bundleFileName)
+		bundle = JSON.parse fs.readFileSync(bundleFilePath)
+		profiles = summarizeBundle(bundle, profiles)
 
-loadProfiles = (fhirBundle) ->
+	fs.writeFileSync outputFilePath,
+		JSON.stringify profiles, null, "  "
+
+summarizeBundle = (fhirBundle, profiles) ->
 	for entry in fhirBundle?.entry || []
 		root = entry?.resource?.snapshot?.element?[0]?.path
 		continue unless root and 
@@ -28,10 +38,10 @@ loadProfiles = (fhirBundle) ->
 				isModifier: e.isModifier
 				short: e.short
 				nameReference: e.nameReference
+	return profiles
 
-for file in inputFiles
-	fhirBundle = JSON.parse fs.readFileSync(path.join __dirname, file)
-	loadProfiles(fhirBundle)
-
-fs.writeFileSync path.join(__dirname, outputFile),
-	JSON.stringify profiles, null, "  "
+for inputDirName in fs.readdirSync path.join(__dirname, inputPath)
+	inputDirPath = path.join(__dirname, inputPath, inputDirName)
+	outputFilePath = path.join(__dirname, outputPath, inputDirName+".json")
+	if fs.lstatSync(inputDirPath).isDirectory()
+		summarizeDirectory(inputDirName, inputDirPath, outputFilePath)

@@ -164,13 +164,20 @@ module.exports =
 
 	buildDisplayName: (schemaPath, fhirType) ->
 		_fixCamelCase = (text, lowerCase) ->
-			parts = text.split(/(?=[A-Z])/)
-			for part, i in parts
-				parts[i] = if lowerCase
-					part[0].toLowerCase() + part.slice(1)
-				else
-					part[0].toUpperCase() + part.slice(1)
-			parts.join(" ")
+			#function has an issue with consecutive capital letters (eg. ID)
+			#and not convinced splitting camelcase words has value
+			#so bypassing for now and just capitalizing first letter
+			unless lowerCase
+				text = text[0].toUpperCase() + text.slice(1)
+			return text
+
+			# parts = text.split(/(?=[A-Z])/)
+			# for part, i in parts
+			# 	parts[i] = if lowerCase
+			# 		part[0].toLowerCase() + part.slice(1)
+			# 	else
+			# 		part[0].toUpperCase() + part.slice(1)
+			# parts.join(" ")
 
 
 		name = schemaPath[schemaPath.length-1]
