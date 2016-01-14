@@ -1,0 +1,38 @@
+{"resourceType": "Sequence",
+    "type": "DNA",
+    "text":
+    {"status": "generated",
+        "div": "<div>Genotype of rs71662879 is A/A</div>"
+    },
+    "coordinate": [
+                   {"start": 114951390,
+                   "end": 114951390,
+                   "chromosome": {"text": "1"},
+                   "genomeBuild": {"text": "GRCh37"}
+                   }],
+    "variationID":
+    [{"coding":
+     [{"code": "rs71662879",
+      "system": "http://www.ncbi.nlm.nih.gov/projects/SNP/snp_ref.cgi"
+      }]
+     }],
+    "species": {
+        "coding":[
+                   {
+                   "system": "http://snomed.info/sct",
+                   "code": "337915000"
+                   }
+                   ],
+        "text": "Homo sapiens"
+    },
+    "observedAllele": "A",
+    "referenceAllele": "T",
+    "repository": [
+                   {
+                   "url": "https://www.googleapis.com/genomics/v1beta2",
+                   "name": "ga4gh",
+                   "variantId": "A1A2",
+                   "readGroupSetId": "B1B2"
+                   }
+                   ]
+}

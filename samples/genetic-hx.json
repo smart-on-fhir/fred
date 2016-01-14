@@ -1,0 +1,24 @@
+{
+    "resourceType": "familymemberhistory-genetic",
+    "extension": [
+                  {
+                  "url": "http://hl7.org/fhir/StructureDefinition/family-member-history-genetics-observation",
+                  "valueReference": {
+                  "reference": "DiagnosticReport/dgf1"
+                  }
+                  }
+                  ],
+    "patient": {
+        "reference": "Patient/example"
+    },
+    "status": "completed",
+    "relationship": {
+        "coding": [
+                   {
+                   "system": "http://hl7.org/fhir/familial-relationship",
+                   "code": "MTH",
+                   "display": "Mother"
+                   }
+                   ]
+    }
+}

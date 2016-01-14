@@ -659,7 +659,8 @@
       "path": "ValueSet.codeSystem.concept.concept",
       "min": 0,
       "max": "*",
-      "short": "Child Concepts (is-a/contains/categorizes)"
+      "short": "Child Concepts (is-a/contains/categorizes)",
+      "nameReference": "concept"
     },
     "ValueSet.compose": {
       "index": 53,
@@ -877,7 +878,8 @@
       "path": "ValueSet.compose.include.concept.designation",
       "min": 0,
       "max": "*",
-      "short": "Additional representations for this valueset"
+      "short": "Additional representations for this valueset",
+      "nameReference": "designation"
     },
     "ValueSet.compose.include.filter": {
       "index": 71,
@@ -969,7 +971,8 @@
       "path": "ValueSet.compose.exclude",
       "min": 0,
       "max": "*",
-      "short": "Explicitly exclude codes"
+      "short": "Explicitly exclude codes",
+      "nameReference": "include"
     },
     "ValueSet.expansion": {
       "index": 79,
@@ -1270,7 +1273,8 @@
       "path": "ValueSet.expansion.contains.contains",
       "min": 0,
       "max": "*",
-      "short": "Codes contained under this entry"
+      "short": "Codes contained under this entry",
+      "nameReference": "contains"
     }
   },
   "Parameters": {
@@ -1524,7 +1528,8 @@
       "path": "Parameters.parameter.part",
       "min": 0,
       "max": "*",
-      "short": "Named part of a parameter (e.g. Tuple)"
+      "short": "Named part of a parameter (e.g. Tuple)",
+      "nameReference": "parameter"
     }
   },
   "Resource": {
@@ -4669,7 +4674,8 @@
       "min": 0,
       "max": "*",
       "isSummary": true,
-      "short": "Links related to this entry"
+      "short": "Links related to this entry",
+      "nameReference": "link"
     },
     "Bundle.entry.fullUrl": {
       "index": 18,
@@ -11319,7 +11325,8 @@
       "path": "Composition.section.section",
       "min": 0,
       "max": "*",
-      "short": "Nested Section"
+      "short": "Nested Section",
+      "nameReference": "section"
     }
   },
   "ConceptMap": {
@@ -11978,7 +11985,8 @@
       "path": "ConceptMap.element.target.product",
       "min": 0,
       "max": "*",
-      "short": "Other concepts that this mapping also produces"
+      "short": "Other concepts that this mapping also produces",
+      "nameReference": "dependsOn"
     }
   },
   "Condition": {
@@ -13753,7 +13761,8 @@
       "path": "Conformance.rest.searchParam",
       "min": 0,
       "max": "*",
-      "short": "Search params for searching all resources"
+      "short": "Search params for searching all resources",
+      "nameReference": "searchParam"
     },
     "Conformance.rest.operation": {
       "index": 101,
@@ -15308,7 +15317,8 @@
       "path": "Contract.term.group",
       "min": 0,
       "max": "*",
-      "short": "Nested Contract Term Group"
+      "short": "Nested Contract Term Group",
+      "nameReference": "term"
     },
     "Contract.binding[x]": {
       "index": 76,
@@ -18661,7 +18671,8 @@
       "min": 0,
       "max": "*",
       "isSummary": true,
-      "short": "Events specific to this item"
+      "short": "Events specific to this item",
+      "nameReference": "event"
     },
     "DiagnosticOrder.note": {
       "index": 35,
@@ -28030,7 +28041,8 @@
       "path": "ImplementationGuide.page.page",
       "min": 0,
       "max": "*",
-      "short": "Nested Pages / Sections"
+      "short": "Nested Pages / Sections",
+      "nameReference": "page"
     }
   },
   "List": {
@@ -34432,11 +34444,7 @@
       "min": 0,
       "max": "*",
       "short": "Provides guide for interpretation of component result",
-      "type": [
-        {
-          "code": "BackboneElement"
-        }
-      ]      
+      "nameReference": "referenceRange"
     }
   },
   "OperationDefinition": {
@@ -35058,7 +35066,8 @@
       "path": "OperationDefinition.parameter.part",
       "min": 0,
       "max": "*",
-      "short": "Parts of a Tuple Parameter"
+      "short": "Parts of a Tuple Parameter",
+      "nameReference": "parameter"
     }
   },
   "OperationOutcome": {
@@ -40646,7 +40655,8 @@
       "min": 0,
       "max": "1",
       "isSummary": true,
-      "short": "Entity is attributed to this agent"
+      "short": "Entity is attributed to this agent",
+      "nameReference": "agent"
     },
     "Provenance.signature": {
       "index": 38,
@@ -41526,7 +41536,8 @@
       "path": "QuestionnaireResponse.group.group",
       "min": 0,
       "max": "*",
-      "short": "Nested questionnaire response group"
+      "short": "Nested questionnaire response group",
+      "nameReference": "group"
     },
     "QuestionnaireResponse.group.question": {
       "index": 26,
@@ -41706,7 +41717,8 @@
       "path": "QuestionnaireResponse.group.question.answer.group",
       "min": 0,
       "max": "*",
-      "short": "Nested questionnaire group"
+      "short": "Nested questionnaire group",
+      "nameReference": "group"
     }
   },
   "ReferralRequest": {
@@ -46911,7 +46923,8 @@
       "path": "TestScript.setup.metadata",
       "min": 0,
       "max": "1",
-      "short": "Capabilities  that are assumed to function correctly on the FHIR server being tested"
+      "short": "Capabilities  that are assumed to function correctly on the FHIR server being tested",
+      "nameReference": "metadata"
     },
     "TestScript.setup.action": {
       "index": 69,
@@ -47583,7 +47596,8 @@
       "path": "TestScript.test.metadata",
       "min": 0,
       "max": "1",
-      "short": "Capabilities  that are expected to function correctly on the FHIR server being tested"
+      "short": "Capabilities  that are expected to function correctly on the FHIR server being tested",
+      "nameReference": "metadata"
     },
     "TestScript.test.action": {
       "index": 125,
@@ -47639,14 +47653,16 @@
       "path": "TestScript.test.action.operation",
       "min": 0,
       "max": "1",
-      "short": "The setup operation to perform"
+      "short": "The setup operation to perform",
+      "nameReference": "operation"
     },
     "TestScript.test.action.assert": {
       "index": 130,
       "path": "TestScript.test.action.assert",
       "min": 0,
       "max": "1",
-      "short": "The setup assertion to perform"
+      "short": "The setup assertion to perform",
+      "nameReference": "assert"
     },
     "TestScript.teardown": {
       "index": 131,
@@ -47751,7 +47767,8 @@
       "path": "TestScript.teardown.action.operation",
       "min": 0,
       "max": "1",
-      "short": "The teardown operation to perform"
+      "short": "The teardown operation to perform",
+      "nameReference": "operation"
     }
   },
   "VisionPrescription": {
