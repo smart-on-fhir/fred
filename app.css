@@ -22,6 +22,15 @@ span {
   word-wrap: break-word;
 }
 
+/* all of the following are required to clip text */
+span.fhir-element-value {
+  width: 100%;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
 
 /* override bootstrap button styles */
 .inline-menu-toggle {
