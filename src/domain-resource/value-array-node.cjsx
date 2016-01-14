@@ -76,18 +76,12 @@ class ValueArrayNode extends React.Component
 			children.push <ValueDisplay 
 				key={i} node={child} parent={@props.node} /> 
 
-		body = []
-		for child, i in children
-			if i isnt 0
-				body.push <span key={"sp"+i}>; </span>
-			body.push child
-
 		<div className="row fhir-data-element fhir-data-unknown" onClick={@props.onEditStart}>
 			<div className="col-sm-3 fhir-data-title">
 				{@props.node.displayName}{required}:
 			</div>
 			<div className="col-sm-9 fhir-data-content">
-				{body}
+				{children}
 			</div>
 		</div>
 

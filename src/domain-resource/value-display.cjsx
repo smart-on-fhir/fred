@@ -34,8 +34,9 @@ class ValueDisplay extends React.Component
 		else
 			@formatDate(value)
 
-	formatString: (value, maxLength=40) ->
-		value.substr(0, @maxTextLength - 1) + (if value.length > @maxTextLength then "..." else "")
+	formatString: (value) ->
+		#truncate very long values
+		value.substr(0, 400)
 
 	formatBoolean: (value) ->
 		if value is true or value is "true"

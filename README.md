@@ -6,7 +6,6 @@ FRED is an open source web application that enables users to edit JSON [FHIR res
 ## Try it with...
 - [A Patient Resource](http://docs.smarthealthit.org/fred/?resource=http%3A%2F%2Fdocs.smarthealthit.org%2Ffred%2Fsamples%2Flisa.json)
 - [A Blood Pressure Resource](http://docs.smarthealthit.org/fred/?resource=http%3A%2F%2Fdocs.smarthealthit.org%2Ffred%2Fsamples%2Fbp.json)
-- [An Official FHIR Example](http://docs.smarthealthit.org/dstu2-examples/?editorurl=http%3A%2F%2Fdocs.smarthealthit.org%2Ffred%2F)
 - [Any FHIR Resource (DSTU2)](http://docs.smarthealthit.org/fred/)
 - [Any FHIR Resource (Connectathon 11)](http://docs.smarthealthit.org/fred/?profiles=connect11.json)
 
