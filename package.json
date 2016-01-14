@@ -9,7 +9,8 @@
     "build": "WEBPACK_ENV=build ./node_modules/.bin/webpack",
     "test": "./node_modules/.bin/mocha",
     "test-watch": "./node_modules/.bin/mocha -w",
-    "deploy-gh": "git subtree push --prefix public origin gh-pages"
+    "deploy-gh": "git subtree push --prefix public origin gh-pages",
+    "reset-gh-pages": "git push origin `git subtree split --prefix output gh-pages`:gh-pages --force"
   },
   "author": "Dan Gottlieb",
   "license": "MIT",
