@@ -43,8 +43,8 @@ class RootComponent extends React.Component
 		else
 			State.trigger("set_ui", "open")
 
-		profilePath = qs.profiles || "profiles/dstu2.json"
-		State.trigger("load_profiles", profilePath)
+		defaultProfilePath = "./profiles/dstu2.json"
+		State.trigger("load_profiles", qs.profiles || defaultProfilePath)
 
 	componentDidMount: ->
 		State.on "update", => @forceUpdate()
