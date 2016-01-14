@@ -245,11 +245,12 @@ describe "schema utils: pretty print name", ->
 		displayName = SchemaUtils.buildDisplayName(schemaPath, fhirType)
 		assert.equal displayName, "Deceased (boolean)"
 
-	it "should handle camel case names", ->
-		schemaPath = "Patient.birthDate".split(".")
-		fhirType = "date"
-		displayName = SchemaUtils.buildDisplayName(schemaPath, fhirType)
-		assert.equal displayName, "Birth Date"
+	# Removed this feature since seems unnecessary
+	# it "should handle camel case names", ->
+	# 	schemaPath = "Patient.birthDate".split(".")
+	# 	fhirType = "date"
+	# 	displayName = SchemaUtils.buildDisplayName(schemaPath, fhirType)
+	# 	assert.equal displayName, "Birth Date"
 
 describe "schema utils: get child elements", ->
 
