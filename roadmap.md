@@ -1,6 +1,6 @@
 ## Planned Features:
 - Insert resources into existing bundles
-- Remove resources from a bundle
+- Remove resource from a bundle
 - Insert bundled resources into existing bundles
 - Validate cardinality prior to save
 - Validate required elements prior to save
