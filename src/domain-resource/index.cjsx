@@ -16,11 +16,11 @@ class DomainResource extends React.Component
 		for child in node.children
 			if child.name is "id"
 				resourceId = child.value
-			else
-				children.push <ResourceElement 
-					key={child.id} node={child} 
-					parent={node} 
-				/>
+				
+			children.push <ResourceElement 
+				key={child.id} node={child} 
+				parent={node} 
+			/>
 
 		id = if resourceId
 			<span className="small">&nbsp;&nbsp;({resourceId})</span>

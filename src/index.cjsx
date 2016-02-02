@@ -33,18 +33,13 @@ class RootComponent extends React.Component
 	componentWillMount: ->
 		qs = @getQs()
 
-		if resourcePath = qs.resource
-			State.trigger("load_url_resource", resourcePath)
-		
-		else if qs.remote is "1"
+		if qs.remote is "1"
 			@isRemote = true
-			State.trigger("set_ui", "loading")
-
-		else
-			State.trigger("set_ui", "open")
 
 		defaultProfilePath = "./profiles/dstu2.json"
-		State.trigger("load_profiles", qs.profiles || defaultProfilePath)
+		State.trigger "load_profiles", 
+			qs.profiles || defaultProfilePath,
+			qs.resource, @isRemote
 
 	componentDidMount: ->
 		State.on "update", => @forceUpdate()
@@ -88,7 +83,7 @@ class RootComponent extends React.Component
 				{error}
 				{resourceContent}
 			</div>
-			<OpenDialog show={state.ui.status is "open"} />
+			<OpenDialog show={state.ui.status is "open"} openMode={state.ui.openMode} />
 			<ExportDialog show={state.ui.status is "export"}
 				bundle={state.bundle}
 				resource={state.resource}
