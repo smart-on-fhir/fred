@@ -93,18 +93,13 @@
 	  };
 
 	  RootComponent.prototype.componentWillMount = function() {
-	    var defaultProfilePath, qs, resourcePath;
+	    var defaultProfilePath, qs;
 	    qs = this.getQs();
-	    if (resourcePath = qs.resource) {
-	      State.trigger("load_url_resource", resourcePath);
-	    } else if (qs.remote === "1") {
+	    if (qs.remote === "1") {
 	      this.isRemote = true;
-	      State.trigger("set_ui", "loading");
-	    } else {
-	      State.trigger("set_ui", "open");
 	    }
 	    defaultProfilePath = "./profiles/dstu2.json";
-	    return State.trigger("load_profiles", qs.profiles || defaultProfilePath);
+	    return State.trigger("load_profiles", qs.profiles || defaultProfilePath, qs.resource, this.isRemote);
 	  };
 
 	  RootComponent.prototype.componentDidMount = function() {
@@ -165,7 +160,8 @@
 	        marginBottom: "50px"
 	      }
 	    }, bundleBar, error, resourceContent), React.createElement(OpenDialog, {
-	      "show": state.ui.status === "open"
+	      "show": state.ui.status === "open",
+	      "openMode": state.ui.openMode
 	    }), React.createElement(ExportDialog, {
 	      "show": state.ui.status === "export",
 	      "bundle": state.bundle,
@@ -19731,7 +19727,8 @@
 /* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SchemaUtils, State, canMoveNode, findParent, getChildBySchemaPath, getSplicePosition, isBundle;
+	var SchemaUtils, State, bundleInsert, canMoveNode, checkBundle, decorateResource, findParent, getChildBySchemaPath, getParentById, getSplicePosition, openBundle, openResource, replaceContained,
+	  slice = [].slice;
 
 	State = __webpack_require__(159);
 
@@ -19790,9 +19787,58 @@
 	  }
 	};
 
-	State.on("load_url_resource", function(resourcePath, mode) {
-	  State.get().ui.set({
-	    status: "loading"
+	getParentById = function(id) {
+	  var _walkNode;
+	  _walkNode = function(node) {
+	    var child, i, j, len, ref, result;
+	    if (!node.children) {
+	      return;
+	    }
+	    ref = node.children;
+	    for (i = j = 0, len = ref.length; j < len; i = ++j) {
+	      child = ref[i];
+	      if (child.id === id) {
+	        return [node, i];
+	      } else if (child.children) {
+	        if (result = _walkNode(child)) {
+	          return result;
+	        }
+	      }
+	    }
+	  };
+	  return _walkNode(State.get().resource);
+	};
+
+	State.on("load_profiles", function(profilePath, initialResourcePath, isRemote) {
+	  var onLoadError, onLoadSuccess;
+	  State.trigger("set_ui", "loading");
+	  onLoadSuccess = function(json) {
+	    State.get().set({
+	      profiles: json
+	    });
+	    if (initialResourcePath) {
+	      return State.trigger("load_url_resource", initialResourcePath);
+	    } else if (!isRemote) {
+	      return State.trigger("set_ui", "ready");
+	    }
+	  };
+	  onLoadError = function(xhr, status) {
+	    return State.trigger(set_ui, "profile_error");
+	  };
+	  return $.ajax({
+	    url: profilePath,
+	    dataType: "json",
+	    success: onLoadSuccess,
+	    error: onLoadError
+	  });
+	});
+
+	State.on("load_url_resource", function(resourcePath) {
+	  var state;
+	  state = State.get();
+	  state.ui.set({
+	    status: "loading",
+	    openMode: state.ui.openMode
 	  });
 	  return $.ajax({
 	    url: resourcePath,
@@ -19808,23 +19854,31 @@
 	  });
 	});
 
-	isBundle = function(json) {
+	checkBundle = function(json) {
 	  return json.resourceType === "Bundle" && json.entry;
 	};
 
-	State.on("load_json_resource", (function(_this) {
-	  return function(json, mode) {
-	    if (isBundle(json)) {
-	      return State.trigger("load_json_bundle", json, mode);
-	    } else {
-	      State.get().pivot().set("rawResource", json).set("rawResourceMode", mode).set("bundle", null);
-	      return State.trigger("resource_loaded");
-	    }
-	  };
-	})(this));
+	decorateResource = function(json, profiles) {
+	  if (!SchemaUtils.isResource(profiles, json)) {
+	    return;
+	  }
+	  return SchemaUtils.decorateFhirData(profiles, json);
+	};
 
-	State.on("load_json_bundle", function(json) {
-	  var entry, resources;
+	openResource = function(json) {
+	  var decorated, state;
+	  state = State.get();
+	  if (decorated = decorateResource(json, state.profiles)) {
+	    state.set({
+	      resource: decorated
+	    });
+	    return true;
+	  }
+	};
+
+	openBundle = function(json) {
+	  var decorated, entry, resources, state;
+	  state = State.get();
 	  resources = (function() {
 	    var j, len, ref, results;
 	    ref = json.entry;
@@ -19835,71 +19889,105 @@
 	    }
 	    return results;
 	  })();
-	  State.get().pivot().set("rawResource", resources[0]).set("bundle", {
-	    resources: resources,
-	    pos: 0
-	  });
-	  if (resources[0]) {
-	    return State.trigger("resource_loaded");
-	  } else {
-	    return State.get().ui.set("status", "ready");
+	  if (decorated = decorateResource(resources[0], state.profiles)) {
+	    state.pivot().set("bundle", {
+	      resources: resources,
+	      pos: 0
+	    }).set({
+	      resource: decorated
+	    });
+	    return true;
 	  }
-	});
+	};
+
+	bundleInsert = function(json, isBundle) {
+	  var decorated, entry, ref, resources, state;
+	  state = State.get();
+	  resources = isBundle ? (function() {
+	    var j, len, ref, results;
+	    ref = json.entry;
+	    results = [];
+	    for (j = 0, len = ref.length; j < len; j++) {
+	      entry = ref[j];
+	      results.push(entry.resource);
+	    }
+	    return results;
+	  })() : [json];
+	  if (decorated = decorateResource(resources[0], state.profiles)) {
+	    (ref = state.pivot().set("resource", decorated).bundle.resources).splice.apply(ref, [state.bundle.pos + 1, 0].concat(slice.call(resources))).bundle.set("pos", state.bundle.pos + 1);
+	    return true;
+	  }
+	};
+
+	replaceContained = function(json) {
+	  var decorated, parent, pos, ref, state;
+	  state = State.get();
+	  if (decorated = decorateResource(json, state.profiles)) {
+	    ref = getParentById(state.ui.replaceId), parent = ref[0], pos = ref[1];
+	    parent.children.splice(pos, 1, decorated);
+	    return true;
+	  }
+	};
+
+	State.on("load_json_resource", (function(_this) {
+	  return function(json) {
+	    var isBundle, openMode, status, success;
+	    openMode = State.get().ui.openMode;
+	    isBundle = checkBundle(json);
+	    success = openMode === "insert" ? bundleInsert(json, isBundle) : openMode === "contained" ? replaceContained(json) : isBundle ? openBundle(json) : openResource(json);
+	    status = success ? "ready" : "load_error";
+	    return State.get().set("ui", {
+	      status: status
+	    });
+	  };
+	})(this));
 
 	State.on("set_bundle_pos", function(newPos) {
-	  var errCount, rawResource, ref, resource, state;
+	  var decorated, errCount, ref, resource, state;
 	  state = State.get();
 	  ref = SchemaUtils.toFhir(state.resource, true), resource = ref[0], errCount = ref[1];
 	  if (errCount !== 0) {
 	    return state.ui.set("status", "validation_error");
 	  }
-	  rawResource = state.bundle.resources[newPos];
-	  state.pivot().bundle.resources.splice(state.bundle.pos, 1, resource).bundle.set("pos", newPos).ui.set("status", "loading").set("rawResource", rawResource);
-	  return State.trigger("resource_loaded");
-	});
-
-	State.on("load_profiles", function(profilePath) {
-	  return $.ajax({
-	    url: profilePath,
-	    dataType: "json",
-	    success: function(json) {
-	      return State.trigger("profiles_loaded", json);
-	    },
-	    error: function(xhr, status) {
-	      return State.get().ui.set({
-	        status: "profile_error"
-	      });
-	    }
-	  });
-	});
-
-	State.on("profiles_loaded", function(json) {
-	  State.get().set({
-	    profiles: json
-	  });
-	  return State.trigger("resource_loaded");
-	});
-
-	State.on("resource_loaded", function() {
-	  var decorated, profiles, rawResource;
-	  profiles = State.get().profiles;
-	  rawResource = State.get().rawResource;
-	  if (!(profiles && rawResource)) {
-	    return;
+	  if (!(decorated = decorateResource(state.bundle.resources[newPos], state.profiles))) {
+	    return State.trigger("set_ui", "load_error");
 	  }
-	  if (!SchemaUtils.isResource(profiles, rawResource)) {
-	    return State.get().ui.set({
-	      status: "load_error"
-	    });
+	  return state.pivot().set("resource", decorated).bundle.resources.splice(state.bundle.pos, 1, resource).bundle.set("pos", newPos);
+	});
+
+	State.on("remove_from_bundle", function() {
+	  var decorated, newPos, pos, state;
+	  state = State.get();
+	  pos = state.bundle.pos;
+	  newPos = pos + 1;
+	  if (newPos === state.bundle.resources.length) {
+	    pos = newPos = state.bundle.pos - 1;
 	  }
-	  decorated = SchemaUtils.decorateFhirData(profiles, rawResource);
-	  return State.get().set({
-	    resource: decorated
-	  }).set({
-	    "rawResource": null
-	  }).ui.set({
-	    status: "ready"
-	  });
+	  if (!(decorated = decorateResource(state.bundle.resources[newPos], state.profiles))) {
+	    return State.trigger("set_ui", "load_error");
+	  }
+	  return state.pivot().set("resource", decorated).bundle.resources.splice(state.bundle.pos, 1).bundle.set("pos", pos);
+	});
+
+	State.on("clone_resource", function(addIdText) {
+	  var errCount, ref, resource, state;
+	  state = State.get();
+	  ref = SchemaUtils.toFhir(state.resource, true), resource = ref[0], errCount = ref[1];
+	  if (errCount !== 0) {
+	    return state.ui.set("status", "validation_error");
+	  }
+	  if (addIdText && resource.id) {
+	    resource.id += addIdText;
+	  }
+	  return bundleInsert(resource);
+	});
+
+	State.on("show_open_contained", function(node) {
+	  return State.get().ui.pivot().set("status", "open").set("openMode", "contained").set("replaceId", node.id);
+	});
+
+	State.on("show_open_insert", function() {
+	  return State.get().ui.pivot().set("status", "open").set("openMode", "insert");
 	});
 
 	State.on("set_ui", function(status, params) {
@@ -19942,11 +20030,7 @@
 	State.on("start_edit", function(node) {
 	  return node.pivot().set({
 	    ui: {}
-	  }).ui.set({
-	    status: "editing"
-	  }).ui.set({
-	    prevState: node
-	  });
+	  }).ui.set("status", "editing").ui.set("prevState", node);
 	});
 
 	State.on("end_edit", function(node) {
@@ -21259,7 +21343,7 @@
 	  return fhirType === "DomainResource" || fhirType === "Element" || fhirType === "BackboneElement";
 	};
 
-	unsupportedElements = ["contained"];
+	unsupportedElements = [];
 
 	module.exports = {
 	  toBundle: function(resources, splicePos, spliceData) {
@@ -21694,7 +21778,7 @@
 	      }
 	    }, React.createElement("img", {
 	      "src": "./img/smart-bug.png"
-	    })), React.createElement(BsNavbar.Brand, null, "\t\t\t\t\tFRED v", this.props.appVersion), React.createElement(BsNavbar.Toggle, null)), React.createElement(BsNavbar.Collapse, null, React.createElement(Nav, null, this.renderButtons())));
+	    })), React.createElement(BsNavbar.Brand, null, "\t\t\t\t\tSMART FRED v", this.props.appVersion), React.createElement(BsNavbar.Toggle, null)), React.createElement(BsNavbar.Collapse, null, React.createElement(Nav, null, this.renderButtons())));
 	  };
 
 	  return Navbar;
@@ -38754,7 +38838,7 @@
 	      }
 	    }, React.createElement("img", {
 	      "src": "./img/smart-bug.png"
-	    })), React.createElement(BsNavbar.Brand, null, "\t\t\t\t\tFRED v", this.props.appVersion), React.createElement(BsNavbar.Toggle, null)), React.createElement(BsNavbar.Collapse, null, this.renderButtons()));
+	    })), React.createElement(BsNavbar.Brand, null, "\t\t\t\t\tSMART FRED v", this.props.appVersion), React.createElement(BsNavbar.Toggle, null)), React.createElement(BsNavbar.Collapse, null, this.renderButtons()));
 	  };
 
 	  return RemoteNavbar;
@@ -38768,13 +38852,15 @@
 /* 414 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var BundleBar, React, State,
+	var BundleBar, DropdownButton, MenuItem, React, State, ref,
 	  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
 	  hasProp = {}.hasOwnProperty;
 
 	React = __webpack_require__(1);
 
 	State = __webpack_require__(159);
+
+	ref = __webpack_require__(169), DropdownButton = ref.DropdownButton, MenuItem = ref.MenuItem;
 
 	BundleBar = (function(superClass) {
 	  extend(BundleBar, superClass);
@@ -38787,14 +38873,15 @@
 	    return nextProps.bundle !== this.props.bundle;
 	  };
 
-	  BundleBar.prototype.handleGoNext = function(e) {
+	  BundleBar.prototype.handleNav = function(pos, e) {
 	    e.preventDefault();
-	    return State.trigger("set_bundle_pos", this.props.bundle.pos + 1);
+	    return State.trigger("set_bundle_pos", pos);
 	  };
 
-	  BundleBar.prototype.handleGoPrev = function(e) {
-	    e.preventDefault();
-	    return State.trigger("set_bundle_pos", this.props.bundle.pos - 1);
+	  BundleBar.prototype.handleMenu = function(e, item) {
+	    var addIdText;
+	    addIdText = item === "clone_resource" ? "-copy" : void 0;
+	    return State.trigger(item, addIdText);
 	  };
 
 	  BundleBar.prototype.renderEmptyBundle = function() {
@@ -38804,31 +38891,63 @@
 	  };
 
 	  BundleBar.prototype.renderBar = function() {
-	    var count, pos;
+	    var count, pos, title;
 	    pos = this.props.bundle.pos + 1;
 	    count = this.props.bundle.resources.length;
+	    title = "Bundled Resource " + pos + " of " + count;
 	    return React.createElement("div", {
-	      "className": "row"
+	      "className": "row",
+	      "style": {
+	        textAlign: "center"
+	      }
 	    }, React.createElement("form", {
-	      "className": "navbar-form pull-right"
+	      "className": "navbar-form"
 	    }, React.createElement("button", {
 	      "className": "btn btn-default btn-sm",
 	      "disabled": pos === 1,
-	      "onClick": this.handleGoPrev.bind(this)
+	      "style": {
+	        marginRight: "10px"
+	      },
+	      "onClick": this.handleNav.bind(this, 0)
+	    }, React.createElement("i", {
+	      "className": "glyphicon glyphicon-step-backward"
+	    })), React.createElement("button", {
+	      "className": "btn btn-default btn-sm",
+	      "disabled": pos === 1,
+	      "onClick": this.handleNav.bind(this, this.props.bundle.pos - 1)
 	    }, React.createElement("i", {
 	      "className": "glyphicon glyphicon-chevron-left"
-	    })), React.createElement("span", {
-	      "className": "form-control-static",
+	    })), React.createElement(DropdownButton, {
+	      "bsSize": "small",
+	      "title": title,
+	      "id": "bundle-dropdown",
 	      "style": {
 	        marginRight: "10px",
 	        marginLeft: "10px"
-	      }
-	    }, pos, " of ", count), React.createElement("button", {
+	      },
+	      "onSelect": this.handleMenu.bind(this)
+	    }, React.createElement(MenuItem, {
+	      "eventKey": "remove_from_bundle",
+	      "disabled": count === 1
+	    }, "Remove from Bundle"), React.createElement(MenuItem, {
+	      "eventKey": "show_open_insert"
+	    }, "Insert Resource"), React.createElement(MenuItem, {
+	      "eventKey": "clone_resource"
+	    }, "Duplicate Resource")), React.createElement("button", {
 	      "className": "btn btn-default btn-sm",
 	      "disabled": pos === count,
-	      "onClick": this.handleGoNext.bind(this)
+	      "onClick": this.handleNav.bind(this, this.props.bundle.pos + 1)
 	    }, React.createElement("i", {
 	      "className": "glyphicon glyphicon-chevron-right"
+	    })), React.createElement("button", {
+	      "className": "btn btn-default btn-sm",
+	      "disabled": pos === count,
+	      "onClick": this.handleNav.bind(this, count - 1),
+	      "style": {
+	        marginLeft: "10px"
+	      }
+	    }, React.createElement("i", {
+	      "className": "glyphicon glyphicon-step-forward"
 	    }))));
 	  };
 
@@ -38886,13 +39005,12 @@
 	      child = ref[i];
 	      if (child.name === "id") {
 	        resourceId = child.value;
-	      } else {
-	        children.push(React.createElement(ResourceElement, {
-	          "key": child.id,
-	          "node": child,
-	          "parent": node
-	        }));
 	      }
+	      children.push(React.createElement(ResourceElement, {
+	        "key": child.id,
+	        "node": child,
+	        "parent": node
+	      }));
 	    }
 	    id = resourceId ? React.createElement("span", {
 	      "className": "small"
@@ -39014,6 +39132,13 @@
 	    }
 	  };
 
+	  ResourceElement.prototype.handleAddContained = function(e) {
+	    State.trigger("show_open_contained", this.props.node);
+	    if (e) {
+	      return e.preventDefault();
+	    }
+	  };
+
 	  ResourceElement.prototype.handleObjectMenu = function(e) {
 	    var ref, ref1;
 	    if (((ref = this.props.node) != null ? (ref1 = ref.ui) != null ? ref1.status : void 0 : void 0) === "menu") {
@@ -39066,6 +39191,20 @@
 	      }, React.createElement("div", {
 	        "className": "col-sm-12"
 	      }, this.renderChildren()));
+	    } else if (this.props.node.fhirType === "Resource") {
+	      return React.createElement("div", {
+	        "className": "fhir-array-complex-wrap",
+	        "ref": "complexElement"
+	      }, React.createElement(ElementMenu, {
+	        "node": this.props.node,
+	        "parent": this.props.parent,
+	        "display": "heading"
+	      }), React.createElement("div", {
+	        "className": "fhir-array-complex text-center"
+	      }, React.createElement("button", {
+	        "className": "btn btn-primary",
+	        "onClick": this.handleAddContained.bind(this)
+	      }, "\t\t\t\t\t\t\tChoose Resource")));
 	    } else if (this.props.node.nodeType === "arrayObject") {
 	      return React.createElement("div", {
 	        "className": "fhir-array-complex-wrap",
@@ -53761,7 +53900,7 @@
 	  };
 
 	  ElementMenu.prototype.renderMenu = function() {
-	    var addObject, header, i, moveDown, moveUp, ref1, ref2, remove, required, spacer1, spacer2, unused, unusedElements;
+	    var addObject, header, i, moveDown, moveUp, ref1, ref2, ref3, remove, required, spacer1, spacer2, unused, unusedElements;
 	    if (((ref1 = this.props.node) != null ? (ref2 = ref1.ui) != null ? ref2.status : void 0 : void 0) !== "menu") {
 	      return this.renderPlaceholder();
 	    }
@@ -53800,6 +53939,9 @@
 	    header = (unusedElements != null ? unusedElements.length : void 0) > 0 && this.props.parent ? React.createElement(MenuItem, {
 	      "header": true
 	    }, "Add Item") : void 0;
+	    if (((ref3 = this.props.node) != null ? ref3.fhirType : void 0) === "Resource") {
+	      header = unusedElements = spacer1 = spacer2 = null;
+	    }
 	    return React.createElement(Dropdown.Menu, null, remove, addObject, spacer1, moveUp, moveDown, spacer2, header, unusedElements);
 	  };
 
@@ -53839,8 +53981,8 @@
 	    OpenDialog.__super__.constructor.apply(this, arguments);
 	    this.state = {
 	      showSpinner: false,
-	      tab: "fhirFile",
-	      fhirText: "",
+	      tab: "fhirText",
+	      fhirText: '{"resourceType": "Patient"}',
 	      fhirUrl: "",
 	      newResourceType: "Patient",
 	      newResourceBundle: false
@@ -53962,6 +54104,7 @@
 
 	  OpenDialog.prototype.handleLoadNew = function(e) {
 	    var json;
+	    e.preventDefault();
 	    json = {
 	      resourceType: this.state.newResourceType
 	    };
@@ -53975,8 +54118,7 @@
 	        ]
 	      };
 	    }
-	    State.trigger("load_json_resource", json);
-	    return e.preventDefault();
+	    return State.trigger("load_json_resource", json);
 	  };
 
 	  OpenDialog.prototype.handleNewTypeChange = function(e) {
@@ -54135,24 +54277,26 @@
 	      },
 	      "onChange": this.handleNewTypeChange.bind(this),
 	      "value": this.state.newResourceType
-	    }, resourceOptions)), React.createElement("div", {
-	      "className": "col-xs-12 checkbox",
-	      "style": {
-	        marginBottom: "10px"
-	      }
-	    }, React.createElement("label", null, React.createElement("input", {
-	      "type": "checkbox",
-	      "checked": this.state.newResourceBundle,
-	      "onChange": this.handleNewBundleChange.bind(this)
-	    }), "\t\t\t\t\t Create in a Bundle")), React.createElement("div", {
+	    }, resourceOptions)), (!this.props.openMode ? this.renderNewBundleOption() : void 0), React.createElement("div", {
 	      "className": "col-xs-4 col-xs-offset-4",
 	      "style": {
+	        marginTop: "10px",
 	        marginBottom: "10px"
 	      }
 	    }, React.createElement("button", {
 	      "className": "btn btn-primary btn-block",
 	      "onClick": this.handleLoadNew.bind(this)
 	    }, "\t\t\t\t\tCreate Resource"))));
+	  };
+
+	  OpenDialog.prototype.renderNewBundleOption = function() {
+	    return React.createElement("div", {
+	      "className": "col-xs-12 checkbox"
+	    }, React.createElement("label", null, React.createElement("input", {
+	      "type": "checkbox",
+	      "checked": this.state.newResourceBundle,
+	      "onChange": this.handleNewBundleChange.bind(this)
+	    }), "\t\t\t\t Create in a Bundle"));
 	  };
 
 	  OpenDialog.prototype.renderTabs = function() {
@@ -54185,17 +54329,18 @@
 	  };
 
 	  OpenDialog.prototype.render = function() {
-	    var content;
+	    var content, title;
 	    if (!this.props.show) {
 	      return null;
 	    }
+	    title = this.props.openMode === "insert_before" || this.props.openMode === "insert_after" ? "Insert Resource" : "Open Resource";
 	    content = this.state.showSpinner ? this.renderSpinner() : this.renderTabs();
 	    return React.createElement(Modal, {
 	      "show": true,
 	      "onHide": this.handleClose.bind(this)
 	    }, React.createElement(Modal.Header, {
 	      "closeButton": true
-	    }, React.createElement(Modal.Title, null, "Open Resource")), React.createElement(Modal.Body, null, content));
+	    }, React.createElement(Modal.Title, null, title)), React.createElement(Modal.Body, null, content));
 	  };
 
 	  return OpenDialog;
@@ -54324,7 +54469,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"name": "fred",
+		"name": "smart-fred",
 		"version": "0.3.0",
 		"description": "",
 		"main": "index.js",
@@ -54334,7 +54479,8 @@
 			"build": "WEBPACK_ENV=build ./node_modules/.bin/webpack",
 			"test": "./node_modules/.bin/mocha",
 			"test-watch": "./node_modules/.bin/mocha -w",
-			"deploy-gh": "git subtree push --prefix public origin gh-pages"
+			"deploy-gh": "git subtree push --prefix public origin gh-pages",
+			"reset-gh-pages": "git push origin `git subtree split --prefix output gh-pages`:gh-pages --force"
 		},
 		"author": "Dan Gottlieb",
 		"license": "MIT",
