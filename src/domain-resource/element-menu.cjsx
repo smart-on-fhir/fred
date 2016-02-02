@@ -74,6 +74,10 @@ class ElementMenu extends React.Component
 		header = if unusedElements?.length > 0 and @props.parent
 			<MenuItem header>Add Item</MenuItem>
 
+		#handle empty contained resources
+		if @props.node?.fhirType is "Resource"
+			header = unusedElements = spacer1 = spacer2 = null
+
 		<Dropdown.Menu>
 			{remove}{addObject}
 			{spacer1}{moveUp}{moveDown}

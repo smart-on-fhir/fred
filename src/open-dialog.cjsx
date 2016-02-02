@@ -13,8 +13,8 @@ class OpenDialog extends React.Component
 		super
 		@state = 
 			showSpinner: false,
-			tab: "fhirFile"
-			fhirText: "", fhirUrl: ""
+			tab: "fhirText"
+			fhirText: '{"resourceType": "Patient"}', fhirUrl: ""
 			newResourceType: "Patient",
 			newResourceBundle: false
 
@@ -89,11 +89,11 @@ class OpenDialog extends React.Component
 		@setState {fhirUrl: e.target.value}
 
 	handleLoadNew: (e) ->
+		e.preventDefault()
 		json = {resourceType: @state.newResourceType}
 		if @state.newResourceBundle
 			json = {resourceType: "Bundle", entry: [{resource: json}]}
 		State.trigger "load_json_resource", json
-		e.preventDefault()		
 
 	handleNewTypeChange: (e) ->
 		@setState {newResourceType: e.target.value}
@@ -190,16 +190,8 @@ class OpenDialog extends React.Component
 					value={@state.newResourceType}
 				>{resourceOptions}</select>
 			</div>
-			<div className="col-xs-12 checkbox" style={marginBottom:"10px"}>
-				<label>
-					<input type="checkbox" 
-						checked={@state.newResourceBundle} 
-						onChange={@handleNewBundleChange.bind(@)}
-					/>
-					 Create in a Bundle
-				</label>
-			</div>
-			<div className="col-xs-4 col-xs-offset-4" style={marginBottom:"10px"}>
+			{if !@props.openMode then @renderNewBundleOption()}
+			<div className="col-xs-4 col-xs-offset-4" style={marginTop: "10px", marginBottom:"10px"}>
 				<button className="btn btn-primary btn-block" 
 					onClick={@handleLoadNew.bind(@)}
 				>
@@ -209,6 +201,16 @@ class OpenDialog extends React.Component
 		</div>
 		</form>
 
+	renderNewBundleOption: ->
+		<div className="col-xs-12 checkbox">
+			<label>
+				<input type="checkbox" 
+					checked={@state.newResourceBundle} 
+					onChange={@handleNewBundleChange.bind(@)}
+				/>
+				 Create in a Bundle
+			</label>
+		</div>
 
 	renderTabs: ->
 		<Tabs 
@@ -239,6 +241,11 @@ class OpenDialog extends React.Component
 	render: ->
 		return null unless @props.show
 
+		title = if @props.openMode is "insert_before" or @props.openMode is "insert_after"
+			"Insert Resource"
+		else
+			"Open Resource"
+
 		content = if @state.showSpinner
 			@renderSpinner()
 		else
@@ -246,7 +253,7 @@ class OpenDialog extends React.Component
 
 		<Modal show={true} onHide={@handleClose.bind(@)}>
 			<Modal.Header closeButton>
-				<Modal.Title>Open Resource</Modal.Title>
+				<Modal.Title>{title}</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				{content}

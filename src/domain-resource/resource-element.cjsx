@@ -53,6 +53,10 @@ class ResourceElement extends React.Component
 		State.trigger("delete_node", @props.node, @props.parent)
 		e.preventDefault() if e
 
+	handleAddContained: (e) ->
+		State.trigger("show_open_contained", @props.node)
+		e.preventDefault() if e
+
 	handleObjectMenu: (e) ->
 		return if @props.node?.ui?.status is "menu"
 		State.trigger("show_object_menu", @props.node, @props.parent)
@@ -99,6 +103,19 @@ class ResourceElement extends React.Component
 					{@renderChildren()}
 				</div>
 			</div>
+
+		#handle contained resources
+		else if @props.node.fhirType is "Resource"
+
+				<div className="fhir-array-complex-wrap" ref="complexElement">
+					<ElementMenu node={@props.node} 
+						parent={@props.parent} display="heading" />
+					<div className="fhir-array-complex text-center">
+						<button className="btn btn-primary" onClick={@handleAddContained.bind(@)}>
+							Choose Resource
+						</button>
+					</div>
+				</div>
 
 
 		else if @props.node.nodeType is "arrayObject"

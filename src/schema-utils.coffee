@@ -11,7 +11,7 @@ isComplexType = (fhirType) ->
 isInfrastructureType = (fhirType) ->
 	fhirType in ["DomainResource", "Element", "BackboneElement"]
 
-unsupportedElements = ["contained"]
+unsupportedElements = []
 
 module.exports =
 
@@ -170,15 +170,6 @@ module.exports =
 			unless lowerCase
 				text = text[0].toUpperCase() + text.slice(1)
 			return text
-
-			# parts = text.split(/(?=[A-Z])/)
-			# for part, i in parts
-			# 	parts[i] = if lowerCase
-			# 		part[0].toLowerCase() + part.slice(1)
-			# 	else
-			# 		part[0].toUpperCase() + part.slice(1)
-			# parts.join(" ")
-
 
 		name = schemaPath[schemaPath.length-1]
 		if name.indexOf("[x]") > -1

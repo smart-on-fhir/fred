@@ -1,6 +1,5 @@
 State = require "./state"
 SchemaUtils = require "./schema-utils.coffee"
-# parallel = require "osh-async-parallel"
 
 canMoveNode = (node, parent) ->
 	unless parent?.nodeType in ["objectArray", "valueArray"]
@@ -29,8 +28,40 @@ getChildBySchemaPath = (node, schemaPath) ->
 	for child in node.children
 		return child if child.schemaPath is schemaPath
 
-State.on "load_url_resource", (resourcePath, mode) ->
-	State.get().ui.set {status: "loading"}
+getParentById = (id) ->
+	_walkNode = (node) ->
+		return unless node.children
+		for child, i in node.children
+			if child.id is id
+				return [node, i]
+			else if child.children
+				if result = _walkNode(child)
+					return result 
+	_walkNode(State.get().resource)
+
+
+State.on "load_profiles", (profilePath, initialResourcePath, isRemote) ->
+	State.trigger "set_ui", "loading"
+	
+	onLoadSuccess = (json) ->
+		State.get().set {profiles: json}
+		if initialResourcePath
+			State.trigger "load_url_resource", initialResourcePath
+		else if !isRemote
+			State.trigger "set_ui", "ready"
+
+	onLoadError = (xhr, status) ->
+		State.trigger set_ui, "profile_error"
+
+	$.ajax 
+		url: profilePath
+		dataType: "json"
+		success: onLoadSuccess
+		error: onLoadError
+			
+State.on "load_url_resource", (resourcePath) ->
+	state = State.get()
+	state.ui.set {status: "loading", openMode: state.ui.openMode}
 	$.ajax 
 		url: resourcePath
 		dataType: "json"
@@ -39,73 +70,125 @@ State.on "load_url_resource", (resourcePath, mode) ->
 		error: (xhr, status) ->
 			State.get().ui.set {status: "load_error"}
 
-isBundle = (json) ->
-	json.resourceType is "Bundle" and 
-		json.entry
+checkBundle = (json) ->
+	json.resourceType is "Bundle" and json.entry
 
-State.on "load_json_resource", (json, mode) =>
-	if isBundle(json)
-		State.trigger("load_json_bundle", json, mode)
-	else
-		State.get().pivot()
-			.set("rawResource", json)
-			.set("rawResourceMode", mode)
-			.set("bundle", null)
-		State.trigger "resource_loaded"
+decorateResource = (json, profiles) ->
+	return unless SchemaUtils.isResource(profiles, json)
+	SchemaUtils.decorateFhirData(profiles, json)
 
-State.on "load_json_bundle", (json) ->
+openResource = (json) ->
+	state = State.get()
+
+	if decorated = decorateResource(json, state.profiles)
+		state.set {resource: decorated}
+		return true
+
+openBundle = (json) ->
+	state = State.get()
 	resources = (entry.resource for entry in json.entry)
-	State.get().pivot()
-		.set("rawResource", resources[0])
-		.set("bundle", {resources: resources, pos: 0})
-	if resources[0]
-		State.trigger "resource_loaded"
+
+	if decorated = decorateResource(resources[0], state.profiles)
+		state.pivot()
+			.set("bundle", {resources: resources, pos: 0})
+			.set({resource: decorated})
+		return true
+
+bundleInsert = (json, isBundle) ->
+	state = State.get()
+	resources = if isBundle
+		(entry.resource for entry in json.entry)
 	else
-		State.get().ui.set "status", "ready"
+		[json]
+
+	if decorated = decorateResource(resources[0], state.profiles)
+		state.pivot()
+			.set("resource", decorated)
+			.bundle.resources.splice(state.bundle.pos+1, 0, resources...)
+			.bundle.set("pos", state.bundle.pos+1)
+		return true
+
+replaceContained = (json) ->
+	state = State.get()
+	if decorated = decorateResource(json, state.profiles)		
+		[parent, pos] = getParentById(state.ui.replaceId)
+		parent.children.splice(pos, 1, decorated)
+		return true
+
+State.on "load_json_resource", (json) =>
+	openMode = State.get().ui.openMode
+	isBundle = checkBundle(json)
+
+	success = if openMode is "insert"
+		bundleInsert(json, isBundle)
+	else if openMode is "contained"
+		replaceContained(json)
+	else if isBundle
+		openBundle(json)
+	else
+		openResource(json)
+
+	status = if success then "ready" else "load_error"
+	State.get().set "ui", {status: status}
 
 State.on "set_bundle_pos", (newPos) ->
 	state = State.get()
+	
 	#stop if errors
 	[resource, errCount] = 
 		SchemaUtils.toFhir state.resource, true
-	if errCount isnt 0
+	if errCount isnt 0 
 		return state.ui.set("status", "validation_error")
 
-	rawResource = 
-		state.bundle.resources[newPos]
+	unless decorated = decorateResource(state.bundle.resources[newPos], state.profiles)
+		return State.trigger "set_ui", "load_error"
+	
 	state.pivot()
 		#splice in any changes
+		.set("resource", decorated)
 		.bundle.resources.splice(state.bundle.pos, 1, resource)
 		.bundle.set("pos", newPos)
-		.ui.set("status", "loading")
-		.set("rawResource", rawResource)
 
-	State.trigger "resource_loaded"
+
+State.on "remove_from_bundle", ->
+	state = State.get()
+	pos = state.bundle.pos
+	newPos = pos+1
+	if newPos is state.bundle.resources.length
+		pos = newPos = state.bundle.pos-1
+
+	unless decorated = decorateResource(state.bundle.resources[newPos], state.profiles)
+		return State.trigger "set_ui", "load_error"
 	
-State.on "load_profiles", (profilePath) ->
-	$.ajax 
-		url: profilePath
-		dataType: "json"
-		success: (json) ->
-			State.trigger "profiles_loaded", json
-		error: (xhr, status) ->
-			State.get().ui.set {status: "profile_error"}
+	state.pivot()
+		.set("resource", decorated)
+		.bundle.resources.splice(state.bundle.pos, 1)
+		.bundle.set("pos", pos)
 
-State.on "profiles_loaded", (json) ->
-	State.get().set {profiles: json}
-	State.trigger("resource_loaded")
+State.on "clone_resource", (addIdText) ->
+	state = State.get()
 
-State.on "resource_loaded", ->
-	profiles = State.get().profiles
-	rawResource = State.get().rawResource
-	return unless profiles and rawResource
-	unless SchemaUtils.isResource(profiles, rawResource)
-		return State.get().ui.set(status: "load_error")
-	decorated = SchemaUtils.decorateFhirData(profiles, rawResource)
-	State.get()
-		.set {resource: decorated}
-		.set {"rawResource": null}
-		.ui.set {status: "ready"}
+	#stop if errors
+	[resource, errCount] = 
+		SchemaUtils.toFhir state.resource, true
+	if errCount isnt 0 
+		return state.ui.set("status", "validation_error")
+
+	if addIdText and resource.id
+		resource.id += addIdText
+
+	bundleInsert(resource)
+
+State.on "show_open_contained", (node) ->
+	State.get().ui.pivot()
+		.set("status", "open")
+		.set("openMode", "contained")
+		.set("replaceId", node.id)
+
+State.on "show_open_insert", ->
+	State.get().ui.pivot()
+		.set("status", "open")
+		.set("openMode", "insert")
 
 State.on "set_ui", (status, params={}) ->
 	State.get().ui.set {status: status, params: params}
@@ -132,8 +215,8 @@ State.on "value_change", (node, value, validationErr, strictValidationErr) ->
 State.on "start_edit", (node) ->
 	node.pivot()
 		.set(ui: {})
-		.ui.set(status: "editing")
-		.ui.set(prevState: node)
+		.ui.set("status", "editing")
+		.ui.set("prevState", node)
 
 State.on "end_edit", (node) ->
 	node.ui.reset {status: "ready"}
@@ -145,7 +228,6 @@ State.on "cancel_edit", (node) ->
 		node.reset(node.ui.prevState.toJS())
 
 State.on "delete_node", (node, parent) ->
-
 	if parent.nodeType is "objectArray" and
 		parent.children.length is 1
 			[targetNode, index] = findParent(parent)
@@ -187,6 +269,7 @@ State.on "show_object_menu", (node, parent) ->
 		.ui.menu.set(canMoveUp: canMoveUp)
 		.ui.menu.set(canMoveDown: canMoveDown)
 		.ui.menu.set(unusedElements: unusedElements)
+
 
 State.on "add_array_value", (node) ->
 	profiles = State.get().profiles
