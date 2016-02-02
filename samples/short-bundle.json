@@ -1,0 +1,20 @@
+{
+   "resourceType": "Bundle",
+   "meta": {
+      "lastUpdated": "2016-01-25T21:23:44.151Z"
+   },
+   "type": "collection",
+   "entry": [
+      {
+         "resource": {
+            "resourceType": "Patient",
+            "id": "112"
+         }
+      },
+      {
+         "resource": {
+            "resourceType": "Organization"
+         }
+      }
+   ]
+}
