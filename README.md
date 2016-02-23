@@ -19,6 +19,7 @@ Please see [roadmap.md](roadmap.md)
 | resource | Escaped url for FHIR resource on CORS enabled server (including open FHIR servers) | Launches with resource open. |
 | profiles | Escaped url for summarized FHIR profiles (see building resource profiles below) on a CORS enabled server. Included are ```/profiles/dstu2.json``` (DSTU2) and ```/profiles/connect11.json``` (Jan. 2105 connectathon) | Configures FRED to support for a particular version of FHIR.|
 | remote | 0 or 1 | Supports controlling FRED from another web application (using postMessage) when set to ```1``` ([demo](http://docs.smarthealthit.org/fred/messaging-demo.html)). |
+| warn | 0 or 1 | If set to ```0```, will suppress a warning when navigating away from the page. Useful when developing with auto-reloading. |
 
 ## Tech
 - App:
