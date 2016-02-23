@@ -36,6 +36,11 @@ class RootComponent extends React.Component
 		if qs.remote is "1"
 			@isRemote = true
 
+		unless qs.warn is "0"
+			window.onbeforeunload = =>
+				if State.get().resource
+					"If you leave this page you will lose any unsaved changes."
+
 		defaultProfilePath = "./profiles/dstu2.json"
 		State.trigger "load_profiles", 
 			qs.profiles || defaultProfilePath,
