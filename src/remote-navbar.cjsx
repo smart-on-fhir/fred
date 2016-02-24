@@ -6,6 +6,9 @@ BsNavbar = require("react-bootstrap").Navbar
 
 class RemoteNavbar extends React.Component
 
+	constructor: ->
+		@notifiedReady = false
+
 	componentWillMount: ->
 		@launcher = 
 			(window.parent unless window.parent is window) or window.opener
@@ -15,7 +18,17 @@ class RemoteNavbar extends React.Component
 				State.trigger "load_json_resource", e.data.resource
 				@remoteCallback = e.data.callback
 		, false
+
+		if @props.hasProfiles then @notifyReady()
+
+	componentWillReceiveProps: (nextProps) ->
+		if nextProps.hasProfiles then @notifyReady()
+
+	notifyReady: ->
+		return if @notifiedReady
 		@launcher.postMessage {action: "fred-ready"}, "*"
+		@notifiedReady = true
+
 
 	handleSaveRequest: (e) ->
 		e.preventDefault()
@@ -31,6 +44,7 @@ class RemoteNavbar extends React.Component
 				action: "fred-save", resource: resource, 
 				callback: State.get().remoteCallback
 			, "*"
+			window.onbeforeunload = null
 			window.close()
 
 	handleCancelRequest: (e) ->
@@ -38,6 +52,7 @@ class RemoteNavbar extends React.Component
 		@launcher.postMessage
 			action: "fred-cancel"
 		, "*"
+		window.onbeforeunload = null
 		window.close()
 
 	handleUiChange: (status, e) ->

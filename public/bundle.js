@@ -157,7 +157,8 @@
 	    }, "Please fix errors in resource before continuing.") : void 0;
 	    navBar = this.isRemote ? React.createElement(RemoteNavbar, {
 	      "hasResource": (state.resource ? true : void 0),
-	      "appVersion": this.appVersion
+	      "appVersion": this.appVersion,
+	      "hasProfiles": state.profiles !== null
 	    }) : React.createElement(Navbar, {
 	      "hasResource": (state.resource ? true : void 0),
 	      "appVersion": this.appVersion
@@ -38894,7 +38895,7 @@
 	  extend(RemoteNavbar, superClass);
 
 	  function RemoteNavbar() {
-	    return RemoteNavbar.__super__.constructor.apply(this, arguments);
+	    this.notifiedReady = false;
 	  }
 
 	  RemoteNavbar.prototype.componentWillMount = function() {
@@ -38908,9 +38909,25 @@
 	        }
 	      };
 	    })(this), false);
-	    return this.launcher.postMessage({
+	    if (this.props.hasProfiles) {
+	      return this.notifyReady();
+	    }
+	  };
+
+	  RemoteNavbar.prototype.componentWillReceiveProps = function(nextProps) {
+	    if (nextProps.hasProfiles) {
+	      return this.notifyReady();
+	    }
+	  };
+
+	  RemoteNavbar.prototype.notifyReady = function() {
+	    if (this.notifiedReady) {
+	      return;
+	    }
+	    this.launcher.postMessage({
 	      action: "fred-ready"
 	    }, "*");
+	    return this.notifiedReady = true;
 	  };
 
 	  RemoteNavbar.prototype.handleSaveRequest = function(e) {
@@ -38929,6 +38946,7 @@
 	        resource: resource,
 	        callback: State.get().remoteCallback
 	      }, "*");
+	      window.onbeforeunload = null;
 	      return window.close();
 	    }
 	  };
@@ -38938,6 +38956,7 @@
 	    this.launcher.postMessage({
 	      action: "fred-cancel"
 	    }, "*");
+	    window.onbeforeunload = null;
 	    return window.close();
 	  };
 

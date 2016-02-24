@@ -77,7 +77,11 @@ class RootComponent extends React.Component
 			<div className="alert alert-danger">Please fix errors in resource before continuing.</div>
 
 		navBar = if @isRemote
-			<RemoteNavbar hasResource={if state.resource then true} appVersion={@appVersion} />
+			<RemoteNavbar 
+				hasResource={if state.resource then true}
+				appVersion={@appVersion} 
+				hasProfiles={state.profiles isnt null}
+			/>
 		else
 			<Navbar hasResource={if state.resource then true} appVersion={@appVersion} />
 
