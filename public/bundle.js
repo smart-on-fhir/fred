@@ -21450,6 +21450,7 @@
 	    entries = [];
 	    for (j = 0, len = resources.length; j < len; j++) {
 	      resource = resources[j];
+	      resource = resource.toJS();
 	      if (resource.id && !/^[Ff][Rr][Ee][Dd]\-\d+/.test(resource.id)) {
 	        fullUrl = resource.resourceType + "/" + resource.id;
 	        request = {
