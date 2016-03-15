@@ -8,12 +8,15 @@
       {
          "resource": {
             "resourceType": "Patient",
-            "id": "112"
+            "id": "FRED-1"
          }
       },
       {
          "resource": {
-            "resourceType": "Organization"
+            "resourceType": "Observation",
+            "subject": {
+               "reference": "Patient/FRED-1"
+            }
          }
       }
    ]
