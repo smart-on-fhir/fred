@@ -12,9 +12,7 @@ class BundleBar extends React.Component
 		State.trigger "set_bundle_pos", pos
 
 	handleMenu: (e, item) ->
-		addIdText = if item is "clone_resource"
-			"-copy"
-		State.trigger item, addIdText
+		State.trigger item
 
 	renderEmptyBundle: ->
 			<div className="alert alert-danger">An error occured loading the resource.</div>

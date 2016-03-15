@@ -27,6 +27,7 @@
   "dependencies": {
     "freezer-js": "^0.8.0",
     "moment": "^2.10.6",
+    "node-uuid": "^1.4.7",
     "osh-async-parallel": "0.0.0",
     "react": "^0.14.0",
     "react-bootstrap": "^0.28.1",

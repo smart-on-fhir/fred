@@ -56,7 +56,7 @@ class ValueEditor extends React.Component
 	renderLongString: (value) ->
 		inputField = @buildTextAreaInput (value||"").toString() 
 		@wrapEditControls(inputField)
-	
+
 	renderBoolean: (value) ->
 		inputField = @buildDropdownInput(value)
 		@wrapEditControls(inputField)
@@ -116,7 +116,7 @@ class ValueEditor extends React.Component
 			<span className="glyphicon glyphicon-trash"></span>
 		</button>
 
-	wrapEditControls: (inputField) ->
+	wrapEditControls: (inputField, disableDelete) ->
 		groupClassName = "input-group"
 
 		if validationErr = @props?.node?.ui?.validationErr
@@ -134,7 +134,7 @@ class ValueEditor extends React.Component
 				{inputField}
 				<span className="input-group-btn">
 					{commitButton}
-					{@buildDeleteButton(@props.required)}
+					{@buildDeleteButton(disableDelete || @props.required)}
 				</span>
 			</div>
 			<div className={if validationErr then "has-error"}>

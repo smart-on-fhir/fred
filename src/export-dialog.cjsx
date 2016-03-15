@@ -15,7 +15,7 @@ class ExportDialog extends React.Component
 	buildJson: ->
 		[resource, errCount] = SchemaUtils.toFhir @props.resource, true
 		if @props.bundle then resource = 
-			SchemaUtils.toBundle @props.bundle.resources, @props.bundle.pos, resource 		
+			SchemaUtils.generateBundle @props.bundle.resources, @props.bundle.pos, resource 		
 		jsonString = JSON.stringify resource, null, 3
 		{jsonString:jsonString, errCount:errCount, resourceType:resource.resourceType}
 

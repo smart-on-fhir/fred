@@ -81,12 +81,12 @@ openResource = (json) ->
 	state = State.get()
 
 	if decorated = decorateResource(json, state.profiles)
-		state.set {resource: decorated}
+		state.set {resource: decorated, bundle: null}
 		return true
 
 openBundle = (json) ->
 	state = State.get()
-	resources = (entry.resource for entry in json.entry)
+	resources = SchemaUtils.parseBundle(json)
 
 	if decorated = decorateResource(resources[0], state.profiles)
 		state.pivot()
@@ -96,9 +96,23 @@ openBundle = (json) ->
 
 bundleInsert = (json, isBundle) ->
 	state = State.get()
-	resources = if isBundle
-		(entry.resource for entry in json.entry)
+
+	#stop if errors
+	[resource, errCount] = 
+		SchemaUtils.toFhir state.resource, true
+	if errCount isnt 0 
+		return state.ui.set("status", "validation_error")
 	else
+		state.bundle.resources.splice(state.bundle.pos, 1, resource).now()
+		state = State.get()
+
+	resources = if isBundle
+		resources = SchemaUtils.parseBundle(json)
+	else if json.id
+		[json]
+	else
+		nextId = SchemaUtils.findNextId(state.bundle.resources)
+		json.id = SchemaUtils.buildFredId(nextId)
 		[json]
 
 	if decorated = decorateResource(resources[0], state.profiles)
@@ -165,7 +179,7 @@ State.on "remove_from_bundle", ->
 		.bundle.resources.splice(state.bundle.pos, 1)
 		.bundle.set("pos", pos)
 
-State.on "clone_resource", (addIdText) ->
+State.on "clone_resource", ->
 	state = State.get()
 
 	#stop if errors
@@ -174,9 +188,7 @@ State.on "clone_resource", (addIdText) ->
 	if errCount isnt 0 
 		return state.ui.set("status", "validation_error")
 
-	if addIdText and resource.id
-		resource.id += addIdText
-
+	resource.id = null
 	bundleInsert(resource)
 
 State.on "show_open_contained", (node) ->
@@ -235,7 +247,15 @@ State.on "delete_node", (node, parent) ->
 		targetNode = parent
 		index = parent.children.indexOf(node)
 
-	if index isnt null
+	#don't allow deletion of root level id in bundled resource
+	if node.fhirType is "id" and State.get().bundle and
+		parent.fhirType[0] is parent.fhirType[0].toUpperCase()
+			nextId = SchemaUtils.findNextId(State.get().bundle.resources)
+			fredId = SchemaUtils.buildFredId(nextId)
+			node.set("value", fredId)
+				.ui.reset {status: "ready"}
+
+	else if index isnt null
 		targetNode.children.splice(index, 1)
 
 State.on "move_array_node", (node, parent, down) ->
