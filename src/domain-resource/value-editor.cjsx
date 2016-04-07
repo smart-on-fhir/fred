@@ -1,7 +1,8 @@
 React    = require "react"
 ReactDOM = require "react-dom"
+
 State = require "../state"
-validator = require "../primitive-validator"
+validator = require "../helpers/primitive-validator"
 
 class ValueEditor extends React.Component
 
@@ -29,6 +30,12 @@ class ValueEditor extends React.Component
 
 	handleChange: (e) ->
 		isInvalid = @isValid(@props.node.fhirType, e.target.value)
+		if !isInvalid and @props.node.fhirType is "id" and 
+			@props.node.level is 1 and resources = State.get().bundle?.resources
+				for resource, i in resources
+					if resource.id is e.target.value and i isnt State.get().bundle.pos
+						isInvalid = "This id is already used in the bundle."
+
 		State.trigger("value_change", @props.node, e.target.value, isInvalid)
 
 	handleKeyDown: (e) ->

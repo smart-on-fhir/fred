@@ -1,7 +1,8 @@
 React    = require "react"
 ReactDOM = require "react-dom"
+
 State = require "../state"
-validator = require "../primitive-validator"
+validator = require "../helpers/primitive-validator"
 
 ValueEditor = require "./value-editor"
 ValueDisplay = require "./value-display"
@@ -16,9 +17,11 @@ class ResourceElement extends React.Component
 	isValid: (node) ->
 		#this is hacky - need to find a better place for pre-commit validation
 		for editNode in node.children || [node]
+			return false if node.ui?.validationErr
 			if message = validator.isValid(editNode.fhirType, editNode.value, true)
 				State.trigger("value_change", editNode, editNode.value, message)
 				return false
+
 		return true
 
 	shouldComponentUpdate: (nextProps) ->
@@ -46,7 +49,7 @@ class ResourceElement extends React.Component
 
 	handleEditCommit:  (e) ->
 		return unless @isValid(@props.node)
-		State.trigger("end_edit", @props.node)
+		State.trigger("end_edit", @props.node, @props.parent)
 		e.preventDefault() if e
 
 	handleNodeDelete: (e) ->

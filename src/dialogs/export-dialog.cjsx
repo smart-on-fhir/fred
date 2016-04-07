@@ -1,8 +1,10 @@
 React = require "react"
-State = require "./state"
 {Modal,Nav,NavItem} = require("react-bootstrap")
 
-SchemaUtils = require "./schema-utils"
+State = require "../state"
+SchemaUtils = require "../helpers/schema-utils"
+BundleUtils = require "../helpers/bundle-utils"
+
 
 class ExportDialog extends React.Component
 
@@ -15,7 +17,7 @@ class ExportDialog extends React.Component
 	buildJson: ->
 		[resource, errCount] = SchemaUtils.toFhir @props.resource, true
 		if @props.bundle then resource = 
-			SchemaUtils.generateBundle @props.bundle.resources, @props.bundle.pos, resource 		
+			BundleUtils.generateBundle @props.bundle.resources, @props.bundle.pos, resource 		
 		jsonString = JSON.stringify resource, null, 3
 		{jsonString:jsonString, errCount:errCount, resourceType:resource.resourceType}
 

@@ -18,6 +18,14 @@
                "reference": "Patient/FRED-1"
             }
          }
+      },
+      {
+         "resource": {
+            "resourceType": "Observation",
+            "subject": {
+               "reference": "Patient/FRED-1"
+            }
+         }
       }
    ]
 }

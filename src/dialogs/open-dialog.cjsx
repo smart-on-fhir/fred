@@ -1,11 +1,11 @@
 React = require "react"
 ReactDOM = require "react-dom"
-State = require "./state"
 Modal = require("react-bootstrap").Modal
 bsInput = require("react-bootstrap").Input
 {Tabs, Tab}  = require("react-bootstrap")
 
-SchemaUtils = require "./schema-utils"
+State = require "../state"
+SchemaUtils = require "../helpers/schema-utils"
 
 class OpenDialog extends React.Component
 

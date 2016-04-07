@@ -1,16 +1,17 @@
 React    = require "react"
 ReactDOM = require "react-dom"
 State = require "./reactions"
-SchemaUtils = require "./schema-utils"
+SchemaUtils = require "./helpers/schema-utils"
 
 Navbar = require "./navbar"
 RemoteNavbar = require "./remote-navbar"
 BundleBar = require "./bundle-bar"
+RefWarning = require "./ref-warning"
 
 DomainResource = require "./domain-resource/"
 
-OpenDialog = require "./open-dialog"
-ExportDialog = require "./export-dialog"
+OpenDialog = require "./dialogs/open-dialog"
+ExportDialog = require "./dialogs/export-dialog"
 
 AppInfo = require "../package.json"
 
@@ -76,6 +77,9 @@ class RootComponent extends React.Component
 		else if state.ui.status is "validation_error"
 			<div className="alert alert-danger">Please fix errors in resource before continuing.</div>
 
+		actionWarning = if state.ui.status is "ref_warning"
+			<RefWarning count={state.ui.count}, update={state.ui.update} />
+
 		navBar = if @isRemote
 			<RemoteNavbar 
 				hasResource={if state.resource then true}
@@ -89,6 +93,7 @@ class RootComponent extends React.Component
 			{navBar}
 			<div className="container" style={marginTop: "50px", marginBottom: "50px"}>
 				{bundleBar}
+				{actionWarning}
 				{error}
 				{resourceContent}
 			</div>

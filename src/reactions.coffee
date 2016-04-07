@@ -1,5 +1,6 @@
 State = require "./state"
-SchemaUtils = require "./schema-utils.coffee"
+SchemaUtils = require "./helpers/schema-utils"
+BundleUtils = require "./helpers/bundle-utils"
 
 canMoveNode = (node, parent) ->
 	unless parent?.nodeType in ["objectArray", "valueArray"]
@@ -86,7 +87,7 @@ openResource = (json) ->
 
 openBundle = (json) ->
 	state = State.get()
-	resources = SchemaUtils.parseBundle(json)
+	resources = BundleUtils.parseBundle(json)
 
 	if decorated = decorateResource(resources[0], state.profiles)
 		state.pivot()
@@ -111,8 +112,8 @@ bundleInsert = (json, isBundle) ->
 	else if json.id
 		[json]
 	else
-		nextId = SchemaUtils.findNextId(state.bundle.resources)
-		json.id = SchemaUtils.buildFredId(nextId)
+		nextId = BundleUtils.findNextId(state.bundle.resources)
+		json.id = BundleUtils.buildFredId(nextId)
 		[json]
 
 	if decorated = decorateResource(resources[0], state.profiles)
@@ -128,6 +129,10 @@ replaceContained = (json) ->
 		[parent, pos] = getParentById(state.ui.replaceId)
 		parent.children.splice(pos, 1, decorated)
 		return true
+
+isBundleAndRootId = (node, parent) ->
+	node.fhirType is "id" and State.get().bundle and
+		parent.level is 0
 
 State.on "load_json_resource", (json) =>
 	openMode = State.get().ui.openMode
@@ -162,6 +167,7 @@ State.on "set_bundle_pos", (newPos) ->
 		.set("resource", decorated)
 		.bundle.resources.splice(state.bundle.pos, 1, resource)
 		.bundle.set("pos", newPos)
+		.ui.set(status: "ready")
 
 
 State.on "remove_from_bundle", ->
@@ -230,7 +236,37 @@ State.on "start_edit", (node) ->
 		.ui.set("status", "editing")
 		.ui.set("prevState", node)
 
-State.on "end_edit", (node) ->
+getResourceType = (node) ->
+	for child in node.children
+		if child.name is "resourceType"
+			return child.value
+
+showReferenceWarning = (node, parent, fredId) ->
+	prevId = node.ui.prevState.value
+	currentId = fredId || node.value
+	resourceType = getResourceType(parent)
+	prevRef = "#{resourceType}/#{prevId}"
+	newRef = "#{resourceType}/#{currentId}"
+	changeCount = 
+		BundleUtils.countRefs State.get().bundle.resources, prevRef
+	if changeCount > 0
+		State.get().ui.pivot()
+			.set(status: "ref_warning") 
+			.set(count: changeCount) 
+			.set(update: [{from: prevRef, to: newRef }])
+
+State.on "update_refs", (changes) ->
+	resources = 
+		BundleUtils.fixAllRefs(State.get().bundle.resources, changes)
+
+	State.get().bundle.set("resources", resources)
+	State.trigger "set_ui", "ready"
+
+State.on "end_edit", (node, parent) ->
+	if isBundleAndRootId(node, parent) and 
+		node.value isnt node.ui.prevState.value
+			showReferenceWarning(node, parent)
+
 	node.ui.reset {status: "ready"}
 
 State.on "cancel_edit", (node) ->
@@ -248,12 +284,14 @@ State.on "delete_node", (node, parent) ->
 		index = parent.children.indexOf(node)
 
 	#don't allow deletion of root level id in bundled resource
-	if node.fhirType is "id" and State.get().bundle and
-		parent.fhirType[0] is parent.fhirType[0].toUpperCase()
-			nextId = SchemaUtils.findNextId(State.get().bundle.resources)
-			fredId = SchemaUtils.buildFredId(nextId)
-			node.set("value", fredId)
-				.ui.reset {status: "ready"}
+	if isBundleAndRootId(node, parent)
+		nextId = BundleUtils.findNextId(State.get().bundle.resources)
+		fredId = BundleUtils.buildFredId(nextId)
+		node.pivot()
+			.set(value: fredId)
+			.ui.set(status: "ready")
+
+		showReferenceWarning(node, parent, fredId)
 
 	else if index isnt null
 		targetNode.children.splice(index, 1)
