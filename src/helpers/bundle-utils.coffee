@@ -24,10 +24,10 @@ module.exports =
 					if k isnt "reference"
 						_walkNode v
 					else if v
-						for sub in subs when v and sub.from 
-							#and v.toUpperCase() is sub.from.toUpperCase()
-							node[k] = sub.to if sub.to
-							count += 1
+						for sub in subs when v and sub.from and 
+							v.toUpperCase() is sub.from.toUpperCase()
+								node[k] = sub.to if sub.to
+								count += 1
 
 		_walkNode(resource)
 		return count
@@ -46,7 +46,7 @@ module.exports =
 		maxId = 1
 		for entry in entries
 			if id = entry.resource?.id || entry.id
-				if matches = id.match /^[Ff][Rr][Ee][Dd]\-(\d+)/
+				if matches = id.match /^fred\-(\d+)/i
 					maxId = Math.max maxId, parseInt(matches[1])+1
 		return maxId
 
@@ -77,6 +77,7 @@ module.exports =
 		entries = []
 		for resource in resources
 			resource = resource.toJS() if resource.toJS
+
 			if resource.id and !/^[Ff][Rr][Ee][Dd]\-\d+/.test(resource.id)
 				fullUrl = "#{resource.resourceType}/#{resource.id}"
 				request = {method: "PUT", url: fullUrl}
