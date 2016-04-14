@@ -19920,7 +19920,7 @@
 	    state.bundle.resources.splice(state.bundle.pos, 1, resource).now();
 	    state = State.get();
 	  }
-	  resources = isBundle ? resources = SchemaUtils.parseBundle(json) : json.id ? [json] : (nextId = BundleUtils.findNextId(state.bundle.resources), json.id = BundleUtils.buildFredId(nextId), [json]);
+	  resources = isBundle ? resources = BundleUtils.parseBundle(json) : json.id ? [json] : (nextId = BundleUtils.findNextId(state.bundle.resources), json.id = BundleUtils.buildFredId(nextId), [json]);
 	  if (decorated = decorateResource(resources[0], state.profiles)) {
 	    (ref1 = state.pivot().set("resource", decorated).bundle.resources).splice.apply(ref1, [state.bundle.pos + 1, 0].concat(slice.call(resources))).bundle.set("pos", state.bundle.pos + 1);
 	    return true;

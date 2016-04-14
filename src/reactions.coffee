@@ -108,7 +108,7 @@ bundleInsert = (json, isBundle) ->
 		state = State.get()
 
 	resources = if isBundle
-		resources = SchemaUtils.parseBundle(json)
+		resources = BundleUtils.parseBundle(json)
 	else if json.id
 		[json]
 	else
