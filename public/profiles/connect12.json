@@ -882,7 +882,8 @@
       "path": "CodeSystem.concept.concept",
       "min": 0,
       "max": "*",
-      "short": "Child Concepts (is-a/contains/categorizes)"
+      "short": "Child Concepts (is-a/contains/categorizes)",
+      "refSchema": "CodeSystem.concept"
     }
   },
   "ValueSet": {
@@ -1661,7 +1662,8 @@
       "path": "ValueSet.compose.exclude",
       "min": 0,
       "max": "*",
-      "short": "Explicitly exclude codes"
+      "short": "Explicitly exclude codes",
+      "refSchema": "ValueSet.compose.include"
     },
     "ValueSet.expansion": {
       "index": 62,
@@ -1965,7 +1967,8 @@
       "path": "ValueSet.expansion.contains.contains",
       "min": 0,
       "max": "*",
-      "short": "Codes contained under this entry"
+      "short": "Codes contained under this entry",
+      "refSchema": "ValueSet.expansion.contains"
     }
   },
   "Parameters": {
@@ -2220,7 +2223,8 @@
       "path": "Parameters.parameter.part",
       "min": 0,
       "max": "*",
-      "short": "Named part of a parameter (e.g. Tuple)"
+      "short": "Named part of a parameter (e.g. Tuple)",
+      "refSchema": "Parameters.parameter"
     }
   },
   "Resource": {
@@ -5376,7 +5380,8 @@
       "min": 0,
       "max": "*",
       "isSummary": true,
-      "short": "Links related to this entry"
+      "short": "Links related to this entry",
+      "refSchema": "Bundle.link"
     },
     "Bundle.entry.fullUrl": {
       "index": 18,
@@ -13345,7 +13350,8 @@
       "path": "Composition.section.section",
       "min": 0,
       "max": "*",
-      "short": "Nested Section"
+      "short": "Nested Section",
+      "refSchema": "Composition.section"
     }
   },
   "ConceptMap": {
@@ -14032,7 +14038,8 @@
       "path": "ConceptMap.element.target.product",
       "min": 0,
       "max": "*",
-      "short": "Other concepts that this mapping also produces"
+      "short": "Other concepts that this mapping also produces",
+      "refSchema": "ConceptMap.element.target.dependsOn"
     }
   },
   "Condition": {
@@ -15832,7 +15839,8 @@
       "path": "Conformance.rest.searchParam",
       "min": 0,
       "max": "*",
-      "short": "Search params for searching all resources"
+      "short": "Search params for searching all resources",
+      "refSchema": "Conformance.rest.resource.searchParam"
     },
     "Conformance.rest.operation": {
       "index": 102,
@@ -17415,7 +17423,8 @@
       "path": "Contract.term.group",
       "min": 0,
       "max": "*",
-      "short": "Nested Contract Term Group"
+      "short": "Nested Contract Term Group",
+      "refSchema": "Contract.term"
     },
     "Contract.binding[x]": {
       "index": 77,
@@ -21184,7 +21193,8 @@
       "min": 0,
       "max": "*",
       "isSummary": true,
-      "short": "Events specific to this item"
+      "short": "Events specific to this item",
+      "refSchema": "DiagnosticOrder.event"
     },
     "DiagnosticOrder.note": {
       "index": 35,
@@ -31741,7 +31751,8 @@
       "path": "GuidanceResponse.action.action",
       "min": 0,
       "max": "*",
-      "short": "Sub action"
+      "short": "Sub action",
+      "refSchema": "GuidanceResponse.action"
     },
     "GuidanceResponse.dataRequirement": {
       "index": 44,
@@ -36305,7 +36316,8 @@
       "path": "ImplementationGuide.page.page",
       "min": 0,
       "max": "*",
-      "short": "Nested Pages / Sections"
+      "short": "Nested Pages / Sections",
+      "refSchema": "ImplementationGuide.page"
     }
   },
   "Library": {
@@ -45874,7 +45886,8 @@
       "path": "Observation.component.referenceRange",
       "min": 0,
       "max": "*",
-      "short": "Provides guide for interpretation of component result"
+      "short": "Provides guide for interpretation of component result",
+      "refSchema": "Observation.referenceRange"
     }
   },
   "OperationDefinition": {
@@ -46524,7 +46537,8 @@
       "path": "OperationDefinition.parameter.part",
       "min": 0,
       "max": "*",
-      "short": "Parts of a Tuple Parameter"
+      "short": "Parts of a Tuple Parameter",
+      "refSchema": "OperationDefinition.parameter"
     }
   },
   "OperationOutcome": {
@@ -52829,7 +52843,8 @@
       "min": 0,
       "max": "*",
       "isSummary": true,
-      "short": "And conditions"
+      "short": "And conditions",
+      "refSchema": "Protocol.step.precondition"
     },
     "Protocol.step.precondition.union": {
       "index": 36,
@@ -52837,7 +52852,8 @@
       "min": 0,
       "max": "*",
       "isSummary": true,
-      "short": "Or conditions"
+      "short": "Or conditions",
+      "refSchema": "Protocol.step.precondition"
     },
     "Protocol.step.precondition.exclude": {
       "index": 37,
@@ -52845,7 +52861,8 @@
       "min": 0,
       "max": "*",
       "isSummary": true,
-      "short": "Not conditions"
+      "short": "Not conditions",
+      "refSchema": "Protocol.step.precondition"
     },
     "Protocol.step.exit": {
       "index": 38,
@@ -52854,7 +52871,8 @@
       "max": "1",
       "isSummary": true,
       "isModifier": true,
-      "short": "Rules prior to completion"
+      "short": "Rules prior to completion",
+      "refSchema": "Protocol.step.precondition"
     },
     "Protocol.step.firstActivity": {
       "index": 39,
@@ -53323,7 +53341,8 @@
       "min": 0,
       "max": "1",
       "isSummary": true,
-      "short": "Condition in which next step is executed"
+      "short": "Condition in which next step is executed",
+      "refSchema": "Protocol.step.precondition"
     }
   },
   "Provenance": {
@@ -53841,7 +53860,8 @@
       "min": 0,
       "max": "1",
       "isSummary": true,
-      "short": "Entity is attributed to this agent"
+      "short": "Entity is attributed to this agent",
+      "refSchema": "Provenance.agent"
     },
     "Provenance.signature": {
       "index": 38,
@@ -54546,7 +54566,8 @@
       "path": "Questionnaire.item.item",
       "min": 0,
       "max": "*",
-      "short": "Nested questionnaire items"
+      "short": "Nested questionnaire items",
+      "refSchema": "Questionnaire.item"
     }
   },
   "QuestionnaireResponse": {
@@ -55008,14 +55029,16 @@
       "path": "QuestionnaireResponse.item.answer.item",
       "min": 0,
       "max": "*",
-      "short": "Nested groups and questions"
+      "short": "Nested groups and questions",
+      "refSchema": "QuestionnaireResponse.item"
     },
     "QuestionnaireResponse.item.item": {
       "index": 30,
       "path": "QuestionnaireResponse.item.item",
       "min": 0,
       "max": "*",
-      "short": "Nested questionnaire response items"
+      "short": "Nested questionnaire response items",
+      "refSchema": "QuestionnaireResponse.item"
     }
   },
   "ReferralRequest": {
@@ -60332,7 +60355,8 @@
       "min": 0,
       "max": "*",
       "isSummary": true,
-      "short": "Rules contained in this rule"
+      "short": "Rules contained in this rule",
+      "refSchema": "StructureMap.group.rule"
     },
     "StructureMap.group.rule.dependent": {
       "index": 84,
@@ -63775,7 +63799,8 @@
       "path": "TestScript.setup.metadata",
       "min": 0,
       "max": "1",
-      "short": "Capabilities  that are assumed to function correctly on the FHIR server being tested"
+      "short": "Capabilities  that are assumed to function correctly on the FHIR server being tested",
+      "refSchema": "TestScript.metadata"
     },
     "TestScript.setup.action": {
       "index": 108,
@@ -64762,7 +64787,8 @@
       "path": "TestScript.test.metadata",
       "min": 0,
       "max": "1",
-      "short": "Capabilities  that are expected to function correctly on the FHIR server being tested"
+      "short": "Capabilities  that are expected to function correctly on the FHIR server being tested",
+      "refSchema": "TestScript.metadata"
     },
     "TestScript.test.action": {
       "index": 189,
@@ -64819,14 +64845,16 @@
       "path": "TestScript.test.action.operation",
       "min": 0,
       "max": "1",
-      "short": "The setup operation to perform"
+      "short": "The setup operation to perform",
+      "refSchema": "TestScript.setup.action.operation"
     },
     "TestScript.test.action.assert": {
       "index": 194,
       "path": "TestScript.test.action.assert",
       "min": 0,
       "max": "1",
-      "short": "The setup assertion to perform"
+      "short": "The setup assertion to perform",
+      "refSchema": "TestScript.setup.action.assert"
     },
     "TestScript.teardown": {
       "index": 195,
@@ -64933,7 +64961,8 @@
       "path": "TestScript.teardown.action.operation",
       "min": 0,
       "max": "1",
-      "short": "The teardown operation to perform"
+      "short": "The teardown operation to perform",
+      "refSchema": "TestScript.setup.action.operation"
     }
   },
   "VisionPrescription": {
@@ -65642,7 +65671,8 @@
           "code": "Quantity"
         }
       ],
-      "short": "A fixed quantity (no comparator)"
+      "short": "A fixed quantity (no comparator)",
+      "name": "SimpleQuantity"
     },
     "Quantity.id": {
       "index": 1,

@@ -21592,7 +21592,7 @@
 	    nextId = 0;
 	    _walkNode = (function(_this) {
 	      return function(dataNode, schemaPath, level) {
-	        var decorated, displayName, error, fhirType, i, j, k, len, name, namePart, nameParts, ref, ref1, ref2, ref3, resourceType, schema, testSchema, testSchemaPath, v;
+	        var decorated, displayName, error, fhirType, i, j, k, len, name, namePart, nameParts, ref, ref1, ref2, ref3, ref4, ref5, ref6, refSchema, resourceType, schema, testSchema, testSchemaPath, v;
 	        if (level == null) {
 	          level = 0;
 	        }
@@ -21603,13 +21603,21 @@
 	        displayName = _this.buildDisplayName(schemaPath, null);
 	        schema = (ref = profiles[schemaPath[0]]) != null ? ref[schemaPath.join(".")] : void 0;
 	        fhirType = schema != null ? (ref1 = schema.type) != null ? (ref2 = ref1[0]) != null ? ref2.code : void 0 : void 0 : void 0;
+	        if (isInfrastructureType(fhirType) && schemaPath.length === 1) {
+	          fhirType = schemaPath[0];
+	        }
+	        if (schema != null ? schema.refSchema : void 0) {
+	          schemaPath = schema.refSchema.split(".");
+	          refSchema = (ref3 = profiles[schemaPath[0]]) != null ? ref3[schemaPath.join(".")] : void 0;
+	          fhirType = refSchema != null ? (ref4 = refSchema.type) != null ? (ref5 = ref4[0]) != null ? ref5.code : void 0 : void 0 : void 0;
+	        }
 	        if (!fhirType) {
 	          nameParts = schemaPath[schemaPath.length - 1].split(/(?=[A-Z])/);
 	          testSchemaPath = schemaPath.slice(0, schemaPath.length - 1).join(".") + ".";
 	          for (i = j = 0, len = nameParts.length; j < len; i = ++j) {
 	            namePart = nameParts[i];
 	            testSchemaPath += "" + namePart;
-	            if (testSchema = (ref3 = profiles[schemaPath[0]]) != null ? ref3[testSchemaPath + "[x]"] : void 0) {
+	            if (testSchema = (ref6 = profiles[schemaPath[0]]) != null ? ref6[testSchemaPath + "[x]"] : void 0) {
 	              schema = testSchema;
 	              schemaPath = testSchema.path.split(".");
 	              fhirType = nameParts.slice(i + 1).join("");
@@ -21619,13 +21627,6 @@
 	              displayName = _this.buildDisplayName(schemaPath, fhirType);
 	            }
 	          }
-	        }
-	        if (isInfrastructureType(fhirType) && schemaPath.length === 1) {
-	          fhirType = schemaPath[0];
-	        }
-	        if (schema != null ? schema.nameReference : void 0) {
-	          schemaPath = [schemaPath[0], schema.nameReference];
-	          fhirType || (fhirType = "BackboneElement");
 	        }
 	        decorated = {
 	          id: nextId++,

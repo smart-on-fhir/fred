@@ -482,7 +482,8 @@
           "code": "BackboneElement"
         }
       ],
-      "short": "Concepts in the code system"
+      "short": "Concepts in the code system",
+      "name": "concept"
     },
     "ValueSet.codeSystem.concept.id": {
       "index": 38,
@@ -579,7 +580,8 @@
           "code": "BackboneElement"
         }
       ],
-      "short": "Additional representations for the concept"
+      "short": "Additional representations for the concept",
+      "name": "designation"
     },
     "ValueSet.codeSystem.concept.designation.id": {
       "index": 46,
@@ -660,7 +662,7 @@
       "min": 0,
       "max": "*",
       "short": "Child Concepts (is-a/contains/categorizes)",
-      "nameReference": "concept"
+      "refSchema": "ValueSet.codeSystem.concept"
     },
     "ValueSet.compose": {
       "index": 53,
@@ -735,7 +737,8 @@
         }
       ],
       "isSummary": true,
-      "short": "Include one or more codes from a code system"
+      "short": "Include one or more codes from a code system",
+      "name": "include"
     },
     "ValueSet.compose.include.id": {
       "index": 59,
@@ -879,7 +882,7 @@
       "min": 0,
       "max": "*",
       "short": "Additional representations for this valueset",
-      "nameReference": "designation"
+      "refSchema": "ValueSet.codeSystem.concept.designation"
     },
     "ValueSet.compose.include.filter": {
       "index": 71,
@@ -972,7 +975,7 @@
       "min": 0,
       "max": "*",
       "short": "Explicitly exclude codes",
-      "nameReference": "include"
+      "refSchema": "ValueSet.compose.include"
     },
     "ValueSet.expansion": {
       "index": 79,
@@ -1169,7 +1172,8 @@
           "code": "BackboneElement"
         }
       ],
-      "short": "Codes in the value set"
+      "short": "Codes in the value set",
+      "name": "contains"
     },
     "ValueSet.expansion.contains.id": {
       "index": 94,
@@ -1274,7 +1278,7 @@
       "min": 0,
       "max": "*",
       "short": "Codes contained under this entry",
-      "nameReference": "contains"
+      "refSchema": "ValueSet.expansion.contains"
     }
   },
   "Parameters": {
@@ -1352,7 +1356,8 @@
           "code": "BackboneElement"
         }
       ],
-      "short": "Operation Parameter"
+      "short": "Operation Parameter",
+      "name": "parameter"
     },
     "Parameters.parameter.id": {
       "index": 6,
@@ -1529,7 +1534,7 @@
       "min": 0,
       "max": "*",
       "short": "Named part of a parameter (e.g. Tuple)",
-      "nameReference": "parameter"
+      "refSchema": "Parameters.parameter"
     }
   },
   "Resource": {
@@ -4553,7 +4558,8 @@
         }
       ],
       "isSummary": true,
-      "short": "Links related to this Bundle"
+      "short": "Links related to this Bundle",
+      "name": "link"
     },
     "Bundle.link.id": {
       "index": 8,
@@ -4675,7 +4681,7 @@
       "max": "*",
       "isSummary": true,
       "short": "Links related to this entry",
-      "nameReference": "link"
+      "refSchema": "Bundle.link"
     },
     "Bundle.entry.fullUrl": {
       "index": 18,
@@ -11192,7 +11198,8 @@
           "code": "BackboneElement"
         }
       ],
-      "short": "Composition is broken into sections"
+      "short": "Composition is broken into sections",
+      "name": "section"
     },
     "Composition.section.id": {
       "index": 35,
@@ -11326,7 +11333,7 @@
       "min": 0,
       "max": "*",
       "short": "Nested Section",
-      "nameReference": "section"
+      "refSchema": "Composition.section"
     }
   },
   "ConceptMap": {
@@ -11905,7 +11912,8 @@
           "code": "BackboneElement"
         }
       ],
-      "short": "Other elements required for this mapping (from context)"
+      "short": "Other elements required for this mapping (from context)",
+      "name": "dependsOn"
     },
     "ConceptMap.element.target.dependsOn.id": {
       "index": 44,
@@ -11986,7 +11994,7 @@
       "min": 0,
       "max": "*",
       "short": "Other concepts that this mapping also produces",
-      "nameReference": "dependsOn"
+      "refSchema": "ConceptMap.element.target.dependsOn"
     }
   },
   "Condition": {
@@ -13548,7 +13556,8 @@
           "code": "BackboneElement"
         }
       ],
-      "short": "Search params supported by implementation"
+      "short": "Search params supported by implementation",
+      "name": "searchParam"
     },
     "Conformance.rest.resource.searchParam.id": {
       "index": 83,
@@ -13762,7 +13771,7 @@
       "min": 0,
       "max": "*",
       "short": "Search params for searching all resources",
-      "nameReference": "searchParam"
+      "refSchema": "Conformance.rest.resource.searchParam"
     },
     "Conformance.rest.operation": {
       "index": 101,
@@ -14875,7 +14884,8 @@
           "code": "BackboneElement"
         }
       ],
-      "short": "Contract Term List"
+      "short": "Contract Term List",
+      "name": "term"
     },
     "Contract.term.id": {
       "index": 45,
@@ -15318,7 +15328,7 @@
       "min": 0,
       "max": "*",
       "short": "Nested Contract Term Group",
-      "nameReference": "term"
+      "refSchema": "Contract.term"
     },
     "Contract.binding[x]": {
       "index": 76,
@@ -18464,7 +18474,8 @@
           "code": "BackboneElement"
         }
       ],
-      "short": "A list of events of interest in the lifecycle"
+      "short": "A list of events of interest in the lifecycle",
+      "name": "event"
     },
     "DiagnosticOrder.event.id": {
       "index": 19,
@@ -18672,7 +18683,7 @@
       "max": "*",
       "isSummary": true,
       "short": "Events specific to this item",
-      "nameReference": "event"
+      "refSchema": "DiagnosticOrder.event"
     },
     "DiagnosticOrder.note": {
       "index": 35,
@@ -27922,7 +27933,8 @@
         }
       ],
       "isSummary": true,
-      "short": "Page/Section in the Guide"
+      "short": "Page/Section in the Guide",
+      "name": "page"
     },
     "ImplementationGuide.page.id": {
       "index": 56,
@@ -28042,7 +28054,7 @@
       "min": 0,
       "max": "*",
       "short": "Nested Pages / Sections",
-      "nameReference": "page"
+      "refSchema": "ImplementationGuide.page"
     }
   },
   "List": {
@@ -34135,7 +34147,8 @@
           "code": "BackboneElement"
         }
       ],
-      "short": "Provides guide for interpretation"
+      "short": "Provides guide for interpretation",
+      "name": "referenceRange"
     },
     "Observation.referenceRange.id": {
       "index": 27,
@@ -34444,7 +34457,7 @@
       "min": 0,
       "max": "*",
       "short": "Provides guide for interpretation of component result",
-      "nameReference": "referenceRange"
+      "refSchema": "Observation.referenceRange"
     }
   },
   "OperationDefinition": {
@@ -34856,7 +34869,8 @@
           "code": "BackboneElement"
         }
       ],
-      "short": "Parameters for the operation/query"
+      "short": "Parameters for the operation/query",
+      "name": "parameter"
     },
     "OperationDefinition.parameter.id": {
       "index": 33,
@@ -35067,7 +35081,7 @@
       "min": 0,
       "max": "*",
       "short": "Parts of a Tuple Parameter",
-      "nameReference": "parameter"
+      "refSchema": "OperationDefinition.parameter"
     }
   },
   "OperationOutcome": {
@@ -40366,7 +40380,8 @@
         }
       ],
       "isSummary": true,
-      "short": "Agents involved in creating resource"
+      "short": "Agents involved in creating resource",
+      "name": "agent"
     },
     "Provenance.agent.id": {
       "index": 17,
@@ -40656,7 +40671,7 @@
       "max": "1",
       "isSummary": true,
       "short": "Entity is attributed to this agent",
-      "nameReference": "agent"
+      "refSchema": "Provenance.agent"
     },
     "Provenance.signature": {
       "index": 38,
@@ -40889,7 +40904,8 @@
         }
       ],
       "isSummary": true,
-      "short": "Grouped questions"
+      "short": "Grouped questions",
+      "name": "group"
     },
     "Questionnaire.group.id": {
       "index": 17,
@@ -41008,7 +41024,7 @@
       "min": 0,
       "max": "*",
       "short": "Nested questionnaire group",
-      "nameReference": "group"
+      "refSchema": "Questionnaire.group"
     },
     "Questionnaire.group.question": {
       "index": 27,
@@ -41164,7 +41180,7 @@
       "min": 0,
       "max": "*",
       "short": "Nested questionnaire group",
-      "nameReference": "group"
+      "refSchema": "Questionnaire.group"
     }
   },
   "QuestionnaireResponse": {
@@ -41441,7 +41457,8 @@
           "code": "BackboneElement"
         }
       ],
-      "short": "Grouped questions"
+      "short": "Grouped questions",
+      "name": "group"
     },
     "QuestionnaireResponse.group.id": {
       "index": 18,
@@ -41537,7 +41554,7 @@
       "min": 0,
       "max": "*",
       "short": "Nested questionnaire response group",
-      "nameReference": "group"
+      "refSchema": "QuestionnaireResponse.group"
     },
     "QuestionnaireResponse.group.question": {
       "index": 26,
@@ -41718,7 +41735,7 @@
       "min": 0,
       "max": "*",
       "short": "Nested questionnaire group",
-      "nameReference": "group"
+      "refSchema": "QuestionnaireResponse.group"
     }
   },
   "ReferralRequest": {
@@ -46421,7 +46438,8 @@
           "code": "BackboneElement"
         }
       ],
-      "short": "Required capability that is assumed to function correctly on the FHIR server being tested"
+      "short": "Required capability that is assumed to function correctly on the FHIR server being tested",
+      "name": "metadata"
     },
     "TestScript.metadata.id": {
       "index": 28,
@@ -46924,7 +46942,7 @@
       "min": 0,
       "max": "1",
       "short": "Capabilities  that are assumed to function correctly on the FHIR server being tested",
-      "nameReference": "metadata"
+      "refSchema": "TestScript.metadata"
     },
     "TestScript.setup.action": {
       "index": 69,
@@ -46985,7 +47003,8 @@
           "code": "BackboneElement"
         }
       ],
-      "short": "The setup operation to perform"
+      "short": "The setup operation to perform",
+      "name": "operation"
     },
     "TestScript.setup.action.operation.id": {
       "index": 74,
@@ -47263,7 +47282,8 @@
           "code": "BackboneElement"
         }
       ],
-      "short": "The assertion to perform"
+      "short": "The assertion to perform",
+      "name": "assert"
     },
     "TestScript.setup.action.assert.id": {
       "index": 97,
@@ -47597,7 +47617,7 @@
       "min": 0,
       "max": "1",
       "short": "Capabilities  that are expected to function correctly on the FHIR server being tested",
-      "nameReference": "metadata"
+      "refSchema": "TestScript.metadata"
     },
     "TestScript.test.action": {
       "index": 125,
@@ -47654,7 +47674,7 @@
       "min": 0,
       "max": "1",
       "short": "The setup operation to perform",
-      "nameReference": "operation"
+      "refSchema": "TestScript.setup.action.operation"
     },
     "TestScript.test.action.assert": {
       "index": 130,
@@ -47662,7 +47682,7 @@
       "min": 0,
       "max": "1",
       "short": "The setup assertion to perform",
-      "nameReference": "assert"
+      "refSchema": "TestScript.setup.action.assert"
     },
     "TestScript.teardown": {
       "index": 131,
@@ -47768,7 +47788,7 @@
       "min": 0,
       "max": "1",
       "short": "The teardown operation to perform",
-      "nameReference": "operation"
+      "refSchema": "TestScript.setup.action.operation"
     }
   },
   "VisionPrescription": {
@@ -48480,7 +48500,8 @@
         }
       ],
       "isSummary": true,
-      "short": "A fixed quantity (no comparator)"
+      "short": "A fixed quantity (no comparator)",
+      "name": "SimpleQuantity"
     },
     "Quantity.id": {
       "index": 1,

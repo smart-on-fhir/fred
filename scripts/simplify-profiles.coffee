@@ -11,7 +11,7 @@ summarizeDirectory = (inputDirName, inputDirPath, outputFilePath) ->
 	console.log "Processing #{inputDirName}"
 	profiles = {}
 	
-	for bundleFileName in fs.readdirSync(inputDirPath)
+	for bundleFileName in fs.readdirSync(inputDirPath).sort()
 		continue unless bundleFileName.indexOf("json") > -1
 		bundleFilePath = path.join(inputDirPath, bundleFileName)
 		bundle = JSON.parse fs.readFileSync(bundleFilePath)
@@ -26,6 +26,9 @@ summarizeBundle = (fhirBundle, profiles) ->
 		continue unless root and 
 			root[0] is root[0].toUpperCase()
 
+		ids = {}
+		names = {}
+
 		profiles[root] = {}
 		for e, i in entry?.resource?.snapshot?.element || []
 			profiles[root][e.path] =
@@ -37,7 +40,20 @@ summarizeBundle = (fhirBundle, profiles) ->
 				isSummary: e.isSummary
 				isModifier: e.isModifier
 				short: e.short
-				nameReference: e.nameReference
+				name: e.name
+
+			#assumes id appears before reference - is this accurate?
+			if e.id then ids[e.id] = e.path
+			if e.name then names[e.name] = e.path
+
+			#STU3
+			if e.contentReference
+				id = e.contentReference.split("#")[1]
+				profiles[root][e.path].refSchema = ids[id]
+			#DSTU2
+			else if e.nameReference
+				profiles[root][e.path].refSchema = names[e.nameReference]
+
 	return profiles
 
 for inputDirName in fs.readdirSync path.join(__dirname, inputPath)

@@ -2,7 +2,7 @@ assert   = require "assert"
 fs       = require "fs"
 filePath = require "path"
 profiles = require "./profiles.json"
-samplePatient = require "./sample-patient.json"
+profiles = require "../public/profiles/dstu2.json"
 
 SchemaUtils = require "../src/helpers/schema-utils.coffee"
 
@@ -208,6 +208,7 @@ describe "schema utils: decoration", ->
 		#console.log JSON.stringify decorated, null, " "
 		assert.equal decorated.children[1].children[0].children[0].schemaPath, 
 			"Questionnaire.group"
+
 
 
 ###

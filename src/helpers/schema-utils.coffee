@@ -196,6 +196,15 @@ module.exports =
 			schema = profiles[schemaPath[0]]?[schemaPath.join(".")]
 			fhirType = schema?.type?[0]?.code
 
+			if isInfrastructureType(fhirType) and schemaPath.length is 1
+				fhirType = schemaPath[0]
+
+			#contentReference and nameReference support
+			if schema?.refSchema
+				schemaPath = schema.refSchema.split(".")
+				refSchema = profiles[schemaPath[0]]?[schemaPath.join(".")]
+				fhirType = refSchema?.type?[0]?.code
+
 			#is it a multi-type?
 			if !fhirType
 				nameParts = schemaPath[schemaPath.length-1].split(/(?=[A-Z])/)
@@ -210,14 +219,6 @@ module.exports =
 						unless profiles[fhirType]
 							fhirType = fhirType[0].toLowerCase() + fhirType.slice(1)
 						displayName = @buildDisplayName(schemaPath, fhirType)
-
-			if isInfrastructureType(fhirType) and schemaPath.length is 1
-				fhirType = schemaPath[0]
-
-			#nameReference support
-			if schema?.nameReference
-				schemaPath = [schemaPath[0], schema.nameReference]
-				fhirType ||= "BackboneElement"
 
 			decorated =
 				id: nextId++, index: schema?.index || 0
