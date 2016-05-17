@@ -43789,7 +43789,7 @@
 	  };
 
 	  ValueEditor.prototype.componentDidMount = function() {
-	    var domNode, newValue;
+	    var domNode, newValue, ref, ref1, reference, vs;
 	    if (this.props.hasFocus && this.refs.inputField) {
 	      domNode = this.refs.inputField;
 	      domNode.focus();
@@ -43800,7 +43800,14 @@
 	    if (this.props.node.fhirType === "xhtml") {
 	      if (this.props.node.value) {
 	        newValue = this.props.node.value.replace(/^\s*[\r\n]/gm, "");
-	        return State.trigger("value_change", this.props.node, newValue);
+	        State.trigger("value_change", this.props.node, newValue);
+	      }
+	    }
+	    if (this.props.node.fhirType === "code" && ((ref = this.props.node) != null ? (ref1 = ref.binding) != null ? ref1.strength : void 0 : void 0) === "required") {
+	      reference = this.props.node.binding.reference;
+	      vs = State.get().valuesets[reference];
+	      if (vs.type === "complete") {
+	        return State.trigger("value_change", this.props.node, this.refs.inputField.value);
 	      }
 	    }
 	  };
@@ -43832,13 +43839,6 @@
 	    }
 	  };
 
-	  ValueEditor.prototype.handleEditCommit = function(isDropdown, e) {
-	    if (isDropdown) {
-	      State.trigger("value_change", this.props.node, this.refs.inputField.value);
-	    }
-	    return this.props.onEditCommit(e);
-	  };
-
 	  ValueEditor.prototype.isValid = function(fhirType, value) {
 	    return validator.isValid(fhirType, value);
 	  };
@@ -43859,7 +43859,7 @@
 	      }
 	    }
 	    inputField || (inputField = this.buildTextInput(value || ""));
-	    return this.wrapEditControls(inputField, null, true);
+	    return this.wrapEditControls(inputField);
 	  };
 
 	  ValueEditor.prototype.renderLongString = function(value) {
@@ -43871,7 +43871,7 @@
 	  ValueEditor.prototype.renderBoolean = function(value) {
 	    var inputField;
 	    inputField = this.buildDropdownInput(value);
-	    return this.wrapEditControls(inputField, null, true);
+	    return this.wrapEditControls(inputField);
 	  };
 
 	  ValueEditor.prototype.buildDropdownInput = function(value) {
@@ -43929,7 +43929,7 @@
 	    });
 	  };
 
-	  ValueEditor.prototype.buildCommitButton = function(isDropdown) {
+	  ValueEditor.prototype.buildCommitButton = function() {
 	    var commitButtonClassName, ref, ref1, ref2, ref3;
 	    commitButtonClassName = "btn btn-default btn-sm";
 	    if (((ref = this.props.node.value) === null || ref === (void 0) || ref === "") || ((ref1 = this.props) != null ? (ref2 = ref1.node) != null ? (ref3 = ref2.ui) != null ? ref3.validationErr : void 0 : void 0 : void 0)) {
@@ -43938,7 +43938,7 @@
 	    return React.createElement("button", {
 	      "type": "button",
 	      "className": commitButtonClassName,
-	      "onClick": this.handleEditCommit.bind(this, isDropdown)
+	      "onClick": this.props.onEditCommit
 	    }, React.createElement("span", {
 	      "className": "glyphicon glyphicon-ok"
 	    }));
@@ -43955,7 +43955,7 @@
 	    }));
 	  };
 
-	  ValueEditor.prototype.wrapEditControls = function(inputField, disableDelete, isDropdown) {
+	  ValueEditor.prototype.wrapEditControls = function(inputField, disableDelete) {
 	    var commitButton, groupClassName, ref, ref1, ref2, validationErr, validationHint;
 	    groupClassName = "input-group";
 	    if (validationErr = (ref = this.props) != null ? (ref1 = ref.node) != null ? (ref2 = ref1.ui) != null ? ref2.validationErr : void 0 : void 0 : void 0) {
@@ -43968,7 +43968,7 @@
 	      groupClassName += " fhir-value-array-input";
 	    }
 	    if (this.props.parent.nodeType !== "valueArray") {
-	      commitButton = this.buildCommitButton(isDropdown);
+	      commitButton = this.buildCommitButton();
 	    }
 	    return React.createElement("div", null, React.createElement("div", {
 	      "className": groupClassName
