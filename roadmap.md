@@ -6,6 +6,7 @@
 ## Potential Features (unordered):
 - Use files (instead of base 64 coded strings) to create attachments
 - Download attachments to disk
+- Support for valuesets in codeable concepts
 - Search for resource in bundle
 - Re-order resources in bundle
 - Primitive type extension support
@@ -22,6 +23,7 @@
 - Test and support tablet use
 
 ## Recent Features:
+- Support for simple valuesets selection and validation in codes
 - Insert contained resources into resources
 - Insert resources into existing bundles
 - Remove resource from a bundle

@@ -7,20 +7,49 @@ path = require "path"
 inputPath = "../fhir_profiles"
 outputPath = "../public/profiles"
 
-summarizeDirectory = (inputDirName, inputDirPath, outputFilePath) ->
+summarizeDirectory = (inputDirName, inputDirPath, outputDirPath) ->
 	console.log "Processing #{inputDirName}"
 	profiles = {}
+	valuesets = {}
 	
 	for bundleFileName in fs.readdirSync(inputDirPath).sort()
 		continue unless bundleFileName.indexOf("json") > -1
 		bundleFilePath = path.join(inputDirPath, bundleFileName)
 		bundle = JSON.parse fs.readFileSync(bundleFilePath)
-		profiles = summarizeBundle(bundle, profiles)
 
-	fs.writeFileSync outputFilePath,
-		JSON.stringify profiles, null, "  "
+		if bundleFileName.indexOf("valuesets") > -1 
+			summarizeValuesets(bundle, valuesets)
+		else if bundleFileName.indexOf("profiles") > -1
+			summarizeProfiles(bundle, profiles)
 
-summarizeBundle = (fhirBundle, profiles) ->
+	fs.writeFileSync path.join(outputDirPath, "#{inputDirName}.json"),
+		JSON.stringify {profiles: profiles, valuesets: valuesets}, null, "  "
+
+summarizeValuesets = (fhirBundle, valuesets) ->
+	dstu2 = (entry) ->
+		url = entry?.resource?.url
+		#are they all complete?
+		valuesets[url] = {type: "complete", items: []}
+		for c, i in entry?.resource?.codeSystem?.concept || []
+			valuesets[url].items.push [c.display, c.code]
+
+
+	stu3 = (entry) -> 
+		url = entry?.resource?.valueSet		
+		valuesets[url] = {type: entry.resource.content, items: []}
+
+		for c, i in entry?.resource?.concept || []
+			valuesets[url].items.push [c.display, c.code]
+
+	for entry in fhirBundle?.entry || []
+		if entry?.resource?.valueSet and entry?.resource?.concept?.length > 0
+			stu3(entry)
+		else if entry?.resource?.url and entry?.resource?.codeSystem?.concept?.length > 0
+			dstu2(entry)
+
+	return valuesets
+
+summarizeProfiles = (fhirBundle, profiles) ->
 	for entry in fhirBundle?.entry || []
 		root = entry?.resource?.snapshot?.element?[0]?.path
 		continue unless root and 
@@ -42,6 +71,11 @@ summarizeBundle = (fhirBundle, profiles) ->
 				short: e.short
 				name: e.name
 
+			if url = e?.binding?.valueSetReference?.reference
+				profiles[root][e.path].binding =
+					strength: e.binding.strength
+					reference: url
+
 			#assumes id appears before reference - is this accurate?
 			if e.id then ids[e.id] = e.path
 			if e.name then names[e.name] = e.path
@@ -58,6 +92,15 @@ summarizeBundle = (fhirBundle, profiles) ->
 
 for inputDirName in fs.readdirSync path.join(__dirname, inputPath)
 	inputDirPath = path.join(__dirname, inputPath, inputDirName)
-	outputFilePath = path.join(__dirname, outputPath, inputDirName+".json")
+	outputDirPath = path.join(__dirname, outputPath)
 	if fs.lstatSync(inputDirPath).isDirectory()
-		summarizeDirectory(inputDirName, inputDirPath, outputFilePath)
+		summarizeDirectory(inputDirName, inputDirPath, outputDirPath)
+
+
+
+
+
+
+
+
+

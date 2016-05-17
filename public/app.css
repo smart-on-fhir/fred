@@ -157,6 +157,10 @@ span.fhir-element-value {
   cursor: default;
 }
 
+.fhir-invalid-code  {
+  color: #ff6666;
+}
+
 .fhir-element-content img {
 	max-width: 50px;
 	max-height: 50px;

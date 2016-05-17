@@ -43,7 +43,8 @@ class RootComponent extends React.Component
 					"If you leave this page you will lose any unsaved changes."
 
 		defaultProfilePath = "./profiles/dstu2.json"
-		State.trigger "load_profiles", 
+
+		State.trigger "load_initial_json", 
 			qs.profiles || defaultProfilePath,
 			qs.resource, @isRemote
 
@@ -70,9 +71,9 @@ class RootComponent extends React.Component
 				</button>
 			</div></div>
 
-		error = if state.ui.status is "profile_error"
-			<div className="alert alert-danger">An error occured loading the resource profiles.</div>
-		else if state.ui.status is "load_error"
+		error = if state.ui.status is "profile_load_error"
+			<div className="alert alert-danger">An error occured loading the FHIR profiles.</div>
+		else if state.ui.status is "resource_load_error"
 			<div className="alert alert-danger">An error occured loading the resource.</div>
 		else if state.ui.status is "validation_error"
 			<div className="alert alert-danger">Please fix errors in resource before continuing.</div>

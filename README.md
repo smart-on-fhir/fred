@@ -17,7 +17,7 @@ Please see [roadmap.md](roadmap.md)
 | Url Parameter | Value | Action |
 | ------------- | ----- | ------ |
 | resource | Escaped url for FHIR resource on CORS enabled server (including open FHIR servers) | Launches with resource open. |
-| profiles | Escaped url for summarized FHIR profiles (see building resource profiles below) on a CORS enabled server. Included are ```/profiles/dstu2.json``` (DSTU2) and ```/profiles/connect11.json``` (Jan. 2105 connectathon) | Configures FRED to support for a particular version of FHIR.|
+| profiles | Escaped url for summarized FHIR profiles (see building resource profiles below) on a CORS enabled server. Included are ```/profiles/dstu2.json``` (DSTU2) and ```/profiles/connect12.json``` (May 2016 connectathon) | Configures FRED to support for a particular version of FHIR.|
 | remote | 0 or 1 | Supports controlling FRED from another web application (using postMessage) when set to ```1``` ([demo](http://docs.smarthealthit.org/fred/messaging-demo.html)). |
 | warn | 0 or 1 | If set to ```0```, will suppress a warning when navigating away from the page. Useful when developing with auto-reloading. |
 
@@ -66,7 +66,7 @@ Please see [roadmap.md](roadmap.md)
 | Run Tests on Edit | ```npm run test-watch``` |
 
 ## Building Resource Profiles
-To reduce load time, FRED uses a simplified copy of the (15mb!) JSON FHIR resource profiles. To convert the FHIR resource profiles into this format, ensure the desired profile bundles are in the fhir_profiles subdirectory and run ```npm run build-profiles```
+To reduce load time, FRED uses a simplified copy of the (>15mb!) JSON FHIR resource profiles. To convert the FHIR resource profiles into this format, ensure the desired profile bundles and valueset bundles are in the fhir_profiles subdirectory and run ```npm run build-profiles```
 
 ## About
 FRED is a project of [SMART Health IT](http://smarthealthit.org), a joint effort of the not-for-profit institutions, Boston Children’s Hospital Computational Health Informatics Program and the Harvard Medical School Department for Biomedical Informatics.

@@ -53,20 +53,38 @@ class ValueEditor extends React.Component
 					e.target.value.substring(e.target.selectionEnd)
 				e.target.value = newValue
  
+	handleEditCommit: (isDropdown, e) ->
+		#if user has an invalid value and pops up picker, switch to default picker value
+		if isDropdown
+			State.trigger("value_change", @props.node, @refs.inputField.value)
+		@props.onEditCommit(e)
+
 	isValid: (fhirType, value) ->
 		validator.isValid(fhirType, value)
 
 	renderString: (value) ->
 		inputField = @buildTextInput (value||"").toString() 
 		@wrapEditControls(inputField)
-		
+
+	renderCode: (value) ->
+		#TODO: handle "preferred" and "extensible"
+		if @props.node?.binding?.strength is "required"
+			reference = @props.node.binding.reference
+			vs = State.get().valuesets[reference]
+			if vs.type is "complete"
+				inputField =  @buildCodeInput(value, vs.items)
+
+		inputField ||= @buildTextInput(value||"")
+		@wrapEditControls(inputField, null, true)
+
+
 	renderLongString: (value) ->
 		inputField = @buildTextAreaInput (value||"").toString() 
 		@wrapEditControls(inputField)
 
 	renderBoolean: (value) ->
 		inputField = @buildDropdownInput(value)
-		@wrapEditControls(inputField)
+		@wrapEditControls(inputField, null, true)
 
 	buildDropdownInput: (value) ->
 		<span>
@@ -79,6 +97,22 @@ class ValueEditor extends React.Component
 				<option value={false}>No</option>
 			</select>
 		</span>
+
+	buildCodeInput: (value, items) ->
+		options = []
+		for item, i in items
+			options.push <option key={item[1]} value={item[1]}>
+				{item[0]} ({item[1]})
+			</option>
+		<span>
+			<select value={@props.node.value || ""} 
+				className="form-control input-sm" 
+					onChange={@handleChange.bind(@)} 
+					ref="inputField"
+				>
+				{options}
+			</select>
+		</span>		
 
 	buildTextAreaInput: (value) ->
 		if @props.node.fhirType is "xhtml"
@@ -101,7 +135,7 @@ class ValueEditor extends React.Component
 			onKeyDown={@handleKeyDown.bind(@)}
 		/>
 
-	buildCommitButton: ->
+	buildCommitButton: (isDropdown) ->
 		commitButtonClassName = "btn btn-default btn-sm"
 		if @props.node.value in [null, undefined, ""] or 
 			@props?.node?.ui?.validationErr
@@ -109,7 +143,7 @@ class ValueEditor extends React.Component
 
 		<button type="button" 
 			className={commitButtonClassName} 
-			onClick={@props.onEditCommit}
+			onClick={@handleEditCommit.bind(@, isDropdown)}
 		>
 			<span className="glyphicon glyphicon-ok"></span>
 		</button>
@@ -123,7 +157,7 @@ class ValueEditor extends React.Component
 			<span className="glyphicon glyphicon-trash"></span>
 		</button>
 
-	wrapEditControls: (inputField, disableDelete) ->
+	wrapEditControls: (inputField, disableDelete, isDropdown) ->
 		groupClassName = "input-group"
 
 		if validationErr = @props?.node?.ui?.validationErr
@@ -134,7 +168,7 @@ class ValueEditor extends React.Component
 			groupClassName += " fhir-value-array-input"
 
 		unless @props.parent.nodeType is "valueArray"
-			commitButton = @buildCommitButton()
+			commitButton = @buildCommitButton(isDropdown)
 
 		<div>
 			<div className={groupClassName}>
@@ -153,9 +187,10 @@ class ValueEditor extends React.Component
 	render: ->
 		renderers = 
 			decimal: @renderDecimal, boolean: @renderBoolean, xhtml: @renderLongString, 
-			base64Binary: @renderLongString
+			base64Binary: @renderLongString, code: @renderCode
 
 		renderer = renderers[@props.node.fhirType || "string"] || @renderString
+
 		value = @props.node.value
 		renderer.call(@, value)
 

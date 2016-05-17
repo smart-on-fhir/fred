@@ -63,7 +63,6 @@ class ValueNode extends React.Component
 		</div>
 
 	renderDisplay: ->
-
 		required = if @props.node.isRequired then "*"
 
 		<div className="fhir-data-element row" onClick={@props.onEditStart} >

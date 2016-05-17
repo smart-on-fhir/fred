@@ -150,6 +150,7 @@ module.exports =
 				nodeCreator: "user"
 				value: if fhirType is "boolean" then true else null
 				range: [schema.min, schema.max]
+				binding: schema?.binding
 				nodeType: if isComplexType(fhirType) and parentNodeType is "objectArray"
 					"arrayObject"
 				else if isComplexType(fhirType)
@@ -225,6 +226,8 @@ module.exports =
 				name: name, nodeType: "value", displayName: displayName
 				schemaPath: schemaPath.join("."), fhirType: fhirType, level: level
 				short: schema?.short, isRequired: schema?.min and schema.min >=1
+				binding: schema?.binding
+
 
 			#restart schema for complex types
 			if isComplexType(fhirType) and !isInfrastructureType(fhirType)

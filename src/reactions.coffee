@@ -40,36 +40,37 @@ getParentById = (id) ->
 					return result 
 	_walkNode(State.get().resource)
 
+State.on "load_initial_json", (profilePath, resourcePath, isRemote) ->
+	queue = [
+		[profilePath, "set_profiles", "profile_load_error"]
+		[resourcePath, "load_json_resource", "resource_load_error"]
+	]
 
-State.on "load_profiles", (profilePath, initialResourcePath, isRemote) ->
 	State.trigger "set_ui", "loading"
-	
-	onLoadSuccess = (json) ->
-		State.get().set {profiles: json}
-		if initialResourcePath
-			State.trigger "load_url_resource", initialResourcePath
+	current = null
+	loadNext = ->
+		if (current = queue.shift()) and current[0]
+			$.ajax 
+				url: current[0]
+				dataType: "json"
+				success: onLoadSuccess
+				error: onLoadError		
 		else if !isRemote
-			State.trigger "set_ui", "ready"
+			State.trigger "set_ui", "ready"	
+		
+	onLoadSuccess = (json) ->
+		State.trigger current[1], json
+		loadNext()
 
 	onLoadError = (xhr, status) ->
-		State.trigger set_ui, "profile_error"
+		State.trigger "set_ui", current[2]	
 
-	$.ajax 
-		url: profilePath
-		dataType: "json"
-		success: onLoadSuccess
-		error: onLoadError
-			
-State.on "load_url_resource", (resourcePath) ->
-	state = State.get()
-	state.ui.set {status: "loading", openMode: state.ui.openMode}
-	$.ajax 
-		url: resourcePath
-		dataType: "json"
-		success: (json) ->
-			State.trigger "load_json_resource", json
-		error: (xhr, status) ->
-			State.get().ui.set {status: "load_error"}
+	loadNext()
+
+State.on "set_profiles", (json) ->
+	State.get().set
+		profiles: json.profiles
+		valuesets: json.valuesets
 
 checkBundle = (json) ->
 	json.resourceType is "Bundle" and json.entry
@@ -147,7 +148,7 @@ State.on "load_json_resource", (json) =>
 	else
 		openResource(json)
 
-	status = if success then "ready" else "load_error"
+	status = if success then "ready" else "resource_load_error"
 	State.get().set "ui", {status: status}
 
 State.on "set_bundle_pos", (newPos) ->
@@ -160,7 +161,7 @@ State.on "set_bundle_pos", (newPos) ->
 		return state.ui.set("status", "validation_error")
 
 	unless decorated = decorateResource(state.bundle.resources[newPos], state.profiles)
-		return State.trigger "set_ui", "load_error"
+		return State.trigger "set_ui", "resource_load_error"
 	
 	state.pivot()
 		#splice in any changes
@@ -178,7 +179,7 @@ State.on "remove_from_bundle", ->
 		pos = newPos = state.bundle.pos-1
 
 	unless decorated = decorateResource(state.bundle.resources[newPos], state.profiles)
-		return State.trigger "set_ui", "load_error"
+		return State.trigger "set_ui", "resource_load_error"
 	
 	state.pivot()
 		.set("resource", decorated)

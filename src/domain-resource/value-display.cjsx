@@ -44,6 +44,24 @@ class ValueDisplay extends React.Component
 		else
 			"No"
 
+	formatCode: (value) ->
+		if @props.node?.binding?.strength
+			if @props.node.binding.strength is "required"
+				invalid = true
+			reference = @props.node.binding.reference
+			vs = State.get().valuesets[reference]
+			for [display, code] in vs.items
+				if code is value
+					invalid = false
+					value = display
+					break
+
+		value = @formatString(value)
+		if invalid
+			<span className="fhir-invalid-code">{value} [invalid code]</span>
+		else
+			value
+
 	formatXhtml: (value) ->
 		<div>
 			<div className="fhir-xhtml" dangerouslySetInnerHTML={{__html: sanitize(value)}} />
@@ -88,7 +106,7 @@ class ValueDisplay extends React.Component
 			date: @formatDate, time: @formatTime, instant: @formatInstant, dateTime: @formatDateTime
 			integer: @formatInt, unsignedInt: @formatInt, positiveInt: @formatInt, decimal: @formatDecimal
 			boolean: @formatBoolean, string: @formatString, uri: @formatString, oid: @formatString, code: @formatString
-			id: @formatString, markdown: @formatString, xhtml: @formatXhtml
+			id: @formatString, markdown: @formatString, xhtml: @formatXhtml, code: @formatCode
 
 		formatter = formatters[@props.node.fhirType || "string"]
 		value = @props.node.value
