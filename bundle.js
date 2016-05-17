@@ -110,7 +110,7 @@
 	      })(this);
 	    }
 	    defaultProfilePath = "./profiles/dstu2.json";
-	    return State.trigger("load_profiles", qs.profiles || defaultProfilePath, qs.resource, this.isRemote);
+	    return State.trigger("load_initial_json", qs.profiles || defaultProfilePath, qs.resource, this.isRemote);
 	  };
 
 	  RootComponent.prototype.componentDidMount = function() {
@@ -150,9 +150,9 @@
 	      "className": "btn btn-primary btn-block",
 	      "onClick": this.handleOpen.bind(this)
 	    }, "\t\t\t\t\tOpen Resource"))) : void 0;
-	    error = state.ui.status === "profile_error" ? React.createElement("div", {
+	    error = state.ui.status === "profile_load_error" ? React.createElement("div", {
 	      "className": "alert alert-danger"
-	    }, "An error occured loading the resource profiles.") : state.ui.status === "load_error" ? React.createElement("div", {
+	    }, "An error occured loading the FHIR profiles.") : state.ui.status === "resource_load_error" ? React.createElement("div", {
 	      "className": "alert alert-danger"
 	    }, "An error occured loading the resource.") : state.ui.status === "validation_error" ? React.createElement("div", {
 	      "className": "alert alert-danger"
@@ -19827,48 +19827,37 @@
 	  return _walkNode(State.get().resource);
 	};
 
-	State.on("load_profiles", function(profilePath, initialResourcePath, isRemote) {
-	  var onLoadError, onLoadSuccess;
+	State.on("load_initial_json", function(profilePath, resourcePath, isRemote) {
+	  var current, loadNext, onLoadError, onLoadSuccess, queue;
+	  queue = [[profilePath, "set_profiles", "profile_load_error"], [resourcePath, "load_json_resource", "resource_load_error"]];
 	  State.trigger("set_ui", "loading");
-	  onLoadSuccess = function(json) {
-	    State.get().set({
-	      profiles: json
-	    });
-	    if (initialResourcePath) {
-	      return State.trigger("load_url_resource", initialResourcePath);
+	  current = null;
+	  loadNext = function() {
+	    if ((current = queue.shift()) && current[0]) {
+	      return $.ajax({
+	        url: current[0],
+	        dataType: "json",
+	        success: onLoadSuccess,
+	        error: onLoadError
+	      });
 	    } else if (!isRemote) {
 	      return State.trigger("set_ui", "ready");
 	    }
 	  };
-	  onLoadError = function(xhr, status) {
-	    return State.trigger(set_ui, "profile_error");
+	  onLoadSuccess = function(json) {
+	    State.trigger(current[1], json);
+	    return loadNext();
 	  };
-	  return $.ajax({
-	    url: profilePath,
-	    dataType: "json",
-	    success: onLoadSuccess,
-	    error: onLoadError
-	  });
+	  onLoadError = function(xhr, status) {
+	    return State.trigger("set_ui", current[2]);
+	  };
+	  return loadNext();
 	});
 
-	State.on("load_url_resource", function(resourcePath) {
-	  var state;
-	  state = State.get();
-	  state.ui.set({
-	    status: "loading",
-	    openMode: state.ui.openMode
-	  });
-	  return $.ajax({
-	    url: resourcePath,
-	    dataType: "json",
-	    success: function(json) {
-	      return State.trigger("load_json_resource", json);
-	    },
-	    error: function(xhr, status) {
-	      return State.get().ui.set({
-	        status: "load_error"
-	      });
-	    }
+	State.on("set_profiles", function(json) {
+	  return State.get().set({
+	    profiles: json.profiles,
+	    valuesets: json.valuesets
 	  });
 	});
 
@@ -19947,7 +19936,7 @@
 	    openMode = State.get().ui.openMode;
 	    isBundle = checkBundle(json);
 	    success = openMode === "insert" ? bundleInsert(json, isBundle) : openMode === "contained" ? replaceContained(json) : isBundle ? openBundle(json) : openResource(json);
-	    status = success ? "ready" : "load_error";
+	    status = success ? "ready" : "resource_load_error";
 	    return State.get().set("ui", {
 	      status: status
 	    });
@@ -19962,7 +19951,7 @@
 	    return state.ui.set("status", "validation_error");
 	  }
 	  if (!(decorated = decorateResource(state.bundle.resources[newPos], state.profiles))) {
-	    return State.trigger("set_ui", "load_error");
+	    return State.trigger("set_ui", "resource_load_error");
 	  }
 	  return state.pivot().set("resource", decorated).bundle.resources.splice(state.bundle.pos, 1, resource).bundle.set("pos", newPos).ui.set({
 	    status: "ready"
@@ -19978,7 +19967,7 @@
 	    pos = newPos = state.bundle.pos - 1;
 	  }
 	  if (!(decorated = decorateResource(state.bundle.resources[newPos], state.profiles))) {
-	    return State.trigger("set_ui", "load_error");
+	    return State.trigger("set_ui", "resource_load_error");
 	  }
 	  return state.pivot().set("resource", decorated).bundle.resources.splice(state.bundle.pos, 1).bundle.set("pos", pos);
 	});
@@ -21559,6 +21548,7 @@
 	        nodeCreator: "user",
 	        value: fhirType === "boolean" ? true : null,
 	        range: [schema.min, schema.max],
+	        binding: schema != null ? schema.binding : void 0,
 	        nodeType: isComplexType(fhirType) && parentNodeType === "objectArray" ? "arrayObject" : isComplexType(fhirType) ? "object" : "value"
 	      };
 	      if (isComplexType(fhirType)) {
@@ -21638,7 +21628,8 @@
 	          fhirType: fhirType,
 	          level: level,
 	          short: schema != null ? schema.short : void 0,
-	          isRequired: (schema != null ? schema.min : void 0) && schema.min >= 1
+	          isRequired: (schema != null ? schema.min : void 0) && schema.min >= 1,
+	          binding: schema != null ? schema.binding : void 0
 	        };
 	        if (isComplexType(fhirType) && !isInfrastructureType(fhirType)) {
 	          schemaPath = [fhirType];
@@ -43841,6 +43832,13 @@
 	    }
 	  };
 
+	  ValueEditor.prototype.handleEditCommit = function(isDropdown, e) {
+	    if (isDropdown) {
+	      State.trigger("value_change", this.props.node, this.refs.inputField.value);
+	    }
+	    return this.props.onEditCommit(e);
+	  };
+
 	  ValueEditor.prototype.isValid = function(fhirType, value) {
 	    return validator.isValid(fhirType, value);
 	  };
@@ -43849,6 +43847,19 @@
 	    var inputField;
 	    inputField = this.buildTextInput((value || "").toString());
 	    return this.wrapEditControls(inputField);
+	  };
+
+	  ValueEditor.prototype.renderCode = function(value) {
+	    var inputField, ref, ref1, reference, vs;
+	    if (((ref = this.props.node) != null ? (ref1 = ref.binding) != null ? ref1.strength : void 0 : void 0) === "required") {
+	      reference = this.props.node.binding.reference;
+	      vs = State.get().valuesets[reference];
+	      if (vs.type === "complete") {
+	        inputField = this.buildCodeInput(value, vs.items);
+	      }
+	    }
+	    inputField || (inputField = this.buildTextInput(value || ""));
+	    return this.wrapEditControls(inputField, null, true);
 	  };
 
 	  ValueEditor.prototype.renderLongString = function(value) {
@@ -43860,7 +43871,7 @@
 	  ValueEditor.prototype.renderBoolean = function(value) {
 	    var inputField;
 	    inputField = this.buildDropdownInput(value);
-	    return this.wrapEditControls(inputField);
+	    return this.wrapEditControls(inputField, null, true);
 	  };
 
 	  ValueEditor.prototype.buildDropdownInput = function(value) {
@@ -43874,6 +43885,24 @@
 	    }, "Yes"), React.createElement("option", {
 	      "value": false
 	    }, "No")));
+	  };
+
+	  ValueEditor.prototype.buildCodeInput = function(value, items) {
+	    var i, item, j, len, options;
+	    options = [];
+	    for (i = j = 0, len = items.length; j < len; i = ++j) {
+	      item = items[i];
+	      options.push(React.createElement("option", {
+	        "key": item[1],
+	        "value": item[1]
+	      }, item[0], " (", item[1], ")"));
+	    }
+	    return React.createElement("span", null, React.createElement("select", {
+	      "value": this.props.node.value || "",
+	      "className": "form-control input-sm",
+	      "onChange": this.handleChange.bind(this),
+	      "ref": "inputField"
+	    }, options));
 	  };
 
 	  ValueEditor.prototype.buildTextAreaInput = function(value) {
@@ -43900,7 +43929,7 @@
 	    });
 	  };
 
-	  ValueEditor.prototype.buildCommitButton = function() {
+	  ValueEditor.prototype.buildCommitButton = function(isDropdown) {
 	    var commitButtonClassName, ref, ref1, ref2, ref3;
 	    commitButtonClassName = "btn btn-default btn-sm";
 	    if (((ref = this.props.node.value) === null || ref === (void 0) || ref === "") || ((ref1 = this.props) != null ? (ref2 = ref1.node) != null ? (ref3 = ref2.ui) != null ? ref3.validationErr : void 0 : void 0 : void 0)) {
@@ -43909,7 +43938,7 @@
 	    return React.createElement("button", {
 	      "type": "button",
 	      "className": commitButtonClassName,
-	      "onClick": this.props.onEditCommit
+	      "onClick": this.handleEditCommit.bind(this, isDropdown)
 	    }, React.createElement("span", {
 	      "className": "glyphicon glyphicon-ok"
 	    }));
@@ -43926,7 +43955,7 @@
 	    }));
 	  };
 
-	  ValueEditor.prototype.wrapEditControls = function(inputField, disableDelete) {
+	  ValueEditor.prototype.wrapEditControls = function(inputField, disableDelete, isDropdown) {
 	    var commitButton, groupClassName, ref, ref1, ref2, validationErr, validationHint;
 	    groupClassName = "input-group";
 	    if (validationErr = (ref = this.props) != null ? (ref1 = ref.node) != null ? (ref2 = ref1.ui) != null ? ref2.validationErr : void 0 : void 0 : void 0) {
@@ -43939,7 +43968,7 @@
 	      groupClassName += " fhir-value-array-input";
 	    }
 	    if (this.props.parent.nodeType !== "valueArray") {
-	      commitButton = this.buildCommitButton();
+	      commitButton = this.buildCommitButton(isDropdown);
 	    }
 	    return React.createElement("div", null, React.createElement("div", {
 	      "className": groupClassName
@@ -43956,7 +43985,8 @@
 	      decimal: this.renderDecimal,
 	      boolean: this.renderBoolean,
 	      xhtml: this.renderLongString,
-	      base64Binary: this.renderLongString
+	      base64Binary: this.renderLongString,
+	      code: this.renderCode
 	    };
 	    renderer = renderers[this.props.node.fhirType || "string"] || this.renderString;
 	    value = this.props.node.value;
@@ -44044,6 +44074,34 @@
 	    }
 	  };
 
+	  ValueDisplay.prototype.formatCode = function(value) {
+	    var code, display, i, invalid, len, ref, ref1, ref2, ref3, reference, vs;
+	    if ((ref = this.props.node) != null ? (ref1 = ref.binding) != null ? ref1.strength : void 0 : void 0) {
+	      if (this.props.node.binding.strength === "required") {
+	        invalid = true;
+	      }
+	      reference = this.props.node.binding.reference;
+	      vs = State.get().valuesets[reference];
+	      ref2 = vs.items;
+	      for (i = 0, len = ref2.length; i < len; i++) {
+	        ref3 = ref2[i], display = ref3[0], code = ref3[1];
+	        if (code === value) {
+	          invalid = false;
+	          value = display;
+	          break;
+	        }
+	      }
+	    }
+	    value = this.formatString(value);
+	    if (invalid) {
+	      return React.createElement("span", {
+	        "className": "fhir-invalid-code"
+	      }, value, " [invalid code]");
+	    } else {
+	      return value;
+	    }
+	  };
+
 	  ValueDisplay.prototype.formatXhtml = function(value) {
 	    return React.createElement("div", null, React.createElement("div", {
 	      "className": "fhir-xhtml",
@@ -44114,7 +44172,8 @@
 	      code: this.formatString,
 	      id: this.formatString,
 	      markdown: this.formatString,
-	      xhtml: this.formatXhtml
+	      xhtml: this.formatXhtml,
+	      code: this.formatCode
 	    };
 	    formatter = formatters[this.props.node.fhirType || "string"];
 	    value = this.props.node.value;
