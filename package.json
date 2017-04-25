@@ -1,8 +1,7 @@
 {
   "name": "smart-fred",
-  "version": "0.4.0",
+  "version": "0.4.5",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --config --devtool eval --progress --colors --inline --content-base ./public",
     "build-profiles": "./node_modules/.bin/coffee ./scripts/simplify-profiles.coffee",

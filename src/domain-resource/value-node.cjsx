@@ -83,6 +83,9 @@ class ValueNode extends React.Component
 
 	render: ->
 		isEditing = @props.node?.ui?.status is "editing"
+		#don't show hidden elements
+		if @props.node.hidden then return null
+		
 		if !@props.node.fhirType
 			@renderUnknown()
 		else if isEditing and @props.node.fhirType is "xhtml"
@@ -91,7 +94,5 @@ class ValueNode extends React.Component
 			@renderEditing()
 		else
 			@renderDisplay()
-
-
 
 module.exports = ValueNode

@@ -51,7 +51,6 @@ module.exports =
 	# getAllowedReferences: (schemaPath) ->
 
 	getElementChildren: (profiles, schemaPath, excludePaths=[]) ->
-
 		_buildChild = (name, schema, typeCode) =>
 			schemaPath: schema.path
 			name: name
@@ -187,7 +186,7 @@ module.exports =
 	decorateFhirData: (profiles, data) ->
 		nextId = 0
 
-		_walkNode = (dataNode, schemaPath, level=0) =>
+		_walkNode = (dataNode, schemaPath, level=0, inArray) =>
 			#root node
 			if resourceType = dataNode.resourceType
 				schemaPath = [resourceType]
@@ -227,7 +226,14 @@ module.exports =
 				schemaPath: schemaPath.join("."), fhirType: fhirType, level: level
 				short: schema?.short, isRequired: schema?.min and schema.min >=1
 				binding: schema?.binding
+			
 
+			if schema?.min != undefined 
+				decorated.range = [schema?.min, schema?.max]
+
+			#hide resourceType item
+			if name == "resourceType"
+				decorated.hidden = true
 
 			#restart schema for complex types
 			if isComplexType(fhirType) and !isInfrastructureType(fhirType)
@@ -237,11 +243,10 @@ module.exports =
 			if fhirType is "Attachment" and dataNode.contentType and dataNode.data
 				decorated.contentType = dataNode.contentType
 
-			if dataNode instanceof Array
+			if dataNode instanceof Array and decorated.range and decorated.range[1] != "1"
 				decorated.children = (
-					_walkNode v, schemaPath, level+1 for v, i in dataNode
+					_walkNode v, schemaPath, level+1, true for v, i in dataNode
 				)
-				decorated.range = [schema?.min, schema?.max]
 				decorated.nodeType = if fhirType and isComplexType(fhirType)
 					"objectArray"
 				#unknown object arrays
@@ -250,7 +255,8 @@ module.exports =
 				else
 					"valueArray"
 
-			else if typeof dataNode is "object" and
+			else if typeof dataNode is "object" and 
+				dataNode not instanceof Array and
 				dataNode not instanceof Date
 					decorated.nodeType = if schema and schema.max isnt "1" then "arrayObject" else "object"
 					decorated.children = (
@@ -269,6 +275,14 @@ module.exports =
 						dataNode += ".0"
 
 				decorated.value = dataNode
+
+				#check if value has a cardinality of > 1 and isn't in an array
+				if decorated.range?[1] && decorated.range[1] != "1" && !inArray
+					decorated.fhirType = null
+
+				#check if value has a cardinality of 1 and is in an array
+				if dataNode instanceof Array && decorated.range?[1] == "1"
+					decorated.fhirType = null
 
 				if fhirType and error = validator.isValid(fhirType, dataNode)
 					decorated.ui = {validationErr: error, status: "editing"}

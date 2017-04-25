@@ -1,8 +1,7 @@
 assert   = require "assert"
 fs       = require "fs"
 filePath = require "path"
-profiles = require "./profiles.json"
-profiles = require "../public/profiles/dstu2.json"
+profiles = require("../public/profiles/dstu2.json").profiles
 
 SchemaUtils = require "../src/helpers/schema-utils.coffee"
 
@@ -23,7 +22,6 @@ getNode = (decorated, path) ->
 
 getChildBySchemaPath = (children, schemaPath) ->
 	(child for child in children when child.schemaPath is schemaPath)
-
 
 decorate = (data) ->
 	SchemaUtils.decorateFhirData(profiles, data)
@@ -182,7 +180,6 @@ describe "schema utils: decoration", ->
 		assertProperty decorated, "Patient.notAnElement", null
 		assertProperty decorated, "Patient.notAnElement",
 			"fhirType", undefined
-		assertChildCount decorated, "Patient.notAnElement", 2
 
 	it "should decorate unknown objects", ->
 		decorated = decorate
@@ -196,6 +193,22 @@ describe "schema utils: decoration", ->
 			"fhirType", undefined
 		assertChildCount decorated, "Patient.notAnElement", 2
 
+	it "should decorate arrays that should be single values", ->
+		decorated = decorate
+			resourceType: "Patient"
+			active: [true, true]
+
+		assertProperty decorated, "Patient.active",
+			"fhirType", undefined
+
+	it "should decorate single values that should be arrays", ->
+		decorated = decorate
+			resourceType: "Patient"
+			name: {given: "bob"}
+
+		assertProperty decorated, "Patient.given",
+			"fhirType", undefined
+
 	it "should decorate nested referenced elements", ->
 		decorated = decorate
 			resourceType: "Questionnaire"
@@ -205,7 +218,6 @@ describe "schema utils: decoration", ->
 						group: [text: "test", text: "Test"]
 					]
 				]
-		#console.log JSON.stringify decorated, null, " "
 		assert.equal decorated.children[1].children[0].children[0].schemaPath, 
 			"Questionnaire.group"
 

@@ -65,7 +65,7 @@ summarizeProfiles = (fhirBundle, profiles) ->
 				path: e.path
 				min: e.min
 				max: e.max
-				type: e.type
+				type: e.type ||  [{"code": "DomainResource"}]
 				isSummary: e.isSummary
 				isModifier: e.isModifier
 				short: e.short
