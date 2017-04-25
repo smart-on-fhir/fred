@@ -674,6 +674,11 @@
         "path": "ValueSet.codeSystem.concept.concept",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Child Concepts (is-a/contains/categorizes)",
         "refSchema": "ValueSet.codeSystem.concept"
       },
@@ -894,6 +899,11 @@
         "path": "ValueSet.compose.include.concept.designation",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Additional representations for this valueset",
         "refSchema": "ValueSet.codeSystem.concept.designation"
       },
@@ -991,6 +1001,11 @@
         "path": "ValueSet.compose.exclude",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Explicitly exclude codes",
         "refSchema": "ValueSet.compose.include"
       },
@@ -1294,6 +1309,11 @@
         "path": "ValueSet.expansion.contains.contains",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Codes contained under this entry",
         "refSchema": "ValueSet.expansion.contains"
       }
@@ -1550,6 +1570,11 @@
         "path": "Parameters.parameter.part",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Named part of a parameter (e.g. Tuple)",
         "refSchema": "Parameters.parameter"
       }
@@ -1560,6 +1585,11 @@
         "path": "Resource",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Base Resource"
       },
       "Resource.id": {
@@ -4844,6 +4874,11 @@
         "path": "Bundle.entry.link",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "isSummary": true,
         "short": "Links related to this entry",
         "refSchema": "Bundle.link"
@@ -11821,6 +11856,11 @@
         "path": "Composition.section.section",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Nested Section",
         "refSchema": "Composition.section"
       }
@@ -12494,6 +12534,11 @@
         "path": "ConceptMap.element.target.product",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Other concepts that this mapping also produces",
         "refSchema": "ConceptMap.element.target.dependsOn"
       }
@@ -14359,6 +14404,11 @@
         "path": "Conformance.rest.searchParam",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Search params for searching all resources",
         "refSchema": "Conformance.rest.resource.searchParam"
       },
@@ -15984,6 +16034,11 @@
         "path": "Contract.term.group",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Nested Contract Term Group",
         "refSchema": "Contract.term"
       },
@@ -19434,6 +19489,11 @@
         "path": "DiagnosticOrder.item.event",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "isSummary": true,
         "short": "Events specific to this item",
         "refSchema": "DiagnosticOrder.event"
@@ -29166,6 +29226,11 @@
         "path": "ImplementationGuide.page.page",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Nested Pages / Sections",
         "refSchema": "ImplementationGuide.page"
       }
@@ -35845,6 +35910,11 @@
         "path": "Observation.component.referenceRange",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Provides guide for interpretation of component result",
         "refSchema": "Observation.referenceRange"
       }
@@ -36493,6 +36563,11 @@
         "path": "OperationDefinition.parameter.part",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Parts of a Tuple Parameter",
         "refSchema": "OperationDefinition.parameter"
       }
@@ -42322,6 +42397,11 @@
         "path": "Provenance.entity.agent",
         "min": 0,
         "max": "1",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "isSummary": true,
         "short": "Entity is attributed to this agent",
         "refSchema": "Provenance.agent"
@@ -42688,6 +42768,11 @@
         "path": "Questionnaire.group.group",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Nested questionnaire group",
         "refSchema": "Questionnaire.group"
       },
@@ -42856,6 +42941,11 @@
         "path": "Questionnaire.group.question.group",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Nested questionnaire group",
         "refSchema": "Questionnaire.group"
       }
@@ -43234,6 +43324,11 @@
         "path": "QuestionnaireResponse.group.group",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Nested questionnaire response group",
         "refSchema": "QuestionnaireResponse.group"
       },
@@ -43415,6 +43510,11 @@
         "path": "QuestionnaireResponse.group.question.answer.group",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Nested questionnaire group",
         "refSchema": "QuestionnaireResponse.group"
       }
@@ -48786,6 +48886,11 @@
         "path": "TestScript.setup.metadata",
         "min": 0,
         "max": "1",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Capabilities  that are assumed to function correctly on the FHIR server being tested",
         "refSchema": "TestScript.metadata"
       },
@@ -49497,6 +49602,11 @@
         "path": "TestScript.test.metadata",
         "min": 0,
         "max": "1",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Capabilities  that are expected to function correctly on the FHIR server being tested",
         "refSchema": "TestScript.metadata"
       },
@@ -49554,6 +49664,11 @@
         "path": "TestScript.test.action.operation",
         "min": 0,
         "max": "1",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "The setup operation to perform",
         "refSchema": "TestScript.setup.action.operation"
       },
@@ -49562,6 +49677,11 @@
         "path": "TestScript.test.action.assert",
         "min": 0,
         "max": "1",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "The setup assertion to perform",
         "refSchema": "TestScript.setup.action.assert"
       },
@@ -49668,6 +49788,11 @@
         "path": "TestScript.teardown.action.operation",
         "min": 0,
         "max": "1",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "The teardown operation to perform",
         "refSchema": "TestScript.setup.action.operation"
       }
@@ -51605,6 +51730,11 @@
         "path": "Element",
         "min": 0,
         "max": "*",
+        "type": [
+          {
+            "code": "DomainResource"
+          }
+        ],
         "short": "Base for all elements"
       },
       "Element.id": {

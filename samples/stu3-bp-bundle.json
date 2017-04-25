@@ -1,0 +1,733 @@
+{
+  "resourceType": "Bundle",
+  "id": "9352ebb6-69ae-4b84-881a-431e79f9fb80",
+  "meta": {
+    "lastUpdated": "2017-04-14T17:01:47.571-04:00"
+  },
+  "type": "searchset",
+  "total": 21464,
+  "link": [
+    {
+      "relation": "self",
+      "url": "http://fhirtest.uhn.ca/baseDstu3/Observation?_format=json"
+    },
+    {
+      "relation": "next",
+      "url": "http://fhirtest.uhn.ca/baseDstu3?_getpages=a1d483c7-2d16-4ffd-9969-40ebc13db371&_getpagesoffset=20&_count=20&_format=json&_pretty=true&_bundletype=searchset"
+    }
+  ],
+  "entry": [
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8525",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8525",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "20565-8",
+              "display": "Carbon Dioxide"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2015-09-18T17:22:38-04:00",
+        "valueQuantity": {
+          "value": 25,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org/",
+          "code": "mmol/L"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8537",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8537",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "29463-7",
+              "display": "Body Weight"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 98.62322626325958,
+          "unit": "kg",
+          "system": "http://unitsofmeasure.org/",
+          "code": "kg"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8538",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8538",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8302-2",
+              "display": "Body Height"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 159.15291948570461,
+          "unit": "cm",
+          "system": "http://unitsofmeasure.org/",
+          "code": "cm"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8539",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8539",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "39156-5",
+              "display": "Body Mass Index"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 38.93587922828305,
+          "unit": "kg/m2",
+          "system": "http://unitsofmeasure.org/",
+          "code": "kg/m2"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8540",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8540",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "55284-4",
+              "display": "Blood Pressure"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8480-6",
+                  "display": "Systolic Blood Pressure"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 196,
+              "unit": "mmHg",
+              "system": "http://unitsofmeasure.org/",
+              "code": "mmHg"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8462-4",
+                  "display": "Diastolic Blood Pressure"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 91,
+              "unit": "mmHg",
+              "system": "http://unitsofmeasure.org/",
+              "code": "mmHg"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8541",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8541",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "4548-4",
+              "display": "Hemoglobin A1c/Hemoglobin.total in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 5.988341677869645,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org/",
+          "code": "%"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8542",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8542",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2339-0",
+              "display": "Glucose"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 108,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org/",
+          "code": "mg/dL"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8543",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8543",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6299-2",
+              "display": "Urea Nitrogen"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 7,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org/",
+          "code": "mg/dL"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8544",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8544",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "38483-4",
+              "display": "Creatinine"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 0.8272671939845787,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org/",
+          "code": "mg/dL"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8545",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8545",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "49765-1",
+              "display": "Calcium"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 9.06279212620039,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org/",
+          "code": "mg/dL"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8546",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8546",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2947-0",
+              "display": "Sodium"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 142,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org/",
+          "code": "mmol/L"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8547",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8547",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6298-4",
+              "display": "Potassium"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 4.520786425652983,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org/",
+          "code": "mmol/L"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8548",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8548",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2069-3",
+              "display": "Chloride"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 111,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org/",
+          "code": "mmol/L"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8549",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8549",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "20565-8",
+              "display": "Carbon Dioxide"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 20,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org/",
+          "code": "mmol/L"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8551",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8551",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2093-3",
+              "display": "Total Cholesterol"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 226,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org/",
+          "code": "mg/dL"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8552",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8552",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2571-8",
+              "display": "Triglycerides"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 186,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org/",
+          "code": "mg/dL"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8553",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8553",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2085-9",
+              "display": "High Density Lipoprotein Cholesterol"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 56,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org/",
+          "code": "mg/dL"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8554",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8554",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "18262-6",
+              "display": "Low Density Lipoprotein Cholesterol"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 132,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org/",
+          "code": "mg/dL"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/8556",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8556",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-10T14:00:08.377-05:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "33914-3",
+              "display": "Estimated Glomerular Filtration Rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/8421"
+        },
+        "effectiveDateTime": "2016-09-08T06:20:47-04:00",
+        "valueQuantity": {
+          "value": 114,
+          "unit": "mL/min/{1.73_m2}",
+          "system": "http://unitsofmeasure.org/",
+          "code": "mL/min/{1.73_m2}"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://fhirtest.uhn.ca/baseDstu3/Observation/19103",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "19103",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2017-01-20T10:37:31.514-05:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Weight, 70.4 Kg</div>"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3141-9"
+            }
+          ],
+          "text": "Weight"
+        },
+        "subject": {
+          "reference": "Patient/19056"
+        },
+        "effectiveDateTime": "2016-12-23T09:37:32-06:00",
+        "valueQuantity": {
+          "value": 70.4,
+          "unit": "Kg"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    }
+  ]
+}
