@@ -57,6 +57,13 @@ span.fhir-element-value {
   background: #ffffcc;
 }
 
+.footer {
+  padding-top: 10px;
+  border-top: 2px solid #317eac;
+  margin-top: 20px;
+  text-align: center;
+}
+
 .fhir-resource-title {
   padding-top: 10px;
   border-bottom: 2px solid #317eac;
@@ -69,7 +76,6 @@ span.fhir-element-value {
 	padding-top: 8px !important;
 	padding-bottom: 8px !important;
 }
-
 
 .fhir-array .fhir-array-complex-wrap:first-child {
 	margin-top: 0;
