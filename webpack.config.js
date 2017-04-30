@@ -3,13 +3,17 @@ var fs = require("fs");
 var path = require("path");
 
 getPlugins = function() {
-	if (process.env.WEBPACK_ENV != 'build') return;
-	
-	var fileChangerOptions = {
+	var optionsDev = {
+		change: [{
+			file: path.join(__dirname, './public/index.html'),
+			parameters: {'bundle\.(.+)\.js': 'bundle.js'}
+		}]		
+	}
+	var optionsBuild = {
 		change: [{
 			file: './public/index.html',
 			parameters: {
-				'bundle\.(.+)\.js': 'bundle.[renderedHash:0].js'
+				'bundle(\..+)?\.js': 'bundle.[renderedHash:0].js'
 			},
 			// delete all but most recent bundle
 			before: function(stats, change) {
@@ -27,8 +31,8 @@ getPlugins = function() {
 			}
 		}]
 	};
-	
-	return [ new FileChanger(fileChangerOptions) ]
+	var options = process.env.WEBPACK_ENV === 'build' ? optionsBuild : optionsDev;
+	return [ new FileChanger(options) ]
 };
 
 module.exports = {
