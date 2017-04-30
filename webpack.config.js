@@ -1,7 +1,41 @@
+var FileChanger = require("webpack-file-changer");
+var fs = require("fs");
+var path = require("path");
+
+getPlugins = function() {
+	if (process.env.WEBPACK_ENV != 'build') return;
+	
+	var fileChangerOptions = {
+		change: [{
+			file: './public/index.html',
+			parameters: {
+				'bundle\.(.+)\.js': 'bundle.[renderedHash:0].js'
+			},
+			// delete all but most recent bundle
+			before: function(stats, change) {
+				var dir = './public/';
+				var files = fs.readdirSync(dir)
+					.filter(function (name) { return /bundle\.(.+)\.js/.test(name) } )
+					.sort(function(a, b) {
+						return fs.statSync(path.join(dir, b)).mtime.getTime() -
+							fs.statSync(path.join(dir, a)).mtime.getTime();
+					})
+					.forEach(function(name, i) {
+						if (i > 0) fs.unlinkSync(path.join(dir, name))
+					})
+				return true;
+			}
+		}]
+	};
+	
+	return [ new FileChanger(fileChangerOptions) ]
+};
+
 module.exports = {
 	entry: './src/index.cjsx',
+	plugins: getPlugins(),
 	output: {
-		filename: (process.env.WEBPACK_ENV === 'build' ? './public/bundle.js' : 'bundle.js')
+		filename: (process.env.WEBPACK_ENV === 'build' ? './public/bundle.[chunkhash].js' : 'bundle.js')
 	},
 	module: {
 		loaders: [
