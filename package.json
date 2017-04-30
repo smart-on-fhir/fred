@@ -1,6 +1,6 @@
 {
   "name": "smart-fred",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "description": "",
   "scripts": {
     "dev": "webpack-dev-server --config --devtool eval --progress --colors --inline --content-base ./public",

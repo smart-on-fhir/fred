@@ -7,6 +7,7 @@ Navbar = require "./navbar"
 RemoteNavbar = require "./remote-navbar"
 BundleBar = require "./bundle-bar"
 RefWarning = require "./ref-warning"
+Footer = require "./footer"
 
 DomainResource = require "./domain-resource/"
 
@@ -65,7 +66,7 @@ class RootComponent extends React.Component
 		else if state.resource
 			<DomainResource node={state.resource} />
 		else if !state.bundle and state.ui.status.indexOf("error") is -1
-			<div className="row" style={marginTop: "20px"}><div className="col-xs-offset-4 col-xs-4">
+			<div className="row" style={marginTop: "60px", marginBottom: "60px"}><div className="col-xs-offset-4 col-xs-4">
 				<button className="btn btn-primary btn-block" onClick={@handleOpen.bind(@)}>
 					Open Resource
 				</button>
@@ -97,6 +98,7 @@ class RootComponent extends React.Component
 				{actionWarning}
 				{error}
 				{resourceContent}
+				<Footer />
 			</div>
 			<OpenDialog show={state.ui.status is "open"} openMode={state.ui.openMode} />
 			<ExportDialog show={state.ui.status is "export"}

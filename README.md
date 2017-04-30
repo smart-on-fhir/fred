@@ -76,3 +76,5 @@ To reduce load time, FRED uses a simplified copy of the (>15mb!) JSON FHIR resou
 
 ## About
 FRED is a project of [SMART Health IT](http://smarthealthit.org), a joint effort of the not-for-profit institutions, Boston Children’s Hospital Computational Health Informatics Program and the Harvard Medical School Department for Biomedical Informatics.
+
+To stay updated on the project follow [@gotdan](https://twitter.com/intent/user?screen_name=gotdan) and [@smarthealthit](https://twitter.com/intent/user?screen_name=smarthealthit) on twitter!
