@@ -38,9 +38,15 @@ summarizeValuesets = (fhirBundle, valuesets) ->
 		url = entry?.resource?.valueSet		
 		valuesets[url] = {type: entry.resource.content, items: []}
 
-		for c, i in entry?.resource?.concept || []
-			valuesets[url].items.push [c.display, c.code]
-
+		_addValue = (concept) ->
+			for c in concept || []
+				if c.concept
+					_addValue(c.concept)
+				else
+					valuesets[url].items.push [c.display, c.code]
+				
+		_addValue(entry?.resource?.concept)
+		
 	for entry in fhirBundle?.entry || []
 		if entry?.resource?.valueSet and entry?.resource?.concept?.length > 0
 			stu3(entry)
